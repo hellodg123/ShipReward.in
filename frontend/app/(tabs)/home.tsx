@@ -79,6 +79,34 @@ export default function HomeScreen() {
     router.replace('/login');
   };
 
+  const handleCardPress = (route: string, tab: string) => {
+    if (tab) {
+      router.push({ pathname: route as any, params: { tab } });
+    } else {
+      router.push(route as any);
+    }
+  };
+
+  const handleSidebarNavigation = (label: string) => {
+    switch (label) {
+      case 'Dashboard':
+        // Already on dashboard
+        break;
+      case 'Orders':
+        router.push('/(tabs)/orders');
+        break;
+      case 'Manifest':
+        router.push('/(tabs)/manifest');
+        break;
+      case 'Pickup':
+        router.push('/(tabs)/pickup');
+        break;
+      default:
+        // Other pages not yet implemented
+        break;
+    }
+  };
+
   // Mobile view - simplified dashboard
   if (!isLargeScreen) {
     return (
