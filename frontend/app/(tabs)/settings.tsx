@@ -5,7 +5,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Switch,
+  TextInput,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../src/context/AuthContext';
@@ -19,154 +19,380 @@ const COLORS = {
   darkGray: '#374151',
   border: '#E5E7EB',
   red: '#EF4444',
+  green: '#10B981',
+  lightPink: '#FEF2F2',
+  lightBlue: '#EFF6FF',
 };
+
+const settingsMenu = [
+  { id: 'profile', icon: 'person-outline', label: 'My Profile' },
+  { id: 'kyc', icon: 'document-text-outline', label: 'KYC Details' },
+  { id: 'address', icon: 'location-outline', label: 'Pickup Address' },
+  { id: 'password', icon: 'key-outline', label: 'Change Password' },
+];
 
 export default function SettingsScreen() {
   const { user } = useAuth();
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [smsNotifications, setSmsNotifications] = useState(true);
-  const [whatsappNotifications, setWhatsappNotifications] = useState(true);
+  const [activeTab, setActiveTab] = useState('profile');
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const settingsSections = [
-    {
-      title: 'Account',
-      items: [
-        { icon: 'person-outline', label: 'Profile Information', onPress: () => {} },
-        { icon: 'mail-outline', label: 'Email Address', value: user?.email },
-        { icon: 'call-outline', label: 'Phone Number', value: user?.mobile_number },
-        { icon: 'lock-closed-outline', label: 'Change Password', onPress: () => {} },
-      ],
-    },
-    {
-      title: 'Business',
-      items: [
-        { icon: 'business-outline', label: 'Company Details', onPress: () => {} },
-        { icon: 'location-outline', label: 'Pickup Address', onPress: () => {} },
-        { icon: 'card-outline', label: 'Bank Details', onPress: () => {} },
-        { icon: 'document-outline', label: 'KYC Documents', onPress: () => {} },
-      ],
-    },
-    {
-      title: 'Preferences',
-      items: [
-        { icon: 'globe-outline', label: 'Language', value: 'English' },
-        { icon: 'cash-outline', label: 'Currency', value: 'INR (₹)' },
-        { icon: 'time-outline', label: 'Timezone', value: 'IST (UTC+5:30)' },
-      ],
-    },
-  ];
+  const renderMyProfile = () => (
+    <View style={styles.contentSection}>
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>My Profile</Text>
+        <Text style={styles.breadcrumb}>Settings {'>'} My Profile</Text>
+      </View>
 
-  return (
-    <View style={styles.container}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.pageTitle}>Account Settings</Text>
-          <Text style={styles.breadcrumb}>Settings {'>'} Account</Text>
+      {/* Basic Details */}
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Basic Details</Text>
+        <View style={styles.cardDivider} />
+        
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Name</Text>
+          <View style={styles.detailValues}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailSubLabel}>First Name</Text>
+              <Text style={styles.detailValue}>{user?.first_name || 'John'}</Text>
+            </View>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailSubLabel}>Last Name</Text>
+              <Text style={styles.detailValue}>{user?.last_name || 'Doe'}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Contact Details</Text>
+          <View style={styles.detailValues}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailSubLabel}>Phone Number</Text>
+              <View style={styles.valueWithStatus}>
+                <Text style={styles.detailValue}>{user?.mobile_number || '9876543210'}</Text>
+                <View style={styles.verifiedBadge}>
+                  <Text style={styles.verifiedText}>Verified</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}></Text>
+          <View style={styles.detailValues}>
+            <View style={styles.detailItem}>
+              <Text style={styles.detailSubLabel}>Email</Text>
+              <Text style={styles.detailValue}>{user?.email || 'test@shipreward.com'}</Text>
+            </View>
+          </View>
         </View>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* User Info Card */}
-        <View style={styles.userCard}>
-          <View style={styles.avatar}>
-            <Text style={styles.avatarText}>
-              {user?.first_name?.[0]}{user?.last_name?.[0]}
+      {/* Billing Details */}
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Billing Details</Text>
+        <View style={styles.cardDivider} />
+        
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Address</Text>
+          <View style={styles.detailValues}>
+            <View style={styles.detailItem}>
+              <View style={styles.addressRow}>
+                <Ionicons name="business-outline" size={16} color={COLORS.gray} />
+                <Text style={styles.companyName}>SHIPREWARD CUSTOMER</Text>
+              </View>
+              <Text style={styles.addressText}>
+                123 Main Street, Mumbai, 400001, Maharashtra, India
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderKYCDetails = () => (
+    <View style={styles.contentSection}>
+      <View style={styles.pageHeader}>
+        <View style={styles.pageTitleRow}>
+          <Text style={styles.pageTitle}>KYC</Text>
+          <View style={styles.approvedBadge}>
+            <Text style={styles.approvedText}>Approved</Text>
+          </View>
+        </View>
+        <Text style={styles.breadcrumb}>Settings {'>'} KYC</Text>
+      </View>
+
+      <TouchableOpacity style={styles.upgradeButton}>
+        <Ionicons name="arrow-up" size={16} color={COLORS.white} />
+        <Text style={styles.upgradeButtonText}>Upgrade To Business</Text>
+      </TouchableOpacity>
+
+      {/* Individual KYC */}
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Individual KYC (CSB-IV)</Text>
+        <View style={styles.cardDivider} />
+        
+        <View style={styles.kycRow}>
+          <Text style={styles.kycLabel}>Aadhar</Text>
+          <View style={styles.kycDetails}>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>Aadhar Number</Text>
+              <Text style={styles.kycValue}>360819959868</Text>
+            </View>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>Aadhar Front</Text>
+              <TouchableOpacity style={styles.downloadLink}>
+                <Text style={styles.downloadText}>Download</Text>
+                <Ionicons name="download-outline" size={16} color={COLORS.primary} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>Aadhar Back</Text>
+              <TouchableOpacity style={styles.downloadLink}>
+                <Text style={styles.downloadText}>Download</Text>
+                <Ionicons name="download-outline" size={16} color={COLORS.primary} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.kycRow}>
+          <Text style={styles.kycLabel}>PAN</Text>
+          <View style={styles.kycDetails}>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>PAN Number</Text>
+              <Text style={styles.kycValue}>CUMPG9412N</Text>
+            </View>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>PAN</Text>
+              <TouchableOpacity style={styles.downloadLink}>
+                <Text style={styles.downloadText}>Download</Text>
+                <Ionicons name="download-outline" size={16} color={COLORS.primary} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.kycRow}>
+          <Text style={styles.kycLabel}>Signature</Text>
+          <View style={styles.kycDetails}>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>Signature</Text>
+              <TouchableOpacity style={styles.downloadLink}>
+                <Text style={styles.downloadText}>Download</Text>
+                <Ionicons name="download-outline" size={16} color={COLORS.primary} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.kycRow}>
+          <Text style={styles.kycLabel}>Agreement</Text>
+          <View style={styles.kycDetails}>
+            <View style={styles.kycItem}>
+              <Text style={styles.kycSubLabel}>Merchant Agreement</Text>
+              <TouchableOpacity style={styles.downloadLink}>
+                <Text style={styles.downloadText}>Download</Text>
+                <Ionicons name="download-outline" size={16} color={COLORS.primary} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderPickupAddress = () => (
+    <View style={styles.contentSection}>
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>Pickup Address</Text>
+        <Text style={styles.breadcrumb}>Settings {'>'} Pickup Address</Text>
+      </View>
+
+      <TouchableOpacity style={styles.addAddressButton}>
+        <Ionicons name="add" size={18} color={COLORS.white} />
+        <Text style={styles.addAddressButtonText}>Add Pickup Address</Text>
+      </TouchableOpacity>
+
+      {/* Address Table */}
+      <View style={styles.card}>
+        <View style={styles.tableHeader}>
+          <Text style={[styles.tableHeaderText, { flex: 1 }]}>Nickname</Text>
+          <Text style={[styles.tableHeaderText, { flex: 1.5 }]}>Contact Details</Text>
+          <Text style={[styles.tableHeaderText, { flex: 2 }]}>Address</Text>
+          <Text style={[styles.tableHeaderText, { flex: 0.5 }]}>Actions</Text>
+        </View>
+
+        <View style={styles.tableRow}>
+          <View style={[styles.tableCell, { flex: 1 }]}>
+            <View style={styles.defaultBadge}>
+              <Text style={styles.defaultBadgeText}>Default</Text>
+            </View>
+            <Text style={styles.nickname}>Home</Text>
+          </View>
+          <View style={[styles.tableCell, { flex: 1.5 }]}>
+            <View style={styles.contactRow}>
+              <Ionicons name="person-outline" size={14} color={COLORS.gray} />
+              <Text style={styles.contactText}>{user?.first_name} {user?.last_name}</Text>
+            </View>
+            <View style={styles.contactRow}>
+              <Ionicons name="call-outline" size={14} color={COLORS.gray} />
+              <Text style={styles.contactText}>{user?.mobile_number}</Text>
+            </View>
+          </View>
+          <View style={[styles.tableCell, { flex: 2 }]}>
+            <Text style={styles.addressTableText}>
+              123 Main Street, Mumbai, 400001, Maharashtra, India
             </Text>
           </View>
-          <View style={styles.userInfo}>
-            <Text style={styles.userName}>{user?.first_name} {user?.last_name}</Text>
-            <Text style={styles.userEmail}>{user?.email}</Text>
-          </View>
-          <TouchableOpacity style={styles.editButton}>
-            <Ionicons name="create-outline" size={20} color={COLORS.primary} />
-            <Text style={styles.editButtonText}>Edit</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Settings Sections */}
-        {settingsSections.map((section, sectionIndex) => (
-          <View key={sectionIndex} style={styles.section}>
-            <Text style={styles.sectionTitle}>{section.title}</Text>
-            <View style={styles.sectionContent}>
-              {section.items.map((item, itemIndex) => (
-                <TouchableOpacity
-                  key={itemIndex}
-                  style={[
-                    styles.settingItem,
-                    itemIndex === section.items.length - 1 && styles.lastItem,
-                  ]}
-                  onPress={item.onPress}
-                >
-                  <View style={styles.settingItemLeft}>
-                    <Ionicons name={item.icon as any} size={22} color={COLORS.gray} />
-                    <Text style={styles.settingLabel}>{item.label}</Text>
-                  </View>
-                  <View style={styles.settingItemRight}>
-                    {item.value && <Text style={styles.settingValue}>{item.value}</Text>}
-                    <Ionicons name="chevron-forward" size={20} color={COLORS.gray} />
-                  </View>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </View>
-        ))}
-
-        {/* Notifications Section */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Notifications</Text>
-          <View style={styles.sectionContent}>
-            <View style={styles.settingItem}>
-              <View style={styles.settingItemLeft}>
-                <Ionicons name="mail-outline" size={22} color={COLORS.gray} />
-                <Text style={styles.settingLabel}>Email Notifications</Text>
-              </View>
-              <Switch
-                value={emailNotifications}
-                onValueChange={setEmailNotifications}
-                trackColor={{ false: COLORS.border, true: COLORS.primary }}
-              />
-            </View>
-            <View style={styles.settingItem}>
-              <View style={styles.settingItemLeft}>
-                <Ionicons name="chatbubble-outline" size={22} color={COLORS.gray} />
-                <Text style={styles.settingLabel}>SMS Notifications</Text>
-              </View>
-              <Switch
-                value={smsNotifications}
-                onValueChange={setSmsNotifications}
-                trackColor={{ false: COLORS.border, true: COLORS.primary }}
-              />
-            </View>
-            <View style={[styles.settingItem, styles.lastItem]}>
-              <View style={styles.settingItemLeft}>
-                <Ionicons name="logo-whatsapp" size={22} color={COLORS.gray} />
-                <Text style={styles.settingLabel}>WhatsApp Notifications</Text>
-              </View>
-              <Switch
-                value={whatsappNotifications}
-                onValueChange={setWhatsappNotifications}
-                trackColor={{ false: COLORS.border, true: COLORS.primary }}
-              />
-            </View>
+          <View style={[styles.tableCell, { flex: 0.5, flexDirection: 'row', gap: 8 }]}>
+            <TouchableOpacity>
+              <Ionicons name="create-outline" size={20} color={COLORS.primary} />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Ionicons name="trash-outline" size={20} color={COLORS.red} />
+            </TouchableOpacity>
           </View>
         </View>
+      </View>
+    </View>
+  );
 
-        {/* Danger Zone */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Danger Zone</Text>
-          <View style={styles.sectionContent}>
-            <TouchableOpacity style={[styles.settingItem, styles.lastItem]}>
-              <View style={styles.settingItemLeft}>
-                <Ionicons name="trash-outline" size={22} color={COLORS.red} />
-                <Text style={[styles.settingLabel, { color: COLORS.red }]}>Delete Account</Text>
-              </View>
-              <Ionicons name="chevron-forward" size={20} color={COLORS.red} />
+  const renderChangePassword = () => (
+    <View style={styles.contentSection}>
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>Change Password</Text>
+        <Text style={styles.breadcrumb}>Settings {'>'} Change Password</Text>
+      </View>
+
+      <View style={styles.passwordCard}>
+        <View style={styles.inputGroup}>
+          <Text style={styles.inputLabel}>Old Password <Text style={styles.required}>*</Text></Text>
+          <View style={styles.passwordInputContainer}>
+            <TextInput
+              style={styles.passwordInput}
+              placeholder="Type here ..."
+              placeholderTextColor={COLORS.gray}
+              secureTextEntry={!showOldPassword}
+            />
+            <TouchableOpacity onPress={() => setShowOldPassword(!showOldPassword)}>
+              <Ionicons 
+                name={showOldPassword ? 'eye-outline' : 'eye-off-outline'} 
+                size={22} 
+                color={COLORS.gray} 
+              />
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={{ height: 40 }} />
+        <View style={styles.inputGroup}>
+          <Text style={styles.inputLabel}>New Password <Text style={styles.required}>*</Text></Text>
+          <View style={styles.passwordInputContainer}>
+            <TextInput
+              style={styles.passwordInput}
+              placeholder="Type here ..."
+              placeholderTextColor={COLORS.gray}
+              secureTextEntry={!showNewPassword}
+            />
+            <TouchableOpacity onPress={() => setShowNewPassword(!showNewPassword)}>
+              <Ionicons 
+                name={showNewPassword ? 'eye-outline' : 'eye-off-outline'} 
+                size={22} 
+                color={COLORS.gray} 
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.inputGroup}>
+          <Text style={styles.inputLabel}>Confirm Password <Text style={styles.required}>*</Text></Text>
+          <View style={styles.passwordInputContainer}>
+            <TextInput
+              style={styles.passwordInput}
+              placeholder="Type here ..."
+              placeholderTextColor={COLORS.gray}
+              secureTextEntry={!showConfirmPassword}
+            />
+            <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+              <Ionicons 
+                name={showConfirmPassword ? 'eye-outline' : 'eye-off-outline'} 
+                size={22} 
+                color={COLORS.gray} 
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.checkboxRow}>
+          <View style={styles.checkbox}>
+            <Ionicons name="checkmark" size={14} color={COLORS.white} />
+          </View>
+          <Text style={styles.checkboxLabel}>Logout from all devices</Text>
+        </View>
+
+        <TouchableOpacity style={styles.submitButton}>
+          <Text style={styles.submitButtonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'profile':
+        return renderMyProfile();
+      case 'kyc':
+        return renderKYCDetails();
+      case 'address':
+        return renderPickupAddress();
+      case 'password':
+        return renderChangePassword();
+      default:
+        return renderMyProfile();
+    }
+  };
+
+  return (
+    <View style={styles.container}>
+      {/* Settings Sidebar */}
+      <View style={styles.settingsSidebar}>
+        {/* Profile Card */}
+        <View style={styles.profileCard}>
+          <View style={styles.profileAvatar}>
+            <Ionicons name="person" size={32} color={COLORS.red} />
+          </View>
+          <Text style={styles.profileName}>{user?.first_name} {user?.last_name}</Text>
+        </View>
+
+        {/* Settings Menu */}
+        {settingsMenu.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            style={[styles.settingsMenuItem, activeTab === item.id && styles.settingsMenuItemActive]}
+            onPress={() => setActiveTab(item.id)}
+          >
+            <Ionicons 
+              name={item.icon as any} 
+              size={20} 
+              color={activeTab === item.id ? COLORS.white : COLORS.gray} 
+            />
+            <Text style={[
+              styles.settingsMenuLabel, 
+              activeTab === item.id && styles.settingsMenuLabelActive
+            ]}>
+              {item.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+
+      {/* Content Area */}
+      <ScrollView style={styles.contentArea} showsVerticalScrollIndicator={false}>
+        {renderContent()}
+        <Text style={styles.footerText}>2025 © ShipReward.in</Text>
       </ScrollView>
     </View>
   );
@@ -175,12 +401,75 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 24,
-    paddingTop: 16,
+    flexDirection: 'row',
     backgroundColor: COLORS.lightGray,
   },
-  header: {
+  settingsSidebar: {
+    width: 200,
+    backgroundColor: COLORS.white,
+    paddingTop: 20,
+    borderRightWidth: 1,
+    borderRightColor: COLORS.border,
+  },
+  profileCard: {
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 16,
+    backgroundColor: COLORS.lightBlue,
+    marginHorizontal: 12,
+    borderRadius: 12,
     marginBottom: 20,
+  },
+  profileAvatar: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: COLORS.lightPink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+  },
+  profileName: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.darkGray,
+    textAlign: 'center',
+  },
+  settingsMenuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    marginHorizontal: 12,
+    marginBottom: 4,
+    borderRadius: 8,
+    gap: 10,
+  },
+  settingsMenuItemActive: {
+    backgroundColor: COLORS.primary,
+  },
+  settingsMenuLabel: {
+    fontSize: 14,
+    color: COLORS.gray,
+  },
+  settingsMenuLabelActive: {
+    color: COLORS.white,
+    fontWeight: '500',
+  },
+  contentArea: {
+    flex: 1,
+    padding: 24,
+  },
+  contentSection: {
+    flex: 1,
+  },
+  pageHeader: {
+    marginBottom: 20,
+  },
+  pageTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
   pageTitle: {
     fontSize: 24,
@@ -192,91 +481,291 @@ const styles = StyleSheet.create({
     color: COLORS.gray,
     marginTop: 4,
   },
-  userCard: {
-    backgroundColor: COLORS.white,
+  approvedBadge: {
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
     borderRadius: 12,
-    padding: 20,
+    borderWidth: 1,
+    borderColor: COLORS.green,
+  },
+  approvedText: {
+    fontSize: 12,
+    color: COLORS.green,
+    fontWeight: '500',
+  },
+  upgradeButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 24,
+    backgroundColor: COLORS.primaryDark,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 6,
+    alignSelf: 'flex-end',
+    marginBottom: 20,
+    gap: 6,
   },
-  avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: COLORS.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarText: {
-    fontSize: 22,
-    fontWeight: '700',
+  upgradeButtonText: {
     color: COLORS.white,
+    fontWeight: '600',
+    fontSize: 14,
   },
-  userInfo: {
-    flex: 1,
-    marginLeft: 16,
+  card: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    padding: 24,
+    marginBottom: 20,
   },
-  userName: {
+  cardTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: COLORS.darkGray,
+    marginBottom: 16,
   },
-  userEmail: {
-    fontSize: 14,
-    color: COLORS.gray,
-    marginTop: 2,
+  cardDivider: {
+    height: 1,
+    backgroundColor: COLORS.border,
+    marginBottom: 20,
   },
-  editButton: {
+  detailRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
+    marginBottom: 20,
   },
-  editButtonText: {
+  detailLabel: {
+    width: 120,
     fontSize: 14,
     color: COLORS.primary,
     fontWeight: '500',
   },
-  section: {
-    marginBottom: 24,
-  },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: COLORS.darkGray,
-    marginBottom: 12,
-  },
-  sectionContent: {
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-  },
-  settingItem: {
+  detailValues: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    flexWrap: 'wrap',
+    gap: 40,
   },
-  lastItem: {
-    borderBottomWidth: 0,
+  detailItem: {
+    minWidth: 150,
   },
-  settingItemLeft: {
+  detailSubLabel: {
+    fontSize: 12,
+    color: COLORS.gray,
+    marginBottom: 4,
+  },
+  detailValue: {
+    fontSize: 15,
+    color: COLORS.darkGray,
+    fontWeight: '500',
+  },
+  valueWithStatus: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12,
   },
-  settingItemRight: {
+  verifiedBadge: {
+    backgroundColor: '#ECFDF5',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: COLORS.green,
+  },
+  verifiedText: {
+    fontSize: 11,
+    color: COLORS.green,
+    fontWeight: '500',
+  },
+  addressRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
+    marginBottom: 4,
   },
-  settingLabel: {
+  companyName: {
+    fontSize: 13,
+    color: COLORS.gray,
+  },
+  addressText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    lineHeight: 20,
+  },
+  kycRow: {
+    flexDirection: 'row',
+    marginBottom: 24,
+    alignItems: 'flex-start',
+  },
+  kycLabel: {
+    width: 100,
+    fontSize: 14,
+    color: COLORS.primary,
+    fontWeight: '500',
+  },
+  kycDetails: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 40,
+  },
+  kycItem: {
+    minWidth: 140,
+  },
+  kycSubLabel: {
+    fontSize: 12,
+    color: COLORS.gray,
+    marginBottom: 4,
+  },
+  kycValue: {
+    fontSize: 15,
+    color: COLORS.darkGray,
+    fontWeight: '500',
+  },
+  downloadLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  downloadText: {
+    fontSize: 14,
+    color: COLORS.primary,
+    fontWeight: '500',
+  },
+  addAddressButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primaryDark,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 6,
+    alignSelf: 'flex-end',
+    marginBottom: 20,
+    gap: 6,
+  },
+  addAddressButtonText: {
+    color: COLORS.white,
+    fontWeight: '600',
+    fontSize: 14,
+  },
+  tableHeader: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  tableHeaderText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: COLORS.darkGray,
+  },
+  tableRow: {
+    flexDirection: 'row',
+    paddingVertical: 16,
+    alignItems: 'center',
+  },
+  tableCell: {
+    paddingRight: 12,
+  },
+  defaultBadge: {
+    backgroundColor: '#FEF3C7',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+    marginBottom: 4,
+  },
+  defaultBadgeText: {
+    fontSize: 10,
+    color: '#D97706',
+    fontWeight: '600',
+  },
+  nickname: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: COLORS.darkGray,
+  },
+  contactRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 4,
+  },
+  contactText: {
+    fontSize: 13,
+    color: COLORS.darkGray,
+  },
+  addressTableText: {
+    fontSize: 13,
+    color: COLORS.gray,
+    lineHeight: 18,
+  },
+  passwordCard: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    padding: 32,
+    maxWidth: 400,
+  },
+  inputGroup: {
+    marginBottom: 20,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: COLORS.darkGray,
+    marginBottom: 8,
+  },
+  required: {
+    color: COLORS.red,
+  },
+  passwordInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.lightGray,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    paddingHorizontal: 14,
+  },
+  passwordInput: {
+    flex: 1,
+    paddingVertical: 14,
     fontSize: 15,
     color: COLORS.darkGray,
   },
-  settingValue: {
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 24,
+    gap: 10,
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    backgroundColor: COLORS.lightGray,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkboxLabel: {
     fontSize: 14,
+    color: COLORS.darkGray,
+  },
+  submitButton: {
+    backgroundColor: COLORS.primaryDark,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  submitButtonText: {
+    color: COLORS.white,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  footerText: {
+    fontSize: 12,
     color: COLORS.gray,
+    textAlign: 'center',
+    marginTop: 32,
+    marginBottom: 24,
   },
 });
