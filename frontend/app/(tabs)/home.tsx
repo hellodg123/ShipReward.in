@@ -155,7 +155,11 @@ export default function HomeScreen() {
           <Text style={styles.sectionTitle}>Actions</Text>
           <View style={styles.actionsGrid}>
             {actionCards.map((card, index) => (
-              <TouchableOpacity key={index} style={styles.actionCard}>
+              <TouchableOpacity 
+                key={index} 
+                style={styles.actionCard}
+                onPress={() => handleCardPress(card.route, card.tab)}
+              >
                 <View style={[styles.actionCardIcon, { backgroundColor: `${card.color}20` }]}>
                   <Ionicons name={card.icon as any} size={24} color={card.color} />
                 </View>
