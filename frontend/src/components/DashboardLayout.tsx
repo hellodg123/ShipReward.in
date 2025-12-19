@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Modal,
+  Pressable,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -26,6 +28,7 @@ const COLORS = {
   green: '#10B981',
   orange: '#F97316',
   red: '#EF4444',
+  border: '#E5E7EB',
 };
 
 const menuItems = [
@@ -48,20 +51,94 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(!isLargeScreen);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const handleLogout = async () => {
+    setShowProfileMenu(false);
     await logout();
     router.replace('/login');
+  };
+
+  const handleNavigateToSettings = () => {
+    setShowProfileMenu(false);
+    router.push('/(tabs)/settings');
+  };
+
+  const handleNavigateToSupport = () => {
+    setShowProfileMenu(false);
+    router.push('/(tabs)/support');
+  };
+
+  const handleNavigateToWallet = () => {
+    router.push('/(tabs)/wallet');
   };
 
   const isActiveRoute = (route: string) => {
     return pathname === route || pathname.startsWith(route + '/');
   };
 
+  // Profile Menu Popup
+  const ProfileMenu = () => (
+    <Modal
+      transparent
+      visible={showProfileMenu}
+      animationType="fade"
+      onRequestClose={() => setShowProfileMenu(false)}
+    >
+      <Pressable style={styles.modalOverlay} onPress={() => setShowProfileMenu(false)}>
+        <View style={styles.profileMenuContainer}>
+          <View style={styles.profileMenuContent}>
+            {/* User Info */}
+            <View style={styles.profileMenuHeader}>
+              <View style={styles.profileMenuAvatar}>
+                <Text style={styles.profileMenuAvatarText}>
+                  {user?.first_name?.[0]}{user?.last_name?.[0]}
+                </Text>
+              </View>
+              <View style={styles.profileMenuUserInfo}>
+                <Text style={styles.profileMenuName}>
+                  {user?.first_name} {user?.last_name}
+                </Text>
+                <Text style={styles.profileMenuEmail}>{user?.email}</Text>
+              </View>
+            </View>
+
+            <View style={styles.profileMenuDivider} />
+
+            {/* Menu Items */}
+            <TouchableOpacity style={styles.profileMenuItem} onPress={handleNavigateToSettings}>
+              <Ionicons name="settings-outline" size={20} color={COLORS.gray} />
+              <Text style={styles.profileMenuItemText}>Account Settings</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.profileMenuItem} onPress={handleNavigateToSupport}>
+              <Ionicons name="headset-outline" size={20} color={COLORS.gray} />
+              <Text style={styles.profileMenuItemText}>Support Center</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.profileMenuItem}>
+              <Ionicons name="log-out-outline" size={20} color={COLORS.gray} />
+              <Text style={styles.profileMenuItemText}>Logout all the other devices</Text>
+            </TouchableOpacity>
+
+            <View style={styles.profileMenuDivider} />
+
+            <TouchableOpacity style={styles.profileMenuItem} onPress={handleLogout}>
+              <Ionicons name="exit-outline" size={20} color={COLORS.red} />
+              <Text style={[styles.profileMenuItemText, { color: COLORS.red }]}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Pressable>
+    </Modal>
+  );
+
   // Mobile view
   if (!isLargeScreen) {
     return (
       <SafeAreaView style={styles.safeArea}>
+        <ProfileMenu />
+        
         {/* Mobile Header */}
         <View style={styles.mobileHeader}>
           <Image
@@ -70,10 +147,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             resizeMode="contain"
           />
           <View style={styles.mobileHeaderRight}>
-            <TouchableOpacity style={styles.headerIconBtn}>
-              <Ionicons name="notifications-outline" size={22} color={COLORS.darkGray} />
+            <TouchableOpacity style={styles.headerIconBtn} onPress={handleNavigateToSupport}>
+              <Ionicons name="headset-outline" size={22} color={COLORS.darkGray} />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.profileBtn} onPress={handleLogout}>
+            <TouchableOpacity style={styles.profileBtn} onPress={() => setShowProfileMenu(true)}>
               <Text style={styles.profileInitials}>
                 {user?.first_name?.[0]}{user?.last_name?.[0]}
               </Text>
@@ -115,6 +192,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   // Desktop/Tablet view with sidebar
   return (
     <SafeAreaView style={styles.safeArea}>
+      <ProfileMenu />
+      
       <View style={styles.desktopContainer}>
         {/* Sidebar */}
         <View style={[styles.sidebar, sidebarCollapsed && styles.sidebarCollapsed]}>
@@ -164,15 +243,15 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               resizeMode="contain"
             />
             <View style={styles.headerActions}>
-              <View style={styles.walletBalance}>
+              <TouchableOpacity style={styles.walletBalance} onPress={handleNavigateToWallet}>
                 <Ionicons name="wallet" size={18} color={COLORS.green} />
                 <Text style={styles.walletBalanceText}>₹ 2.26</Text>
                 <Text style={styles.rechargeText}>Recharge</Text>
-              </View>
-              <TouchableOpacity style={styles.headerIconBtn}>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.headerIconBtn} onPress={handleNavigateToSupport}>
                 <Ionicons name="headset-outline" size={20} color={COLORS.darkGray} />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.profileBtn} onPress={handleLogout}>
+              <TouchableOpacity style={styles.profileBtn} onPress={() => setShowProfileMenu(true)}>
                 <Text style={styles.profileInitials}>
                   {user?.first_name?.[0]}{user?.last_name?.[0]}
                 </Text>
@@ -195,6 +274,75 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.lightGray,
   },
+  // Modal Styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+  },
+  profileMenuContainer: {
+    marginTop: 60,
+    marginRight: 20,
+  },
+  profileMenuContent: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    width: 280,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  profileMenuHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+  },
+  profileMenuAvatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: COLORS.red,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  profileMenuAvatarText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: COLORS.white,
+  },
+  profileMenuUserInfo: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  profileMenuName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: COLORS.darkGray,
+  },
+  profileMenuEmail: {
+    fontSize: 13,
+    color: COLORS.gray,
+    marginTop: 2,
+  },
+  profileMenuDivider: {
+    height: 1,
+    backgroundColor: COLORS.border,
+    marginHorizontal: 16,
+  },
+  profileMenuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    gap: 12,
+  },
+  profileMenuItemText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+  },
   // Mobile Styles
   mobileHeader: {
     flexDirection: 'row',
@@ -204,7 +352,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     backgroundColor: COLORS.white,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: COLORS.border,
   },
   mobileLogo: {
     width: 120,
@@ -222,7 +370,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: COLORS.white,
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: COLORS.border,
     paddingVertical: 8,
     paddingBottom: 20,
   },
@@ -251,7 +399,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 12,
     borderRightWidth: 1,
-    borderRightColor: '#E5E7EB',
+    borderRightColor: COLORS.border,
   },
   sidebarCollapsed: {
     width: 60,
@@ -292,7 +440,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: COLORS.border,
   },
   desktopLogo: {
     width: 140,
@@ -307,6 +455,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
+    cursor: 'pointer',
   },
   walletBalanceText: {
     fontSize: 14,
