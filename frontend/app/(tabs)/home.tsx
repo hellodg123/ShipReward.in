@@ -207,18 +207,11 @@ export default function HomeScreen() {
               resizeMode="contain"
             />
             <View style={styles.headerActions}>
-              <TouchableOpacity style={styles.quickActionsBtn}>
-                <Ionicons name="flash-outline" size={18} color={COLORS.primary} />
-                <Text style={styles.quickActionsText}>Quick Actions</Text>
-              </TouchableOpacity>
               <View style={styles.walletBalance}>
                 <Ionicons name="wallet" size={18} color={COLORS.green} />
                 <Text style={styles.walletBalanceText}>₹ 2.26</Text>
                 <Text style={styles.rechargeText}>Recharge</Text>
               </View>
-              <TouchableOpacity style={styles.headerIconBtn}>
-                <Ionicons name="book-outline" size={20} color={COLORS.darkGray} />
-              </TouchableOpacity>
               <TouchableOpacity style={styles.headerIconBtn}>
                 <Ionicons name="headset-outline" size={20} color={COLORS.darkGray} />
               </TouchableOpacity>
