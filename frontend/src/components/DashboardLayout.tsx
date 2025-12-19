@@ -36,7 +36,7 @@ const menuItems = [
   { icon: 'receipt-outline', label: 'Orders', route: '/(tabs)/orders' },
   { icon: 'document-text-outline', label: 'Manifest', route: '/(tabs)/manifest' },
   { icon: 'car-outline', label: 'Pickup', route: '/(tabs)/pickup' },
-  { icon: 'calculator-outline', label: 'Rate Calculator', route: '/(tabs)/rate-calculator' },
+  { icon: 'calculator-outline', label: 'Rate Table', route: '/(tabs)/rate-table' },
   { icon: 'wallet-outline', label: 'Wallet', route: '/(tabs)/wallet' },
   { icon: 'receipt-outline', label: 'Invoice', route: '/(tabs)/invoice' },
   { icon: 'settings-outline', label: 'Settings', route: '/(tabs)/settings' },
