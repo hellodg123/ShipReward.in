@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
     width: 180,
     height: 60,
     marginBottom: 32,
-    tintColor: COLORS.white,
   },
   tagline: {
     fontSize: 36,
