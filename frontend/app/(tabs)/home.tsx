@@ -263,7 +263,11 @@ export default function HomeScreen() {
             {/* Order Status Cards Row */}
             <View style={styles.orderStatusRow}>
               {orderStatusCards.map((card, index) => (
-                <TouchableOpacity key={index} style={[styles.orderStatusCard, { backgroundColor: card.bgColor }]}>
+                <TouchableOpacity 
+                  key={index} 
+                  style={[styles.orderStatusCard, { backgroundColor: card.bgColor }]}
+                  onPress={() => handleCardPress(card.route, card.tab)}
+                >
                   <View style={[styles.orderStatusIcon, { backgroundColor: card.color }]}>
                     <Ionicons name={card.icon as any} size={18} color={COLORS.white} />
                   </View>
