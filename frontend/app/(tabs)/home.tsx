@@ -191,10 +191,6 @@ export default function HomeScreen() {
             ))}
           </ScrollView>
 
-          <TouchableOpacity style={styles.buyPackagingBtn}>
-            <Ionicons name="cube-outline" size={20} color={COLORS.primary} />
-            {!sidebarCollapsed && <Text style={styles.buyPackagingText}>Buy Packaging</Text>}
-          </TouchableOpacity>
         </View>
 
         {/* Main Content */}
