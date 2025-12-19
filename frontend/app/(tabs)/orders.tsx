@@ -6,15 +6,10 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  Dimensions,
   FlatList,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-
-const { width } = Dimensions.get('window');
-const isLargeScreen = width > 768;
+import { useLocalSearchParams } from 'expo-router';
 
 const COLORS = {
   primary: '#2563EB',
@@ -125,7 +120,6 @@ const getStatusColor = (status: string) => {
 };
 
 export default function OrdersScreen() {
-  const router = useRouter();
   const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -142,42 +136,41 @@ export default function OrdersScreen() {
     if (activeTab === 'cancelled') return order.status === 'cancelled';
     if (activeTab === 'dispatched') return order.status === 'dispatched';
     if (activeTab === 'disputed') return order.status === 'disputed';
-    // For demo, show all orders for other tabs
     return true;
   });
 
   const renderOrderRow = ({ item }: { item: typeof sampleOrders[0] }) => {
     const statusColors = getStatusColor(item.status);
-    
+
     return (
       <View style={styles.orderRow}>
         <View style={styles.checkboxCell}>
           <View style={styles.checkbox} />
         </View>
-        
+
         <View style={styles.orderIdCell}>
           <Text style={styles.orderId}>{item.id}</Text>
           <Text style={styles.orderPrefix}>{item.prefix}</Text>
           <Text style={styles.orderInvoice}>Inv no. {item.invoiceNo}</Text>
         </View>
-        
+
         <View style={styles.customerCell}>
           <Text style={styles.customerName}>{item.customerName}</Text>
           <Text style={styles.customerEmail}>{item.customerEmail}</Text>
           <Text style={styles.customerPhone}>{item.customerPhone}</Text>
         </View>
-        
+
         <View style={styles.dateCell}>
           <Text style={styles.orderDate}>{item.orderDate}</Text>
           <Text style={styles.orderTime}>{item.orderTime}</Text>
         </View>
-        
+
         <View style={styles.packageCell}>
           <Text style={styles.packageWeight}>{item.weight}</Text>
           <Text style={styles.packagePrice}>{item.price}</Text>
           <Text style={styles.packageType}>{item.packageType}</Text>
         </View>
-        
+
         <View style={styles.statusCell}>
           <View style={[styles.statusBadge, { backgroundColor: statusColors.bg }]}>
             <Text style={[styles.statusText, { color: statusColors.text }]}>
@@ -185,7 +178,7 @@ export default function OrdersScreen() {
             </Text>
           </View>
         </View>
-        
+
         <View style={styles.lastMileCell}>
           {item.trackingId ? (
             <>
@@ -200,7 +193,7 @@ export default function OrdersScreen() {
             <Text style={styles.noTracking}>-</Text>
           )}
         </View>
-        
+
         <View style={styles.viewCell}>
           <TouchableOpacity style={styles.viewButton}>
             <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
@@ -211,123 +204,118 @@ export default function OrdersScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.pageTitle}>All Orders</Text>
-            <Text style={styles.breadcrumb}>Orders {'>'} All</Text>
-          </View>
-          <View style={styles.headerButtons}>
-            <TouchableOpacity style={styles.addButton}>
-              <Ionicons name="add" size={18} color={COLORS.white} />
-              <Text style={styles.addButtonText}>Add Order</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bulkButton}>
-              <Ionicons name="cloud-upload-outline" size={18} color={COLORS.white} />
-              <Text style={styles.bulkButtonText}>Bulk Order</Text>
-            </TouchableOpacity>
-          </View>
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.pageTitle}>All Orders</Text>
+          <Text style={styles.breadcrumb}>Orders {'>'} All</Text>
         </View>
-
-        {/* Tabs */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabsContainer}>
-          {tabs.map((tab) => (
-            <TouchableOpacity
-              key={tab.id}
-              style={[styles.tab, activeTab === tab.id && styles.activeTab]}
-              onPress={() => setActiveTab(tab.id)}
-            >
-              <Text style={[styles.tabText, activeTab === tab.id && styles.activeTabText]}>
-                {tab.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        {/* Search and Filter */}
-        <View style={styles.searchSection}>
-          <View style={styles.searchInputContainer}>
-            <Ionicons name="search-outline" size={18} color={COLORS.gray} />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Enter Tracking Id..."
-              placeholderTextColor={COLORS.gray}
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-            />
-          </View>
-          <TouchableOpacity style={styles.filterButton}>
-            <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-            <Text style={styles.filterButtonText}>More Filters</Text>
+        <View style={styles.headerButtons}>
+          <TouchableOpacity style={styles.addButton}>
+            <Ionicons name="add" size={18} color={COLORS.white} />
+            <Text style={styles.addButtonText}>Add Order</Text>
           </TouchableOpacity>
-          <View style={{ flex: 1 }} />
-          <TouchableOpacity style={styles.exportButton}>
-            <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
-            <Text style={styles.exportButtonText}>Export</Text>
+          <TouchableOpacity style={styles.bulkButton}>
+            <Ionicons name="cloud-upload-outline" size={18} color={COLORS.white} />
+            <Text style={styles.bulkButtonText}>Bulk Order</Text>
           </TouchableOpacity>
         </View>
-
-        {/* Table Header */}
-        <View style={styles.tableHeader}>
-          <View style={styles.checkboxCell}>
-            <View style={styles.checkbox} />
-          </View>
-          <View style={styles.orderIdCell}>
-            <Text style={styles.headerText}>Order ID</Text>
-            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-          </View>
-          <View style={styles.customerCell}>
-            <Text style={styles.headerText}>Customer Details</Text>
-          </View>
-          <View style={styles.dateCell}>
-            <Text style={styles.headerText}>Order Date</Text>
-            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-          </View>
-          <View style={styles.packageCell}>
-            <Text style={styles.headerText}>Package Details</Text>
-            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-          </View>
-          <View style={styles.statusCell}>
-            <Text style={styles.headerText}>Status</Text>
-          </View>
-          <View style={styles.lastMileCell}>
-            <Text style={styles.headerText}>Last Mile Details</Text>
-          </View>
-          <View style={styles.viewCell}>
-            <Text style={styles.headerText}>View Order</Text>
-          </View>
-        </View>
-
-        {/* Table Body */}
-        <FlatList
-          data={filteredOrders}
-          renderItem={renderOrderRow}
-          keyExtractor={(item) => item.id}
-          style={styles.tableBody}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={
-            <View style={styles.emptyState}>
-              <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
-              <Text style={styles.emptyText}>No orders found</Text>
-            </View>
-          }
-        />
       </View>
-    </SafeAreaView>
+
+      {/* Tabs */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabsContainer}>
+        {tabs.map((tab) => (
+          <TouchableOpacity
+            key={tab.id}
+            style={[styles.tab, activeTab === tab.id && styles.activeTab]}
+            onPress={() => setActiveTab(tab.id)}
+          >
+            <Text style={[styles.tabText, activeTab === tab.id && styles.activeTabText]}>
+              {tab.label}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
+      {/* Search and Filter */}
+      <View style={styles.searchSection}>
+        <View style={styles.searchInputContainer}>
+          <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Enter Tracking Id..."
+            placeholderTextColor={COLORS.gray}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+        </View>
+        <TouchableOpacity style={styles.filterButton}>
+          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
+          <Text style={styles.filterButtonText}>More Filters</Text>
+        </TouchableOpacity>
+        <View style={{ flex: 1 }} />
+        <TouchableOpacity style={styles.exportButton}>
+          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
+          <Text style={styles.exportButtonText}>Export</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Table Header */}
+      <View style={styles.tableHeader}>
+        <View style={styles.checkboxCell}>
+          <View style={styles.checkbox} />
+        </View>
+        <View style={styles.orderIdCell}>
+          <Text style={styles.headerText}>Order ID</Text>
+          <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+        </View>
+        <View style={styles.customerCell}>
+          <Text style={styles.headerText}>Customer Details</Text>
+        </View>
+        <View style={styles.dateCell}>
+          <Text style={styles.headerText}>Order Date</Text>
+          <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+        </View>
+        <View style={styles.packageCell}>
+          <Text style={styles.headerText}>Package Details</Text>
+          <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+        </View>
+        <View style={styles.statusCell}>
+          <Text style={styles.headerText}>Status</Text>
+        </View>
+        <View style={styles.lastMileCell}>
+          <Text style={styles.headerText}>Last Mile Details</Text>
+        </View>
+        <View style={styles.viewCell}>
+          <Text style={styles.headerText}>View Order</Text>
+        </View>
+      </View>
+
+      {/* Table Body */}
+      <FlatList
+        data={filteredOrders}
+        renderItem={renderOrderRow}
+        keyExtractor={(item) => item.id}
+        style={styles.tableBody}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={
+          <View style={styles.emptyState}>
+            <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
+            <Text style={styles.emptyText}>No orders found</Text>
+          </View>
+        }
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   container: {
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 16,
+    backgroundColor: COLORS.white,
   },
   header: {
     flexDirection: 'row',
@@ -592,8 +580,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 4,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: 'transparent',
   },
   statusText: {
     fontSize: 12,
