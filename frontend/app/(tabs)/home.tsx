@@ -284,7 +284,11 @@ export default function HomeScreen() {
                 <Text style={styles.sectionTitle}>Actions</Text>
                 <View style={styles.actionsRow}>
                   {actionCards.map((card, index) => (
-                    <TouchableOpacity key={index} style={styles.desktopActionCard}>
+                    <TouchableOpacity 
+                      key={index} 
+                      style={styles.desktopActionCard}
+                      onPress={() => handleCardPress(card.route, card.tab)}
+                    >
                       <View style={[styles.desktopActionIcon, { backgroundColor: `${card.color}20` }]}>
                         <Ionicons name={card.icon as any} size={28} color={card.color} />
                       </View>
