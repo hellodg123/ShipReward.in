@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 
 const COLORS = {
@@ -24,68 +23,63 @@ export default function PickupScreen() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        {/* Header */}
-        <View style={styles.header}>
-          <View>
-            <Text style={styles.pageTitle}>Pickup</Text>
-            <Text style={styles.breadcrumb}>Pickup {'>'} In Progress</Text>
-          </View>
-          <View style={styles.headerButtons}>
-            <TouchableOpacity style={styles.addButton}>
-              <Ionicons name="add" size={18} color={COLORS.white} />
-              <Text style={styles.addButtonText}>Schedule Pickup</Text>
-            </TouchableOpacity>
-          </View>
+    <View style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <View>
+          <Text style={styles.pageTitle}>Pickup</Text>
+          <Text style={styles.breadcrumb}>Pickup {'>'} In Progress</Text>
         </View>
-
-        {/* Search and Filter */}
-        <View style={styles.searchSection}>
-          <View style={styles.searchInputContainer}>
-            <Ionicons name="search-outline" size={18} color={COLORS.gray} />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Search pickup..."
-              placeholderTextColor={COLORS.gray}
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-            />
-          </View>
-          <TouchableOpacity style={styles.filterButton}>
-            <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-            <Text style={styles.filterButtonText}>More Filters</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Empty State */}
-        <View style={styles.emptyState}>
-          <View style={styles.emptyIcon}>
-            <Ionicons name="car-outline" size={64} color={COLORS.gray} />
-          </View>
-          <Text style={styles.emptyTitle}>No Pickups In Progress</Text>
-          <Text style={styles.emptyDescription}>
-            Your scheduled pickups will appear here.
-          </Text>
-          <TouchableOpacity style={styles.createButton}>
-            <Ionicons name="add-circle-outline" size={20} color={COLORS.white} />
-            <Text style={styles.createButtonText}>Schedule Pickup</Text>
+        <View style={styles.headerButtons}>
+          <TouchableOpacity style={styles.addButton}>
+            <Ionicons name="add" size={18} color={COLORS.white} />
+            <Text style={styles.addButtonText}>Schedule Pickup</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+
+      {/* Search and Filter */}
+      <View style={styles.searchSection}>
+        <View style={styles.searchInputContainer}>
+          <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+          <TextInput
+            style={styles.searchInput}
+            placeholder="Search pickup..."
+            placeholderTextColor={COLORS.gray}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+          />
+        </View>
+        <TouchableOpacity style={styles.filterButton}>
+          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
+          <Text style={styles.filterButtonText}>More Filters</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Empty State */}
+      <View style={styles.emptyState}>
+        <View style={styles.emptyIcon}>
+          <Ionicons name="car-outline" size={64} color={COLORS.gray} />
+        </View>
+        <Text style={styles.emptyTitle}>No Pickups In Progress</Text>
+        <Text style={styles.emptyDescription}>
+          Your scheduled pickups will appear here.
+        </Text>
+        <TouchableOpacity style={styles.createButton}>
+          <Ionicons name="add-circle-outline" size={20} color={COLORS.white} />
+          <Text style={styles.createButtonText}>Schedule Pickup</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-  },
   container: {
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 16,
+    backgroundColor: COLORS.white,
   },
   header: {
     flexDirection: 'row',
