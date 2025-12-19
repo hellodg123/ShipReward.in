@@ -212,6 +212,7 @@ export default function HomeScreen() {
               <TouchableOpacity 
                 key={index} 
                 style={[styles.menuItem, item.active && styles.menuItemActive]}
+                onPress={() => handleSidebarNavigation(item.label)}
               >
                 <Ionicons 
                   name={item.icon as any} 
