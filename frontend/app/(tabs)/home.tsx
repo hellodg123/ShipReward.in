@@ -137,7 +137,11 @@ export default function HomeScreen() {
           {/* Order Status Cards */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.orderCardsScroll}>
             {orderStatusCards.map((card, index) => (
-              <TouchableOpacity key={index} style={[styles.orderCard, { backgroundColor: card.bgColor }]}>
+              <TouchableOpacity 
+                key={index} 
+                style={[styles.orderCard, { backgroundColor: card.bgColor }]}
+                onPress={() => handleCardPress(card.route, card.tab)}
+              >
                 <View style={[styles.orderCardIcon, { backgroundColor: card.color }]}>
                   <Ionicons name={card.icon as any} size={20} color={COLORS.white} />
                 </View>
