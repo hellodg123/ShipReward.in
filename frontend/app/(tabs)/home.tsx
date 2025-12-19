@@ -50,17 +50,17 @@ const menuItems = [
 ];
 
 const orderStatusCards = [
-  { title: 'All Orders', count: '00', color: COLORS.blue, bgColor: COLORS.lightBlue, icon: 'layers-outline' },
-  { title: 'Drafted Orders', count: '00', color: COLORS.orange, bgColor: COLORS.lightYellow, icon: 'create-outline' },
-  { title: 'Pending for Label', count: '00', color: COLORS.green, bgColor: COLORS.lightGreen, icon: 'pricetag-outline' },
-  { title: 'Packed Orders', count: '00', color: COLORS.red, bgColor: COLORS.lightRed, icon: 'cube-outline' },
-  { title: 'Dispatched Orders', count: '00', color: COLORS.purple, bgColor: COLORS.lightPurple, icon: 'send-outline' },
+  { title: 'All Orders', count: '00', color: COLORS.blue, bgColor: COLORS.lightBlue, icon: 'layers-outline', route: '/(tabs)/orders', tab: 'all' },
+  { title: 'Drafted Orders', count: '00', color: COLORS.orange, bgColor: COLORS.lightYellow, icon: 'create-outline', route: '/(tabs)/orders', tab: 'drafts' },
+  { title: 'Pending for Label', count: '00', color: COLORS.green, bgColor: COLORS.lightGreen, icon: 'pricetag-outline', route: '/(tabs)/orders', tab: 'ready' },
+  { title: 'Packed Orders', count: '00', color: COLORS.red, bgColor: COLORS.lightRed, icon: 'cube-outline', route: '/(tabs)/orders', tab: 'packed' },
+  { title: 'Dispatched Orders', count: '00', color: COLORS.purple, bgColor: COLORS.lightPurple, icon: 'send-outline', route: '/(tabs)/orders', tab: 'dispatched' },
 ];
 
 const actionCards = [
-  { title: 'Pickups In Progress', count: '00', color: COLORS.purple, icon: 'checkmark-done-outline' },
-  { title: 'Open Manifests', count: '00', color: COLORS.blue, icon: 'mail-outline' },
-  { title: 'Disputed Orders', count: '00', color: COLORS.red, icon: 'close-circle-outline' },
+  { title: 'Pickups In Progress', count: '00', color: COLORS.purple, icon: 'checkmark-done-outline', route: '/(tabs)/pickup', tab: '' },
+  { title: 'Open Manifests', count: '00', color: COLORS.blue, icon: 'mail-outline', route: '/(tabs)/manifest', tab: '' },
+  { title: 'Disputed Orders', count: '00', color: COLORS.red, icon: 'close-circle-outline', route: '/(tabs)/orders', tab: 'disputed' },
 ];
 
 const walletActivity = [
