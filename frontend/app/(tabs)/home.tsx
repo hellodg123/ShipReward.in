@@ -41,15 +41,11 @@ const COLORS = {
 const menuItems = [
   { icon: 'speedometer-outline', label: 'Dashboard', active: true },
   { icon: 'receipt-outline', label: 'Orders' },
-  { icon: 'cube-outline', label: 'Multi Box' },
   { icon: 'document-text-outline', label: 'Manifest' },
   { icon: 'car-outline', label: 'Pickup' },
   { icon: 'calculator-outline', label: 'Rate Calculator' },
-  { icon: 'bar-chart-outline', label: 'Bulk Report' },
   { icon: 'wallet-outline', label: 'Wallet' },
-  { icon: 'documents-outline', label: 'Documents' },
-  { icon: 'git-branch-outline', label: 'Integrations' },
-  { icon: 'chatbubble-outline', label: 'Request Quote' },
+  { icon: 'receipt-outline', label: 'Invoice' },
   { icon: 'settings-outline', label: 'Settings' },
 ];
 
