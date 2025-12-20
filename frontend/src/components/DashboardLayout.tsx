@@ -386,6 +386,38 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontWeight: '600',
   },
+  // Mobile Horizontal Navigation Styles
+  mobileNavContainer: {
+    backgroundColor: COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingVertical: 8,
+  },
+  mobileNavScrollContent: {
+    paddingHorizontal: 16,
+    gap: 8,
+  },
+  mobileNavItemHorizontal: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 20,
+    backgroundColor: COLORS.lightGray,
+    gap: 6,
+    minWidth: 80,
+  },
+  mobileNavItemActive: {
+    backgroundColor: COLORS.primary,
+  },
+  mobileNavLabelHorizontal: {
+    fontSize: 12,
+    color: COLORS.gray,
+    fontWeight: '500',
+  },
+  mobileNavLabelHorizontalActive: {
+    color: COLORS.white,
+  },
   // Desktop Styles
   desktopContainer: {
     flex: 1,
