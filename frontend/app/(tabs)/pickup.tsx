@@ -6,8 +6,11 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Modal,
+  Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const COLORS = {
   primary: '#2563EB',
@@ -20,7 +23,48 @@ const COLORS = {
   red: '#EF4444',
   orange: '#F97316',
   purple: '#8B5CF6',
+  purpleLight: '#EDE9FE',
   border: '#E5E7EB',
+};
+
+// Sample pickup addresses
+const pickupAddresses = [
+  {
+    id: '1',
+    name: 'Hiren Vaghashiya',
+    street: 'hiren, 477, ar mall, mota varachha',
+    area: 'Mota Varachha',
+    city: 'Surat',
+    pincode: '394101',
+    state: 'Gujarat',
+  },
+  {
+    id: '2',
+    name: 'Rajesh Kumar',
+    street: '123, Business Park, Andheri East',
+    area: 'Andheri',
+    city: 'Mumbai',
+    pincode: '400069',
+    state: 'Maharashtra',
+  },
+];
+
+// Available pickup dates
+const getAvailableDates = () => {
+  const dates = [];
+  const today = new Date();
+  for (let i = 0; i < 5; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    dates.push({
+      id: `date-${i}`,
+      label: `${day} ${month}`,
+      fullDate: date.toISOString().split('T')[0],
+    });
+  }
+  return dates;
 };
 
 // Sample pickup data
@@ -110,295 +154,6 @@ const pickupData = [
     createdBy: 'Vendor',
     status: 'picked',
   },
-  {
-    id: '6',
-    pickupCode: 'PRSG250725159632',
-    pickupDate: '25 Jul, 2025',
-    pickupAddress: {
-      name: 'Amit Patel',
-      street: '789, Industrial Estate, Naroda',
-      city: 'Ahmedabad',
-      pincode: '382330',
-    },
-    dateAdded: '24 Jul, 2025',
-    timeAdded: '04:45 PM',
-    orderWeight: '55 kg',
-    packetCount: 80,
-    createdBy: 'Vendor',
-    status: 'cancelled',
-  },
-  {
-    id: '7',
-    pickupCode: 'PRSG251001852369',
-    pickupDate: '01 Oct, 2025',
-    pickupAddress: {
-      name: 'Neha Verma',
-      street: '321, Commerce Center, Connaught Place',
-      city: 'Delhi',
-      pincode: '110001',
-    },
-    dateAdded: '30 Sep, 2025',
-    timeAdded: '10:00 AM',
-    orderWeight: '25 kg',
-    packetCount: 40,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '8',
-    pickupCode: 'PRSG250905741258',
-    pickupDate: '05 Sep, 2025',
-    pickupAddress: {
-      name: 'Vikram Singh',
-      street: '654, Logistics Park, Guindy',
-      city: 'Chennai',
-      pincode: '600032',
-    },
-    dateAdded: '04 Sep, 2025',
-    timeAdded: '03:30 PM',
-    orderWeight: '60 kg',
-    packetCount: 90,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '9',
-    pickupCode: 'PRSG250812963574',
-    pickupDate: '12 Aug, 2025',
-    pickupAddress: {
-      name: 'Anjali Gupta',
-      street: '987, Trade Center, Salt Lake',
-      city: 'Kolkata',
-      pincode: '700091',
-    },
-    dateAdded: '11 Aug, 2025',
-    timeAdded: '11:20 AM',
-    orderWeight: '10 kg',
-    packetCount: 15,
-    createdBy: 'Vendor',
-    status: 'cancelled',
-  },
-  {
-    id: '10',
-    pickupCode: 'PRSG250928147852',
-    pickupDate: '28 Sep, 2025',
-    pickupAddress: {
-      name: 'Sanjay Mehta',
-      street: '147, Export Zone, Hinjewadi',
-      city: 'Pune',
-      pincode: '411057',
-    },
-    dateAdded: '27 Sep, 2025',
-    timeAdded: '01:45 PM',
-    orderWeight: '35 kg',
-    packetCount: 55,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '11',
-    pickupCode: 'PRSG250730258963',
-    pickupDate: '30 Jul, 2025',
-    pickupAddress: {
-      name: 'Kavita Reddy',
-      street: '258, IT Park, Madhapur',
-      city: 'Hyderabad',
-      pincode: '500081',
-    },
-    dateAdded: '29 Jul, 2025',
-    timeAdded: '05:00 PM',
-    orderWeight: '40 kg',
-    packetCount: 65,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '12',
-    pickupCode: 'PRSG250817369741',
-    pickupDate: '17 Aug, 2025',
-    pickupAddress: {
-      name: 'Rohit Malhotra',
-      street: '369, Warehouse Complex, Mansarovar',
-      city: 'Jaipur',
-      pincode: '302020',
-    },
-    dateAdded: '16 Aug, 2025',
-    timeAdded: '08:30 AM',
-    orderWeight: '18 kg',
-    packetCount: 28,
-    createdBy: 'Vendor',
-    status: 'cancelled',
-  },
-  {
-    id: '13',
-    pickupCode: 'PRSG250922478521',
-    pickupDate: '22 Sep, 2025',
-    pickupAddress: {
-      name: 'Deepika Joshi',
-      street: '741, Shipping Hub, Gomti Nagar',
-      city: 'Lucknow',
-      pincode: '226010',
-    },
-    dateAdded: '21 Sep, 2025',
-    timeAdded: '12:00 PM',
-    orderWeight: '12 kg',
-    packetCount: 18,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '14',
-    pickupCode: 'PRSG250805852147',
-    pickupDate: '05 Aug, 2025',
-    pickupAddress: {
-      name: 'Manish Agarwal',
-      street: '852, Cargo Point, Vijay Nagar',
-      city: 'Indore',
-      pincode: '452010',
-    },
-    dateAdded: '04 Aug, 2025',
-    timeAdded: '02:30 PM',
-    orderWeight: '28 kg',
-    packetCount: 42,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '15',
-    pickupCode: 'PRSG250910963258',
-    pickupDate: '10 Sep, 2025',
-    pickupAddress: {
-      name: 'Sunita Nair',
-      street: '963, Distribution Center, Edappally',
-      city: 'Kochi',
-      pincode: '682024',
-    },
-    dateAdded: '09 Sep, 2025',
-    timeAdded: '04:15 PM',
-    orderWeight: '38 kg',
-    packetCount: 58,
-    createdBy: 'Vendor',
-    status: 'cancelled',
-  },
-  {
-    id: '16',
-    pickupCode: 'PRSG250802174963',
-    pickupDate: '02 Aug, 2025',
-    pickupAddress: {
-      name: 'Arun Krishnan',
-      street: '174, Freight Terminal, Gandhipuram',
-      city: 'Coimbatore',
-      pincode: '641012',
-    },
-    dateAdded: '01 Aug, 2025',
-    timeAdded: '09:45 AM',
-    orderWeight: '70 kg',
-    packetCount: 100,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '17',
-    pickupCode: 'PRSG250925285741',
-    pickupDate: '25 Sep, 2025',
-    pickupAddress: {
-      name: 'Pooja Bhatia',
-      street: '285, Express Depot, Sector 17',
-      city: 'Chandigarh',
-      pincode: '160017',
-    },
-    dateAdded: '24 Sep, 2025',
-    timeAdded: '11:30 AM',
-    orderWeight: '16 kg',
-    packetCount: 24,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '18',
-    pickupCode: 'PRSG250815396852',
-    pickupDate: '15 Aug, 2025',
-    pickupAddress: {
-      name: 'Nitin Saxena',
-      street: '396, Courier Hub, Dharampeth',
-      city: 'Nagpur',
-      pincode: '440010',
-    },
-    dateAdded: '14 Aug, 2025',
-    timeAdded: '03:00 PM',
-    orderWeight: '32 kg',
-    packetCount: 48,
-    createdBy: 'Vendor',
-    status: 'cancelled',
-  },
-  {
-    id: '19',
-    pickupCode: 'PRSG250903507369',
-    pickupDate: '03 Sep, 2025',
-    pickupAddress: {
-      name: 'Meera Iyer',
-      street: '507, Parcel Center, Vijayanagar',
-      city: 'Mysore',
-      pincode: '570017',
-    },
-    dateAdded: '02 Sep, 2025',
-    timeAdded: '10:15 AM',
-    orderWeight: '22 kg',
-    packetCount: 35,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '20',
-    pickupCode: 'PRSG250720618741',
-    pickupDate: '20 Jul, 2025',
-    pickupAddress: {
-      name: 'Suresh Pillai',
-      street: '618, Delivery Point, Pattom',
-      city: 'Trivandrum',
-      pincode: '695004',
-    },
-    dateAdded: '19 Jul, 2025',
-    timeAdded: '01:00 PM',
-    orderWeight: '52 kg',
-    packetCount: 78,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
-  {
-    id: '21',
-    pickupCode: 'PRSG250918729147',
-    pickupDate: '18 Sep, 2025',
-    pickupAddress: {
-      name: 'Lakshmi Menon',
-      street: '729, Pickup Station, Alkapuri',
-      city: 'Vadodara',
-      pincode: '390007',
-    },
-    dateAdded: '17 Sep, 2025',
-    timeAdded: '04:30 PM',
-    orderWeight: '14 kg',
-    packetCount: 22,
-    createdBy: 'Vendor',
-    status: 'cancelled',
-  },
-  {
-    id: '22',
-    pickupCode: 'PRSG250808840258',
-    pickupDate: '08 Aug, 2025',
-    pickupAddress: {
-      name: 'Rahul Kapoor',
-      street: '840, Logistics Base, Kalawad Road',
-      city: 'Rajkot',
-      pincode: '360005',
-    },
-    dateAdded: '07 Aug, 2025',
-    timeAdded: '08:00 AM',
-    orderWeight: '42 kg',
-    packetCount: 62,
-    createdBy: 'Vendor',
-    status: 'picked',
-  },
 ];
 
 const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
@@ -419,10 +174,21 @@ const getStatusColor = (status: string) => {
 };
 
 export default function PickupScreen() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
+  
+  // Modal states
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [selectedPickupAddress, setSelectedPickupAddress] = useState<string>('');
+  const [showAddressDropdown, setShowAddressDropdown] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [estimatedOrders, setEstimatedOrders] = useState('');
+  const [estimatedWeight, setEstimatedWeight] = useState('');
+  
+  const availableDates = getAvailableDates();
 
   // Filter pickups based on search query
   const filteredPickups = pickupData.filter(pickup =>
@@ -475,6 +241,28 @@ export default function PickupScreen() {
     return pages;
   };
 
+  const handleCreatePickup = () => {
+    if (selectedPickupAddress && selectedDate) {
+      setShowCreateModal(false);
+      // Generate a new pickup code
+      const newPickupCode = `PRSG${Date.now()}`;
+      router.push(`/(tabs)/view-pickup?code=${newPickupCode}&addressId=${selectedPickupAddress}&date=${selectedDate}&orders=${estimatedOrders}&weight=${estimatedWeight}`);
+      // Reset form
+      setSelectedPickupAddress('');
+      setSelectedDate('');
+      setEstimatedOrders('');
+      setEstimatedWeight('');
+    }
+  };
+
+  const getSelectedAddressText = () => {
+    const address = pickupAddresses.find(a => a.id === selectedPickupAddress);
+    if (address) {
+      return `${address.name}, ${address.street}, ${address.area}...`;
+    }
+    return '';
+  };
+
   const renderPickupRow = (item: typeof pickupData[0]) => {
     const statusColors = getStatusColor(item.status);
 
@@ -509,7 +297,10 @@ export default function PickupScreen() {
           </View>
         </View>
         <View style={styles.viewCell}>
-          <TouchableOpacity style={styles.viewButton}>
+          <TouchableOpacity 
+            style={styles.viewButton}
+            onPress={() => router.push(`/(tabs)/view-pickup?code=${item.pickupCode}`)}
+          >
             <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
           </TouchableOpacity>
         </View>
@@ -518,177 +309,297 @@ export default function PickupScreen() {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={true}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.pageTitle}>Pickup Requests</Text>
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={true}>
+        {/* Header */}
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.pageTitle}>Pickup Requests</Text>
+          </View>
+          <View style={styles.headerButtons}>
+            <TouchableOpacity style={styles.addButton} onPress={() => setShowCreateModal(true)}>
+              <Ionicons name="add" size={18} color={COLORS.white} />
+              <Text style={styles.addButtonText}>Add Pickup Request</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.addButton}>
-            <Ionicons name="add" size={18} color={COLORS.white} />
-            <Text style={styles.addButtonText}>Add Pickup Request</Text>
+
+        {/* Search and Filter */}
+        <View style={styles.searchSection}>
+          <View style={styles.searchInputContainer}>
+            <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Enter Pickup Code..."
+              placeholderTextColor={COLORS.gray}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+          </View>
+          <TouchableOpacity style={styles.filterButton}>
+            <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
+            <Text style={styles.filterButtonText}>More Filters</Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Search and Filter */}
-      <View style={styles.searchSection}>
-        <View style={styles.searchInputContainer}>
-          <Ionicons name="search-outline" size={18} color={COLORS.gray} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Enter Pickup Code..."
-            placeholderTextColor={COLORS.gray}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
+        {/* Table Header */}
+        <View style={styles.tableHeader}>
+          <View style={styles.pickupCodeCell}>
+            <Text style={styles.headerText}>Pickup code</Text>
+          </View>
+          <View style={styles.pickupDateCell}>
+            <Text style={styles.headerText}>Pickup Date</Text>
+            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+          </View>
+          <View style={styles.addressCell}>
+            <Text style={styles.headerText}>Pickup Address</Text>
+          </View>
+          <View style={styles.dateAddedCell}>
+            <Text style={styles.headerText}>Date Added</Text>
+            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+          </View>
+          <View style={styles.detailsCell}>
+            <Text style={styles.headerText}>Pickup Details</Text>
+            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+          </View>
+          <View style={styles.statusCell}>
+            <Text style={styles.headerText}>Status</Text>
+          </View>
+          <View style={styles.viewCell}>
+            <Text style={styles.headerText}>Actions</Text>
+          </View>
         </View>
-        <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.filterButtonText}>More Filters</Text>
-        </TouchableOpacity>
-      </View>
 
-      {/* Table Header */}
-      <View style={styles.tableHeader}>
-        <View style={styles.pickupCodeCell}>
-          <Text style={styles.headerText}>Pickup code</Text>
+        {/* Table Body */}
+        <View style={styles.tableBody}>
+          {paginatedPickups.length > 0 ? (
+            paginatedPickups.map((item) => renderPickupRow(item))
+          ) : (
+            <View style={styles.emptyState}>
+              <Ionicons name="car-outline" size={48} color={COLORS.gray} />
+              <Text style={styles.emptyText}>No pickup requests found</Text>
+            </View>
+          )}
         </View>
-        <View style={styles.pickupDateCell}>
-          <Text style={styles.headerText}>Pickup Date</Text>
-          <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-        </View>
-        <View style={styles.addressCell}>
-          <Text style={styles.headerText}>Pickup Address</Text>
-        </View>
-        <View style={styles.dateAddedCell}>
-          <Text style={styles.headerText}>Date Added</Text>
-          <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-        </View>
-        <View style={styles.detailsCell}>
-          <Text style={styles.headerText}>Pickup Details</Text>
-          <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-        </View>
-        <View style={styles.statusCell}>
-          <Text style={styles.headerText}>Status</Text>
-        </View>
-        <View style={styles.viewCell}>
-          <Text style={styles.headerText}>Actions</Text>
-        </View>
-      </View>
 
-      {/* Table Body */}
-      <View style={styles.tableBody}>
-        {paginatedPickups.length > 0 ? (
-          paginatedPickups.map((item) => renderPickupRow(item))
-        ) : (
-          <View style={styles.emptyState}>
-            <Ionicons name="car-outline" size={48} color={COLORS.gray} />
-            <Text style={styles.emptyText}>No pickup requests found</Text>
+        {/* Pagination */}
+        {totalItems > 0 && (
+          <View style={styles.paginationContainer}>
+            <Text style={styles.paginationInfo}>
+              Showing {startIndex + 1} to {endIndex} of {totalItems} entries
+            </Text>
+
+            <View style={styles.pageNavigation}>
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+              >
+                <Text style={styles.pageButtonText}>|{'<'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <Text style={styles.pageButtonText}>{'<'}</Text>
+              </TouchableOpacity>
+              {getVisiblePages().map((page) => (
+                <TouchableOpacity
+                  key={page}
+                  style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
+                  onPress={() => handlePageChange(page)}
+                >
+                  <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
+                    {page}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <Text style={styles.pageButtonText}>{'>'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                <Text style={styles.pageButtonText}>{'>'}|</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.itemsPerPageContainer}>
+              <Text style={styles.itemsPerPageLabel}>Items per page</Text>
+              <TouchableOpacity
+                style={styles.itemsPerPageDropdown}
+                onPress={() => setShowItemsDropdown(!showItemsDropdown)}
+              >
+                <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
+                <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
+              </TouchableOpacity>
+              {showItemsDropdown && (
+                <View style={styles.dropdownMenu}>
+                  {ITEMS_PER_PAGE_OPTIONS.map((option) => (
+                    <TouchableOpacity
+                      key={option}
+                      style={[
+                        styles.dropdownItem,
+                        itemsPerPage === option && styles.dropdownItemActive,
+                      ]}
+                      onPress={() => {
+                        setItemsPerPage(option);
+                        setShowItemsDropdown(false);
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.dropdownItemText,
+                          itemsPerPage === option && styles.dropdownItemTextActive,
+                        ]}
+                      >
+                        {option}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            </View>
           </View>
         )}
-      </View>
 
-      {/* Pagination */}
-      {totalItems > 0 && (
-        <View style={styles.paginationContainer}>
-          <Text style={styles.paginationInfo}>
-            Showing {startIndex + 1} to {endIndex} of {totalItems} entries
-          </Text>
+        <View style={{ height: 40 }} />
+      </ScrollView>
 
-          <View style={styles.pageNavigation}>
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(1)}
-              disabled={currentPage === 1}
-            >
-              <Text style={styles.pageButtonText}>|{'<'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <Text style={styles.pageButtonText}>{'<'}</Text>
-            </TouchableOpacity>
-            {getVisiblePages().map((page) => (
-              <TouchableOpacity
-                key={page}
-                style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
-                onPress={() => handlePageChange(page)}
-              >
-                <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
-                  {page}
-                </Text>
+      {/* Create Pickup Request Modal */}
+      <Modal
+        visible={showCreateModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowCreateModal(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setShowCreateModal(false)}>
+          <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+            {/* Modal Header */}
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Create Pickup Request</Text>
+              <TouchableOpacity onPress={() => setShowCreateModal(false)}>
+                <Ionicons name="close" size={24} color={COLORS.gray} />
               </TouchableOpacity>
-            ))}
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <Text style={styles.pageButtonText}>{'>'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(totalPages)}
-              disabled={currentPage === totalPages}
-            >
-              <Text style={styles.pageButtonText}>{'>'}|</Text>
-            </TouchableOpacity>
-          </View>
+            </View>
 
-          <View style={styles.itemsPerPageContainer}>
-            <Text style={styles.itemsPerPageLabel}>Items per page</Text>
-            <TouchableOpacity
-              style={styles.itemsPerPageDropdown}
-              onPress={() => setShowItemsDropdown(!showItemsDropdown)}
-            >
-              <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
-              <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
-            </TouchableOpacity>
-            {showItemsDropdown && (
-              <View style={styles.dropdownMenu}>
-                {ITEMS_PER_PAGE_OPTIONS.map((option) => (
-                  <TouchableOpacity
-                    key={option}
-                    style={[
-                      styles.dropdownItem,
-                      itemsPerPage === option && styles.dropdownItemActive,
-                    ]}
-                    onPress={() => {
-                      setItemsPerPage(option);
-                      setShowItemsDropdown(false);
-                    }}
-                  >
-                    <Text
-                      style={[
-                        styles.dropdownItemText,
-                        itemsPerPage === option && styles.dropdownItemTextActive,
-                      ]}
-                    >
-                      {option}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+            {/* Modal Body */}
+            <View style={styles.modalBody}>
+              {/* Select Pickup Address */}
+              <View style={styles.modalField}>
+                <Text style={styles.modalFieldLabel}>Select Pickup Address <Text style={styles.required}>*</Text></Text>
+                <TouchableOpacity
+                  style={styles.addressDropdownButton}
+                  onPress={() => setShowAddressDropdown(!showAddressDropdown)}
+                >
+                  <Text style={selectedPickupAddress ? styles.addressDropdownText : styles.addressDropdownPlaceholder}>
+                    {selectedPickupAddress ? getSelectedAddressText() : 'Select'}
+                  </Text>
+                  <Ionicons name="chevron-down" size={18} color={COLORS.gray} />
+                </TouchableOpacity>
+
+                {showAddressDropdown && (
+                  <View style={styles.addressDropdownMenu}>
+                    {pickupAddresses.map((address) => (
+                      <TouchableOpacity
+                        key={address.id}
+                        style={styles.addressDropdownItem}
+                        onPress={() => {
+                          setSelectedPickupAddress(address.id);
+                          setShowAddressDropdown(false);
+                        }}
+                      >
+                        <Text style={styles.addressDropdownItemText}>
+                          {address.name}, {address.street}, {address.area}...
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
               </View>
-            )}
-          </View>
-        </View>
-      )}
 
-      <View style={{ height: 40 }} />
-    </ScrollView>
+              {/* Available Pickup Dates */}
+              <View style={styles.modalField}>
+                <Text style={styles.modalFieldLabel}>Available Pickup Dates <Text style={styles.required}>*</Text></Text>
+                <View style={styles.datesContainer}>
+                  {availableDates.map((date) => (
+                    <TouchableOpacity
+                      key={date.id}
+                      style={[
+                        styles.dateButton,
+                        selectedDate === date.fullDate && styles.dateButtonActive,
+                      ]}
+                      onPress={() => setSelectedDate(date.fullDate)}
+                    >
+                      <Text style={[
+                        styles.dateButtonText,
+                        selectedDate === date.fullDate && styles.dateButtonTextActive,
+                      ]}>
+                        {date.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+
+              {/* Estimated Numbers of Orders */}
+              <View style={styles.modalField}>
+                <Text style={styles.modalFieldLabel}>Estimated Numbers of Orders <Text style={styles.required}>*</Text></Text>
+                <TextInput
+                  style={styles.modalInput}
+                  placeholder="Enter estimated orders"
+                  placeholderTextColor={COLORS.gray}
+                  keyboardType="numeric"
+                  value={estimatedOrders}
+                  onChangeText={setEstimatedOrders}
+                />
+              </View>
+
+              {/* Estimated Weight */}
+              <View style={styles.modalField}>
+                <Text style={styles.modalFieldLabel}>Estimated Weight (in KG) <Text style={styles.required}>*</Text></Text>
+                <TextInput
+                  style={styles.modalInput}
+                  placeholder="Enter estimated weight"
+                  placeholderTextColor={COLORS.gray}
+                  keyboardType="numeric"
+                  value={estimatedWeight}
+                  onChangeText={setEstimatedWeight}
+                />
+              </View>
+            </View>
+
+            {/* Modal Footer */}
+            <TouchableOpacity
+              style={[styles.submitButton, (!selectedPickupAddress || !selectedDate) && styles.submitButtonDisabled]}
+              onPress={handleCreatePickup}
+              disabled={!selectedPickupAddress || !selectedDate}
+            >
+              <Text style={styles.submitButtonText}>Submit Request</Text>
+            </TouchableOpacity>
+          </Pressable>
+        </Pressable>
+      </Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scrollContainer: {
+    flex: 1,
     paddingHorizontal: 24,
     paddingTop: 16,
-    backgroundColor: COLORS.white,
   },
   header: {
     flexDirection: 'row',
@@ -1004,6 +915,135 @@ const styles = StyleSheet.create({
   },
   dropdownItemTextActive: {
     color: COLORS.primary,
+    fontWeight: '600',
+  },
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    padding: 24,
+    width: '90%',
+    maxWidth: 500,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: COLORS.darkGray,
+  },
+  modalBody: {
+    marginBottom: 24,
+  },
+  modalField: {
+    marginBottom: 20,
+  },
+  modalFieldLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: COLORS.darkGray,
+    marginBottom: 8,
+  },
+  required: {
+    color: COLORS.red,
+  },
+  addressDropdownButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    backgroundColor: COLORS.white,
+  },
+  addressDropdownText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    flex: 1,
+    marginRight: 8,
+  },
+  addressDropdownPlaceholder: {
+    fontSize: 14,
+    color: COLORS.gray,
+  },
+  addressDropdownMenu: {
+    marginTop: 4,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    maxHeight: 150,
+  },
+  addressDropdownItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  addressDropdownItemText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+  },
+  datesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  dateButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 6,
+    backgroundColor: COLORS.lightGray,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  dateButtonActive: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  dateButtonText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    fontWeight: '500',
+  },
+  dateButtonTextActive: {
+    color: COLORS.white,
+  },
+  modalInput: {
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    fontSize: 14,
+    color: COLORS.darkGray,
+    backgroundColor: COLORS.white,
+  },
+  submitButton: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  submitButtonDisabled: {
+    backgroundColor: COLORS.gray,
+    opacity: 0.6,
+  },
+  submitButtonText: {
+    color: COLORS.white,
+    fontSize: 16,
     fontWeight: '600',
   },
 });
