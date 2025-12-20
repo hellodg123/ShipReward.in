@@ -6,8 +6,11 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Modal,
+  Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 const COLORS = {
   primary: '#2563EB',
@@ -19,8 +22,43 @@ const COLORS = {
   green: '#10B981',
   red: '#EF4444',
   orange: '#F97316',
+  purple: '#8B5CF6',
   border: '#E5E7EB',
 };
+
+// Sample pickup addresses
+const pickupAddresses = [
+  {
+    id: '1',
+    name: 'Hiren Vaghashiya',
+    street: 'hiren, 477, ar mall, mota varachha',
+    area: 'Mota Varachha',
+    city: 'Surat',
+    pincode: '394101',
+    state: 'Gujarat',
+    phone: '8866394789',
+  },
+  {
+    id: '2',
+    name: 'Rajesh Kumar',
+    street: '123, Business Park, Andheri East',
+    area: 'Andheri',
+    city: 'Mumbai',
+    pincode: '400069',
+    state: 'Maharashtra',
+    phone: '9876543210',
+  },
+  {
+    id: '3',
+    name: 'Priya Sharma',
+    street: '456, Tech Hub, Whitefield',
+    area: 'Whitefield',
+    city: 'Bangalore',
+    pincode: '560066',
+    state: 'Karnataka',
+    phone: '8765432109',
+  },
+];
 
 // Sample manifest data
 const manifestData = [
@@ -114,246 +152,6 @@ const manifestData = [
     manifestValue: 22000.00,
     status: 'closed',
   },
-  {
-    id: '7',
-    manifestCode: 'MSG26875251026633239',
-    date: '20 Oct, 2025',
-    time: '09:45 AM',
-    pickupAddress: {
-      name: 'Anjali Gupta',
-      street: '987, Trade Center',
-      city: 'Kolkata',
-      pincode: '700001',
-    },
-    packetCount: 5,
-    manifestValue: 4500.00,
-    status: 'open',
-  },
-  {
-    id: '8',
-    manifestCode: 'MSG26875251026633240',
-    date: '19 Oct, 2025',
-    time: '01:00 PM',
-    pickupAddress: {
-      name: 'Sanjay Mehta',
-      street: '147, Export Zone',
-      city: 'Pune',
-      pincode: '411001',
-    },
-    packetCount: 18,
-    manifestValue: 15000.00,
-    status: 'closed',
-  },
-  {
-    id: '9',
-    manifestCode: 'MSG26875251026633241',
-    date: '18 Oct, 2025',
-    time: '03:30 PM',
-    pickupAddress: {
-      name: 'Kavita Reddy',
-      street: '258, IT Park',
-      city: 'Hyderabad',
-      pincode: '500001',
-    },
-    packetCount: 22,
-    manifestValue: 17500.00,
-    status: 'open',
-  },
-  {
-    id: '10',
-    manifestCode: 'MSG26875251026633242',
-    date: '17 Oct, 2025',
-    time: '10:15 AM',
-    pickupAddress: {
-      name: 'Rohit Malhotra',
-      street: '369, Warehouse Complex',
-      city: 'Jaipur',
-      pincode: '302001',
-    },
-    packetCount: 10,
-    manifestValue: 8000.00,
-    status: 'closed',
-  },
-  {
-    id: '11',
-    manifestCode: 'MSG26875251026633243',
-    date: '16 Oct, 2025',
-    time: '02:45 PM',
-    pickupAddress: {
-      name: 'Deepika Joshi',
-      street: '741, Shipping Hub',
-      city: 'Lucknow',
-      pincode: '226001',
-    },
-    packetCount: 7,
-    manifestValue: 5500.00,
-    status: 'open',
-  },
-  {
-    id: '12',
-    manifestCode: 'MSG26875251026633244',
-    date: '15 Oct, 2025',
-    time: '11:30 AM',
-    pickupAddress: {
-      name: 'Manish Agarwal',
-      street: '852, Cargo Point',
-      city: 'Indore',
-      pincode: '452001',
-    },
-    packetCount: 14,
-    manifestValue: 11000.00,
-    status: 'closed',
-  },
-  {
-    id: '13',
-    manifestCode: 'MSG26875251026633245',
-    date: '14 Oct, 2025',
-    time: '04:00 PM',
-    pickupAddress: {
-      name: 'Sunita Nair',
-      street: '963, Distribution Center',
-      city: 'Kochi',
-      pincode: '682001',
-    },
-    packetCount: 20,
-    manifestValue: 16000.00,
-    status: 'open',
-  },
-  {
-    id: '14',
-    manifestCode: 'MSG26875251026633246',
-    date: '13 Oct, 2025',
-    time: '09:00 AM',
-    pickupAddress: {
-      name: 'Arun Krishnan',
-      street: '174, Freight Terminal',
-      city: 'Coimbatore',
-      pincode: '641001',
-    },
-    packetCount: 35,
-    manifestValue: 28000.00,
-    status: 'closed',
-  },
-  {
-    id: '15',
-    manifestCode: 'MSG26875251026633247',
-    date: '12 Oct, 2025',
-    time: '12:45 PM',
-    pickupAddress: {
-      name: 'Pooja Bhatia',
-      street: '285, Express Depot',
-      city: 'Chandigarh',
-      pincode: '160001',
-    },
-    packetCount: 9,
-    manifestValue: 7200.00,
-    status: 'open',
-  },
-  {
-    id: '16',
-    manifestCode: 'MSG26875251026633248',
-    date: '11 Oct, 2025',
-    time: '03:15 PM',
-    pickupAddress: {
-      name: 'Nitin Saxena',
-      street: '396, Courier Hub',
-      city: 'Nagpur',
-      pincode: '440001',
-    },
-    packetCount: 16,
-    manifestValue: 13000.00,
-    status: 'closed',
-  },
-  {
-    id: '17',
-    manifestCode: 'MSG26875251026633249',
-    date: '10 Oct, 2025',
-    time: '10:00 AM',
-    pickupAddress: {
-      name: 'Meera Iyer',
-      street: '507, Parcel Center',
-      city: 'Mysore',
-      pincode: '570001',
-    },
-    packetCount: 11,
-    manifestValue: 9500.00,
-    status: 'open',
-  },
-  {
-    id: '18',
-    manifestCode: 'MSG26875251026633250',
-    date: '09 Oct, 2025',
-    time: '01:30 PM',
-    pickupAddress: {
-      name: 'Suresh Pillai',
-      street: '618, Delivery Point',
-      city: 'Trivandrum',
-      pincode: '695001',
-    },
-    packetCount: 28,
-    manifestValue: 21000.00,
-    status: 'closed',
-  },
-  {
-    id: '19',
-    manifestCode: 'MSG26875251026633251',
-    date: '08 Oct, 2025',
-    time: '04:45 PM',
-    pickupAddress: {
-      name: 'Lakshmi Menon',
-      street: '729, Pickup Station',
-      city: 'Vadodara',
-      pincode: '390001',
-    },
-    packetCount: 6,
-    manifestValue: 4800.00,
-    status: 'open',
-  },
-  {
-    id: '20',
-    manifestCode: 'MSG26875251026633252',
-    date: '07 Oct, 2025',
-    time: '11:15 AM',
-    pickupAddress: {
-      name: 'Rahul Kapoor',
-      street: '840, Logistics Base',
-      city: 'Rajkot',
-      pincode: '360001',
-    },
-    packetCount: 19,
-    manifestValue: 14500.00,
-    status: 'closed',
-  },
-  {
-    id: '21',
-    manifestCode: 'MSG26875251026633253',
-    date: '06 Oct, 2025',
-    time: '02:00 PM',
-    pickupAddress: {
-      name: 'Anita Sharma',
-      street: '951, Transport Hub',
-      city: 'Bhopal',
-      pincode: '462001',
-    },
-    packetCount: 13,
-    manifestValue: 10500.00,
-    status: 'open',
-  },
-  {
-    id: '22',
-    manifestCode: 'MSG26875251026633254',
-    date: '05 Oct, 2025',
-    time: '09:30 AM',
-    pickupAddress: {
-      name: 'Vinay Kumar',
-      street: '062, Cargo Terminal',
-      city: 'Patna',
-      pincode: '800001',
-    },
-    packetCount: 24,
-    manifestValue: 19000.00,
-    status: 'closed',
-  },
 ];
 
 const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
@@ -361,7 +159,7 @@ const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 const getStatusColor = (status: string) => {
   switch (status) {
     case 'open':
-      return { bg: '#E0F2E9', text: '#059669', border: '#059669' };
+      return { bg: '#EDE9FE', text: '#7C3AED', border: '#7C3AED' };
     case 'closed':
       return { bg: '#FEE2E2', text: '#DC2626', border: '#DC2626' };
     default:
@@ -370,10 +168,16 @@ const getStatusColor = (status: string) => {
 };
 
 export default function ManifestScreen() {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
+  
+  // Modal states
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [selectedPickupAddress, setSelectedPickupAddress] = useState<string>('');
+  const [showAddressDropdown, setShowAddressDropdown] = useState(false);
 
   // Filter manifests based on search query
   const filteredManifests = manifestData.filter(manifest =>
@@ -426,6 +230,15 @@ export default function ManifestScreen() {
     return pages;
   };
 
+  const handleCreateManifest = () => {
+    if (selectedPickupAddress) {
+      setShowCreateModal(false);
+      // Generate a new manifest code
+      const newManifestCode = `MSG${Date.now()}`;
+      router.push(`/(tabs)/view-manifest?code=${newManifestCode}&addressId=${selectedPickupAddress}`);
+    }
+  };
+
   const renderManifestRow = (item: typeof manifestData[0]) => {
     const statusColors = getStatusColor(item.status);
 
@@ -461,7 +274,10 @@ export default function ManifestScreen() {
           </View>
         </View>
         <View style={styles.viewCell}>
-          <TouchableOpacity style={styles.viewButton}>
+          <TouchableOpacity 
+            style={styles.viewButton}
+            onPress={() => router.push(`/(tabs)/view-manifest?code=${item.manifestCode}`)}
+          >
             <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
           </TouchableOpacity>
         </View>
@@ -469,183 +285,258 @@ export default function ManifestScreen() {
     );
   };
 
+  const getSelectedAddressText = () => {
+    const address = pickupAddresses.find(a => a.id === selectedPickupAddress);
+    if (address) {
+      return `${address.name}, ${address.street}, ${address.city}, ${address.pincode}`;
+    }
+    return '';
+  };
+
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={true}>
-      {/* Header */}
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.pageTitle}>Manifests</Text>
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={true}>
+        {/* Header */}
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.pageTitle}>Manifests</Text>
+          </View>
+          <View style={styles.headerButtons}>
+            <TouchableOpacity style={styles.addButton} onPress={() => setShowCreateModal(true)}>
+              <Ionicons name="add" size={18} color={COLORS.white} />
+              <Text style={styles.addButtonText}>Add New Manifest</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.addButton}>
-            <Ionicons name="add" size={18} color={COLORS.white} />
-            <Text style={styles.addButtonText}>Add New Manifest</Text>
+
+        {/* Search and Filter */}
+        <View style={styles.searchSection}>
+          <View style={styles.searchInputContainer}>
+            <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Enter Manifest Code..."
+              placeholderTextColor={COLORS.gray}
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+            />
+          </View>
+          <TouchableOpacity style={styles.filterButton}>
+            <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
+            <Text style={styles.filterButtonText}>More Filters</Text>
+          </TouchableOpacity>
+          <View style={{ flex: 1 }} />
+          <TouchableOpacity style={styles.exportButton}>
+            <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
+            <Text style={styles.exportButtonText}>Export</Text>
           </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Search and Filter */}
-      <View style={styles.searchSection}>
-        <View style={styles.searchInputContainer}>
-          <Ionicons name="search-outline" size={18} color={COLORS.gray} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Enter Manifest Code..."
-            placeholderTextColor={COLORS.gray}
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-          />
+        {/* Table Header */}
+        <View style={styles.tableHeader}>
+          <View style={styles.checkboxCell}>
+            <View style={styles.checkbox} />
+          </View>
+          <View style={styles.manifestCodeCell}>
+            <Text style={styles.headerText}>Manifest Code</Text>
+          </View>
+          <View style={styles.dateCell}>
+            <Text style={styles.headerText}>Date</Text>
+          </View>
+          <View style={styles.addressCell}>
+            <Text style={styles.headerText}>Pickup Address</Text>
+          </View>
+          <View style={styles.packetCell}>
+            <Text style={styles.headerText}>Packet Count</Text>
+          </View>
+          <View style={styles.valueCell}>
+            <Text style={styles.headerText}>Manifest Value</Text>
+          </View>
+          <View style={styles.statusCell}>
+            <Text style={styles.headerText}>Status</Text>
+          </View>
+          <View style={styles.viewCell}>
+            <Text style={styles.headerText}>View Detail</Text>
+          </View>
         </View>
-        <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.filterButtonText}>More Filters</Text>
-        </TouchableOpacity>
-        <View style={{ flex: 1 }} />
-        <TouchableOpacity style={styles.exportButton}>
-          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.exportButtonText}>Export</Text>
-        </TouchableOpacity>
-      </View>
 
-      {/* Table Header */}
-      <View style={styles.tableHeader}>
-        <View style={styles.checkboxCell}>
-          <View style={styles.checkbox} />
+        {/* Table Body */}
+        <View style={styles.tableBody}>
+          {paginatedManifests.length > 0 ? (
+            paginatedManifests.map((item) => renderManifestRow(item))
+          ) : (
+            <View style={styles.emptyState}>
+              <Ionicons name="document-text-outline" size={48} color={COLORS.gray} />
+              <Text style={styles.emptyText}>No manifests found</Text>
+            </View>
+          )}
         </View>
-        <View style={styles.manifestCodeCell}>
-          <Text style={styles.headerText}>Manifest Code</Text>
-        </View>
-        <View style={styles.dateCell}>
-          <Text style={styles.headerText}>Date</Text>
-        </View>
-        <View style={styles.addressCell}>
-          <Text style={styles.headerText}>Pickup Address</Text>
-        </View>
-        <View style={styles.packetCell}>
-          <Text style={styles.headerText}>Packet Count</Text>
-        </View>
-        <View style={styles.valueCell}>
-          <Text style={styles.headerText}>Manifest Value</Text>
-        </View>
-        <View style={styles.statusCell}>
-          <Text style={styles.headerText}>Status</Text>
-        </View>
-        <View style={styles.viewCell}>
-          <Text style={styles.headerText}>View Detail</Text>
-        </View>
-      </View>
 
-      {/* Table Body */}
-      <View style={styles.tableBody}>
-        {paginatedManifests.length > 0 ? (
-          paginatedManifests.map((item) => renderManifestRow(item))
-        ) : (
-          <View style={styles.emptyState}>
-            <Ionicons name="document-text-outline" size={48} color={COLORS.gray} />
-            <Text style={styles.emptyText}>No manifests found</Text>
+        {/* Pagination */}
+        {totalItems > 0 && (
+          <View style={styles.paginationContainer}>
+            <Text style={styles.paginationInfo}>
+              Showing {startIndex + 1} to {endIndex} of {totalItems} entries
+            </Text>
+
+            <View style={styles.pageNavigation}>
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+              >
+                <Text style={styles.pageButtonText}>|{'<'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              >
+                <Text style={styles.pageButtonText}>{'<'}</Text>
+              </TouchableOpacity>
+              {getVisiblePages().map((page) => (
+                <TouchableOpacity
+                  key={page}
+                  style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
+                  onPress={() => handlePageChange(page)}
+                >
+                  <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
+                    {page}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              >
+                <Text style={styles.pageButtonText}>{'>'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+                onPress={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+              >
+                <Text style={styles.pageButtonText}>{'>'}|</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.itemsPerPageContainer}>
+              <Text style={styles.itemsPerPageLabel}>Items per page</Text>
+              <TouchableOpacity
+                style={styles.itemsPerPageDropdown}
+                onPress={() => setShowItemsDropdown(!showItemsDropdown)}
+              >
+                <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
+                <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
+              </TouchableOpacity>
+              {showItemsDropdown && (
+                <View style={styles.dropdownMenu}>
+                  {ITEMS_PER_PAGE_OPTIONS.map((option) => (
+                    <TouchableOpacity
+                      key={option}
+                      style={[
+                        styles.dropdownItem,
+                        itemsPerPage === option && styles.dropdownItemActive,
+                      ]}
+                      onPress={() => {
+                        setItemsPerPage(option);
+                        setShowItemsDropdown(false);
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.dropdownItemText,
+                          itemsPerPage === option && styles.dropdownItemTextActive,
+                        ]}
+                      >
+                        {option}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            </View>
           </View>
         )}
-      </View>
 
-      {/* Pagination */}
-      {totalItems > 0 && (
-        <View style={styles.paginationContainer}>
-          <Text style={styles.paginationInfo}>
-            Showing {startIndex + 1} to {endIndex} of {totalItems} entries
-          </Text>
+        <View style={{ height: 40 }} />
+      </ScrollView>
 
-          <View style={styles.pageNavigation}>
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(1)}
-              disabled={currentPage === 1}
-            >
-              <Text style={styles.pageButtonText}>|{'<'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <Text style={styles.pageButtonText}>{'<'}</Text>
-            </TouchableOpacity>
-            {getVisiblePages().map((page) => (
-              <TouchableOpacity
-                key={page}
-                style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
-                onPress={() => handlePageChange(page)}
-              >
-                <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
-                  {page}
-                </Text>
+      {/* Create New Manifest Modal */}
+      <Modal
+        visible={showCreateModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowCreateModal(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setShowCreateModal(false)}>
+          <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+            {/* Modal Header */}
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Create New Manifest</Text>
+              <TouchableOpacity onPress={() => setShowCreateModal(false)}>
+                <Ionicons name="close" size={24} color={COLORS.gray} />
               </TouchableOpacity>
-            ))}
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <Text style={styles.pageButtonText}>{'>'}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(totalPages)}
-              disabled={currentPage === totalPages}
-            >
-              <Text style={styles.pageButtonText}>{'>'}|</Text>
-            </TouchableOpacity>
-          </View>
+            </View>
 
-          <View style={styles.itemsPerPageContainer}>
-            <Text style={styles.itemsPerPageLabel}>Items per page</Text>
-            <TouchableOpacity
-              style={styles.itemsPerPageDropdown}
-              onPress={() => setShowItemsDropdown(!showItemsDropdown)}
-            >
-              <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
-              <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
-            </TouchableOpacity>
-            {showItemsDropdown && (
-              <View style={styles.dropdownMenu}>
-                {ITEMS_PER_PAGE_OPTIONS.map((option) => (
-                  <TouchableOpacity
-                    key={option}
-                    style={[
-                      styles.dropdownItem,
-                      itemsPerPage === option && styles.dropdownItemActive,
-                    ]}
-                    onPress={() => {
-                      setItemsPerPage(option);
-                      setShowItemsDropdown(false);
-                    }}
-                  >
-                    <Text
-                      style={[
-                        styles.dropdownItemText,
-                        itemsPerPage === option && styles.dropdownItemTextActive,
-                      ]}
+            {/* Modal Body */}
+            <View style={styles.modalBody}>
+              <Text style={styles.modalFieldLabel}>Select Pickup Address <Text style={styles.required}>*</Text></Text>
+              <TouchableOpacity
+                style={styles.addressDropdownButton}
+                onPress={() => setShowAddressDropdown(!showAddressDropdown)}
+              >
+                <Text style={selectedPickupAddress ? styles.addressDropdownText : styles.addressDropdownPlaceholder}>
+                  {selectedPickupAddress ? getSelectedAddressText() : 'Select'}
+                </Text>
+                <Ionicons name="chevron-down" size={18} color={COLORS.gray} />
+              </TouchableOpacity>
+
+              {showAddressDropdown && (
+                <View style={styles.addressDropdownMenu}>
+                  {pickupAddresses.map((address) => (
+                    <TouchableOpacity
+                      key={address.id}
+                      style={styles.addressDropdownItem}
+                      onPress={() => {
+                        setSelectedPickupAddress(address.id);
+                        setShowAddressDropdown(false);
+                      }}
                     >
-                      {option}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
-          </View>
-        </View>
-      )}
+                      <Text style={styles.addressDropdownItemText}>
+                        {address.name}, {address.street}, {address.city}, {address.pincode}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+            </View>
 
-      <View style={{ height: 40 }} />
-    </ScrollView>
+            {/* Modal Footer */}
+            <TouchableOpacity
+              style={[styles.submitButton, !selectedPickupAddress && styles.submitButtonDisabled]}
+              onPress={handleCreateManifest}
+              disabled={!selectedPickupAddress}
+            >
+              <Text style={styles.submitButtonText}>Submit</Text>
+            </TouchableOpacity>
+          </Pressable>
+        </Pressable>
+      </Modal>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  scrollContainer: {
+    flex: 1,
     paddingHorizontal: 24,
     paddingTop: 16,
-    backgroundColor: COLORS.white,
   },
   header: {
     flexDirection: 'row',
@@ -977,6 +868,97 @@ const styles = StyleSheet.create({
   },
   dropdownItemTextActive: {
     color: COLORS.primary,
+    fontWeight: '600',
+  },
+  // Modal styles
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    padding: 24,
+    width: '90%',
+    maxWidth: 500,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: COLORS.darkGray,
+  },
+  modalBody: {
+    marginBottom: 24,
+  },
+  modalFieldLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: COLORS.darkGray,
+    marginBottom: 8,
+  },
+  required: {
+    color: COLORS.red,
+  },
+  addressDropdownButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+    backgroundColor: COLORS.white,
+  },
+  addressDropdownText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    flex: 1,
+    marginRight: 8,
+  },
+  addressDropdownPlaceholder: {
+    fontSize: 14,
+    color: COLORS.gray,
+  },
+  addressDropdownMenu: {
+    marginTop: 4,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    maxHeight: 200,
+  },
+  addressDropdownItem: {
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  addressDropdownItemText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+  },
+  submitButton: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  submitButtonDisabled: {
+    backgroundColor: COLORS.gray,
+    opacity: 0.6,
+  },
+  submitButtonText: {
+    color: COLORS.white,
+    fontSize: 16,
     fontWeight: '600',
   },
 });
