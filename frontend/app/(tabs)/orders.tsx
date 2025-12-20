@@ -437,10 +437,44 @@ const getStatusColor = (status: string) => {
       return { bg: '#E0E7FF', text: '#4F46E5' };
     case 'disputed':
       return { bg: '#FEE2E2', text: '#DC2626' };
+    case 'draft':
+      return { bg: '#F3F4F6', text: COLORS.gray };
     default:
       return { bg: COLORS.lightGray, text: COLORS.gray };
   }
 };
+
+// Sample draft orders
+const draftOrders = [
+  {
+    id: 'SG32512204545620',
+    prefix: 'US - 364050',
+    invoiceNo: 'rwerwerwer',
+    customerName: 'Dfsdf Dsfdf',
+    customerEmail: 'dfasdfdsf@gmail.com',
+    customerPhone: '8849966135',
+    orderDate: '20 Dec, 2025',
+    orderTime: '01:04 PM',
+    weight: '1 kg',
+    price: '₹ 1722.80',
+    packageType: 'CSB-IV',
+    status: 'draft',
+  },
+  {
+    id: 'SG32512204545621',
+    prefix: 'US - 90210',
+    invoiceNo: 'INV-2025-001',
+    customerName: 'John Smith',
+    customerEmail: 'john.smith@email.com',
+    customerPhone: '9876543210',
+    orderDate: '19 Dec, 2025',
+    orderTime: '10:30 AM',
+    weight: '2.5 kg',
+    price: '₹ 2450.00',
+    packageType: 'CSB-IV',
+    status: 'draft',
+  },
+];
 
 const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 
