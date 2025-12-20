@@ -727,7 +727,7 @@ export default function OrdersScreen() {
           <Ionicons name="search-outline" size={18} color={COLORS.gray} />
           <TextInput
             style={styles.searchInput}
-            placeholder="Enter Tracking Id..."
+            placeholder={isDraftsTab ? "Enter Order Id..." : "Enter Tracking Id..."}
             placeholderTextColor={COLORS.gray}
             value={searchQuery}
             onChangeText={setSearchQuery}
@@ -738,6 +738,11 @@ export default function OrdersScreen() {
           <Text style={styles.filterButtonText}>More Filters</Text>
         </TouchableOpacity>
         <View style={{ flex: 1 }} />
+        {isDraftsTab && (
+          <TouchableOpacity style={styles.bulkPayButton}>
+            <Text style={styles.bulkPayButtonText}>Bulk Pay</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity style={styles.exportButton}>
           <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
           <Text style={styles.exportButtonText}>Export</Text>
@@ -767,22 +772,32 @@ export default function OrdersScreen() {
         <View style={styles.statusCell}>
           <Text style={styles.headerText}>Status</Text>
         </View>
-        <View style={styles.lastMileCell}>
-          <Text style={styles.headerText}>Last Mile Details</Text>
-        </View>
-        <View style={styles.viewCell}>
-          <Text style={styles.headerText}>View Order</Text>
-        </View>
+        {isDraftsTab ? (
+          <View style={styles.actionsCell}>
+            <Text style={styles.headerText}>Actions</Text>
+          </View>
+        ) : (
+          <>
+            <View style={styles.lastMileCell}>
+              <Text style={styles.headerText}>Last Mile Details</Text>
+            </View>
+            <View style={styles.viewCell}>
+              <Text style={styles.headerText}>View Order</Text>
+            </View>
+          </>
+        )}
       </View>
 
       {/* Table Body - Full scroll */}
       <View style={styles.tableBody}>
         {paginatedOrders.length > 0 ? (
-          paginatedOrders.map((order, index) => renderOrderRow(order, index))
+          isDraftsTab
+            ? paginatedOrders.map((order, index) => renderDraftRow(order as typeof draftOrders[0], index))
+            : paginatedOrders.map((order, index) => renderOrderRow(order as typeof sampleOrders[0], index))
         ) : (
           <View style={styles.emptyState}>
             <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
-            <Text style={styles.emptyText}>No orders found</Text>
+            <Text style={styles.emptyText}>{isDraftsTab ? 'No draft orders found' : 'No orders found'}</Text>
           </View>
         )}
       </View>
