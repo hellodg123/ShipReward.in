@@ -1022,6 +1022,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.darkGray,
   },
+  bulkPayButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 6,
+  },
+  bulkPayButtonText: {
+    fontSize: 14,
+    color: COLORS.white,
+    fontWeight: '600',
+  },
   tableHeader: {
     flexDirection: 'row',
     backgroundColor: COLORS.lightGray,
