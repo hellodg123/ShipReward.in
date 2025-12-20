@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
   paginationContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     paddingVertical: 20,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
