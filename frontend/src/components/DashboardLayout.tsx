@@ -141,11 +141,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         
         {/* Mobile Header */}
         <View style={styles.mobileHeader}>
-          <Image
-            source={require('../../assets/images/logo.png')}
-            style={styles.mobileLogo}
-            resizeMode="contain"
-          />
+          <LogoCompact width={120} height={36} variant="dark" />
           <View style={styles.mobileHeaderRight}>
             <TouchableOpacity style={styles.headerIconBtn} onPress={handleNavigateToSupport}>
               <Ionicons name="headset-outline" size={22} color={COLORS.darkGray} />
