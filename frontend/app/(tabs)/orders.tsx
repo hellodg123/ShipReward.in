@@ -619,13 +619,84 @@ export default function OrdersScreen() {
     );
   };
 
+  const renderDraftRow = (item: typeof draftOrders[0], index: number) => {
+    const statusColors = getStatusColor(item.status);
+    const isDropdownOpen = activeActionDropdown === item.id;
+
+    return (
+      <View key={item.id} style={styles.orderRow}>
+        <View style={styles.checkboxCell}>
+          <View style={styles.checkbox} />
+        </View>
+
+        <View style={styles.orderIdCell}>
+          <Text style={styles.orderId}>{item.id}</Text>
+          <Text style={styles.orderPrefix}>{item.prefix}</Text>
+          <Text style={styles.orderInvoice}>Inv no. {item.invoiceNo}</Text>
+        </View>
+
+        <View style={styles.customerCell}>
+          <Text style={styles.customerName}>{item.customerName}</Text>
+          <Text style={styles.customerEmail}>{item.customerEmail}</Text>
+          <Text style={styles.customerPhone}>{item.customerPhone}</Text>
+        </View>
+
+        <View style={styles.dateCell}>
+          <Text style={styles.orderDate}>{item.orderDate}</Text>
+          <Text style={styles.orderTime}>{item.orderTime}</Text>
+        </View>
+
+        <View style={styles.packageCell}>
+          <Text style={styles.packageWeight}>{item.weight}</Text>
+          <Text style={styles.packagePrice}>{item.price}</Text>
+          <Text style={styles.packageType}>{item.packageType}</Text>
+        </View>
+
+        <View style={styles.statusCell}>
+          <View style={[styles.statusBadge, { backgroundColor: statusColors.bg }]}>
+            <Text style={[styles.statusText, { color: statusColors.text }]}>
+              {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.actionsCell}>
+          <TouchableOpacity style={styles.actionIconButton}>
+            <Ionicons name="cube-outline" size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.actionIconButton}>
+            <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+          <View style={styles.actionDropdownContainer}>
+            <TouchableOpacity 
+              style={styles.actionIconButton}
+              onPress={() => setActiveActionDropdown(isDropdownOpen ? null : item.id)}
+            >
+              <Ionicons name="ellipsis-vertical" size={20} color={COLORS.gray} />
+            </TouchableOpacity>
+            {isDropdownOpen && (
+              <View style={styles.actionDropdownMenu}>
+                <TouchableOpacity style={styles.actionDropdownItem}>
+                  <Text style={styles.actionDropdownText}>Edit Order</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.actionDropdownItem, styles.actionDropdownItemLast]}>
+                  <Text style={[styles.actionDropdownText, { color: COLORS.red }]}>Cancel Order</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={true}>
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.pageTitle}>All Orders</Text>
-          <Text style={styles.breadcrumb}>Orders {'>'} All</Text>
+          <Text style={styles.pageTitle}>{isDraftsTab ? 'Drafts' : 'All Orders'}</Text>
+          <Text style={styles.breadcrumb}>Orders {'>'} {isDraftsTab ? 'Drafts' : 'All'}</Text>
         </View>
         <View style={styles.headerButtons}>
           <TouchableOpacity style={styles.addButton} onPress={() => router.push('/(tabs)/add-order')}>
