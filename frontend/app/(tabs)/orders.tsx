@@ -486,6 +486,7 @@ export default function OrdersScreen() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
+  const [activeActionDropdown, setActiveActionDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     if (params.tab) {
@@ -493,9 +494,14 @@ export default function OrdersScreen() {
     }
   }, [params.tab]);
 
+  // Get data based on active tab
+  const isDraftsTab = activeTab === 'drafts';
+  const currentData = isDraftsTab ? draftOrders : sampleOrders;
+
   // Filter orders based on active tab
-  const filteredOrders = sampleOrders.filter(order => {
+  const filteredOrders = currentData.filter(order => {
     if (activeTab === 'all') return true;
+    if (activeTab === 'drafts') return order.status === 'draft';
     if (activeTab === 'delivered') return order.status === 'delivered';
     if (activeTab === 'cancelled') return order.status === 'cancelled';
     if (activeTab === 'dispatched') return order.status === 'dispatched';
