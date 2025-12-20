@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
   KeyboardAvoidingView,
   Platform,
@@ -16,6 +15,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../src/context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { LogoHorizontal } from '../src/components/Logo';
 
 const { width } = Dimensions.get('window');
 const isLargeScreen = width > 768;
