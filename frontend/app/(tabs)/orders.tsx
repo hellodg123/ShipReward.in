@@ -1330,4 +1330,48 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontWeight: '600',
   },
+  // Draft actions styles
+  actionsCell: {
+    flex: 1,
+    minWidth: 120,
+    paddingHorizontal: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  actionIconButton: {
+    padding: 8,
+  },
+  actionDropdownContainer: {
+    position: 'relative',
+  },
+  actionDropdownMenu: {
+    position: 'absolute',
+    top: 40,
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+    zIndex: 1000,
+    minWidth: 140,
+  },
+  actionDropdownItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  actionDropdownItemLast: {
+    borderBottomWidth: 0,
+  },
+  actionDropdownText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+  },
 });
