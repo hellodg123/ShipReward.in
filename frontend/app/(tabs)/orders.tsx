@@ -588,13 +588,9 @@ export default function OrdersScreen() {
           <Text style={styles.breadcrumb}>Orders {'>'} All</Text>
         </View>
         <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity style={styles.addButton} onPress={() => router.push('/(tabs)/add-order')}>
             <Ionicons name="add" size={18} color={COLORS.white} />
             <Text style={styles.addButtonText}>Add Order</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.bulkButton}>
-            <Ionicons name="cloud-upload-outline" size={18} color={COLORS.white} />
-            <Text style={styles.bulkButtonText}>Bulk Order</Text>
           </TouchableOpacity>
         </View>
       </View>
