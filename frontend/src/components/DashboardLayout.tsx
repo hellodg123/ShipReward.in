@@ -233,11 +233,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <View style={styles.mainContent}>
           {/* Header */}
           <View style={styles.desktopHeader}>
-            <Image
-              source={require('../../assets/images/logo.png')}
-              style={styles.desktopLogo}
-              resizeMode="contain"
-            />
+            <LogoCompact width={140} height={40} variant="dark" />
             <View style={styles.headerActions}>
               <TouchableOpacity style={styles.walletBalance} onPress={handleNavigateToWallet}>
                 <Ionicons name="wallet" size={18} color={COLORS.green} />
