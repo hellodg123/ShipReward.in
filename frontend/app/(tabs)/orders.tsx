@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  FlatList,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams } from 'expo-router';
@@ -36,7 +35,7 @@ const tabs = [
   { id: 'disputed', label: 'Disputed' },
 ];
 
-// Sample orders data
+// Extended sample orders data for pagination
 const sampleOrders = [
   {
     id: 'SG32510063928386',
@@ -102,6 +101,326 @@ const sampleOrders = [
     trackingId: '',
     carrier: '',
   },
+  {
+    id: 'SG32510063928401',
+    prefix: 'US - 90210',
+    invoiceNo: 'DP-113-5521478-9874523',
+    customerName: 'Maria Santos',
+    customerEmail: 'maria.santos@email.com',
+    customerPhone: '+1 323-555-1234',
+    orderDate: '05 Oct, 2025',
+    orderTime: '10:30 AM',
+    weight: '1.2 kg',
+    price: '₹ 2450.00',
+    packageType: 'CSB-IV',
+    status: 'dispatched',
+    trackingId: 'UU55A64987985120611',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32510063928402',
+    prefix: 'CA - 10001',
+    invoiceNo: 'DP-114-7894561-2365478',
+    customerName: 'John Smith',
+    customerEmail: 'john.smith@email.com',
+    customerPhone: '+1 212-555-7890',
+    orderDate: '05 Oct, 2025',
+    orderTime: '02:15 PM',
+    weight: '0.5 kg',
+    price: '₹ 1850.00',
+    packageType: 'CSB-IV',
+    status: 'packed',
+    trackingId: 'CR000516948987',
+    carrier: 'DHL',
+  },
+  {
+    id: 'SG32510063928403',
+    prefix: 'UK - 20001',
+    invoiceNo: 'DP-115-1234567-8901234',
+    customerName: 'Emma Wilson',
+    customerEmail: 'emma.wilson@email.com',
+    customerPhone: '+44 20-7946-0958',
+    orderDate: '04 Oct, 2025',
+    orderTime: '11:45 AM',
+    weight: '2.0 kg',
+    price: '₹ 3200.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'UU55A64987985120612',
+    carrier: 'Royal Mail',
+  },
+  {
+    id: 'SG32510063928404',
+    prefix: 'DE - 30001',
+    invoiceNo: 'DP-116-9876543-2109876',
+    customerName: 'Hans Mueller',
+    customerEmail: 'hans.mueller@email.com',
+    customerPhone: '+49 30-1234-5678',
+    orderDate: '04 Oct, 2025',
+    orderTime: '09:00 AM',
+    weight: '1.5 kg',
+    price: '₹ 2800.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'CR000516948988',
+    carrier: 'DPD',
+  },
+  {
+    id: 'SG32510063928405',
+    prefix: 'US - 30301',
+    invoiceNo: 'DP-117-5678901-2345678',
+    customerName: 'Sarah Johnson',
+    customerEmail: 'sarah.johnson@email.com',
+    customerPhone: '+1 404-555-2345',
+    orderDate: '03 Oct, 2025',
+    orderTime: '04:30 PM',
+    weight: '0.8 kg',
+    price: '₹ 2100.00',
+    packageType: 'CSB-IV',
+    status: 'dispatched',
+    trackingId: 'UU55A64987985120613',
+    carrier: 'UPS',
+  },
+  {
+    id: 'SG32510063928406',
+    prefix: 'US - 60601',
+    invoiceNo: 'DP-118-3456789-0123456',
+    customerName: 'Michael Brown',
+    customerEmail: 'michael.brown@email.com',
+    customerPhone: '+1 312-555-6789',
+    orderDate: '03 Oct, 2025',
+    orderTime: '01:00 PM',
+    weight: '3.0 kg',
+    price: '₹ 4500.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'CR000516948989',
+    carrier: 'USPS',
+  },
+  {
+    id: 'SG32510063928407',
+    prefix: 'CA - 75201',
+    invoiceNo: 'DP-119-7890123-4567890',
+    customerName: 'Lisa Garcia',
+    customerEmail: 'lisa.garcia@email.com',
+    customerPhone: '+1 214-555-0123',
+    orderDate: '02 Oct, 2025',
+    orderTime: '03:45 PM',
+    weight: '0.6 kg',
+    price: '₹ 1750.00',
+    packageType: 'CSB-IV',
+    status: 'ready',
+    trackingId: '',
+    carrier: '',
+  },
+  {
+    id: 'SG32510063928408',
+    prefix: 'US - 98101',
+    invoiceNo: 'DP-120-2345678-9012345',
+    customerName: 'David Lee',
+    customerEmail: 'david.lee@email.com',
+    customerPhone: '+1 206-555-4567',
+    orderDate: '02 Oct, 2025',
+    orderTime: '10:15 AM',
+    weight: '1.0 kg',
+    price: '₹ 2200.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'UU55A64987985120614',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32510063928409',
+    prefix: 'UK - 33101',
+    invoiceNo: 'DP-121-6789012-3456789',
+    customerName: 'Robert Martinez',
+    customerEmail: 'robert.martinez@email.com',
+    customerPhone: '+1 305-555-8901',
+    orderDate: '01 Oct, 2025',
+    orderTime: '12:30 PM',
+    weight: '0.4 kg',
+    price: '₹ 1500.00',
+    packageType: 'CSB-IV',
+    status: 'disputed',
+    trackingId: 'CR000516948990',
+    carrier: 'DHL',
+  },
+  {
+    id: 'SG32510063928410',
+    prefix: 'DE - 85001',
+    invoiceNo: 'DP-122-0123456-7890123',
+    customerName: 'Jennifer Taylor',
+    customerEmail: 'jennifer.taylor@email.com',
+    customerPhone: '+1 602-555-2345',
+    orderDate: '01 Oct, 2025',
+    orderTime: '08:45 AM',
+    weight: '2.5 kg',
+    price: '₹ 3800.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'UU55A64987985120615',
+    carrier: 'UPS',
+  },
+  {
+    id: 'SG32510063928411',
+    prefix: 'US - 02101',
+    invoiceNo: 'DP-123-4567890-1234567',
+    customerName: 'William Anderson',
+    customerEmail: 'william.anderson@email.com',
+    customerPhone: '+1 617-555-6789',
+    orderDate: '30 Sep, 2025',
+    orderTime: '05:00 PM',
+    weight: '0.9 kg',
+    price: '₹ 2050.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'CR000516948991',
+    carrier: 'USPS',
+  },
+  {
+    id: 'SG32510063928412',
+    prefix: 'CA - 80202',
+    invoiceNo: 'DP-124-8901234-5678901',
+    customerName: 'Elizabeth Thomas',
+    customerEmail: 'elizabeth.thomas@email.com',
+    customerPhone: '+1 303-555-0123',
+    orderDate: '30 Sep, 2025',
+    orderTime: '02:30 PM',
+    weight: '1.8 kg',
+    price: '₹ 2900.00',
+    packageType: 'CSB-IV',
+    status: 'cancelled',
+    trackingId: '',
+    carrier: '',
+  },
+  {
+    id: 'SG32510063928413',
+    prefix: 'UK - 19101',
+    invoiceNo: 'DP-125-2345678-9012345',
+    customerName: 'Christopher White',
+    customerEmail: 'chris.white@email.com',
+    customerPhone: '+1 215-555-4567',
+    orderDate: '29 Sep, 2025',
+    orderTime: '11:00 AM',
+    weight: '0.7 kg',
+    price: '₹ 1900.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'UU55A64987985120616',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32510063928414',
+    prefix: 'DE - 48201',
+    invoiceNo: 'DP-126-6789012-3456789',
+    customerName: 'Patricia Harris',
+    customerEmail: 'patricia.harris@email.com',
+    customerPhone: '+1 313-555-8901',
+    orderDate: '29 Sep, 2025',
+    orderTime: '09:30 AM',
+    weight: '1.3 kg',
+    price: '₹ 2600.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'CR000516948992',
+    carrier: 'DHL',
+  },
+  {
+    id: 'SG32510063928415',
+    prefix: 'US - 55401',
+    invoiceNo: 'DP-127-0123456-7890123',
+    customerName: 'Daniel Clark',
+    customerEmail: 'daniel.clark@email.com',
+    customerPhone: '+1 612-555-2345',
+    orderDate: '28 Sep, 2025',
+    orderTime: '04:15 PM',
+    weight: '0.5 kg',
+    price: '₹ 1650.00',
+    packageType: 'CSB-IV',
+    status: 'dispatched',
+    trackingId: 'UU55A64987985120617',
+    carrier: 'UPS',
+  },
+  {
+    id: 'SG32510063928416',
+    prefix: 'CA - 63101',
+    invoiceNo: 'DP-128-4567890-1234567',
+    customerName: 'Nancy Lewis',
+    customerEmail: 'nancy.lewis@email.com',
+    customerPhone: '+1 314-555-6789',
+    orderDate: '28 Sep, 2025',
+    orderTime: '01:45 PM',
+    weight: '2.2 kg',
+    price: '₹ 3400.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'CR000516948993',
+    carrier: 'USPS',
+  },
+  {
+    id: 'SG32510063928417',
+    prefix: 'UK - 92101',
+    invoiceNo: 'DP-129-8901234-5678901',
+    customerName: 'Mark Robinson',
+    customerEmail: 'mark.robinson@email.com',
+    customerPhone: '+1 619-555-0123',
+    orderDate: '27 Sep, 2025',
+    orderTime: '10:00 AM',
+    weight: '1.1 kg',
+    price: '₹ 2300.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'UU55A64987985120618',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32510063928418',
+    prefix: 'DE - 77002',
+    invoiceNo: 'DP-130-2345678-9012345',
+    customerName: 'Karen Walker',
+    customerEmail: 'karen.walker@email.com',
+    customerPhone: '+1 713-555-4567',
+    orderDate: '27 Sep, 2025',
+    orderTime: '07:30 AM',
+    weight: '0.3 kg',
+    price: '₹ 1400.00',
+    packageType: 'CSB-IV',
+    status: 'packed',
+    trackingId: '',
+    carrier: '',
+  },
+  {
+    id: 'SG32510063928419',
+    prefix: 'US - 30303',
+    invoiceNo: 'DP-131-6789012-3456789',
+    customerName: 'Steven Hall',
+    customerEmail: 'steven.hall@email.com',
+    customerPhone: '+1 404-555-8901',
+    orderDate: '26 Sep, 2025',
+    orderTime: '03:00 PM',
+    weight: '1.6 kg',
+    price: '₹ 2750.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'CR000516948994',
+    carrier: 'DHL',
+  },
+  {
+    id: 'SG32510063928420',
+    prefix: 'CA - 94102',
+    invoiceNo: 'DP-132-0123456-7890123',
+    customerName: 'Betty Allen',
+    customerEmail: 'betty.allen@email.com',
+    customerPhone: '+1 415-555-2345',
+    orderDate: '26 Sep, 2025',
+    orderTime: '12:15 PM',
+    weight: '0.8 kg',
+    price: '₹ 2000.00',
+    packageType: 'CSB-IV',
+    status: 'delivered',
+    trackingId: 'UU55A64987985120619',
+    carrier: 'UPS',
+  },
 ];
 
 const getStatusColor = (status: string) => {
@@ -114,15 +433,24 @@ const getStatusColor = (status: string) => {
       return { bg: '#EFF6FF', text: COLORS.primary };
     case 'packed':
       return { bg: '#FEF3C7', text: COLORS.orange };
+    case 'ready':
+      return { bg: '#E0E7FF', text: '#4F46E5' };
+    case 'disputed':
+      return { bg: '#FEE2E2', text: '#DC2626' };
     default:
       return { bg: COLORS.lightGray, text: COLORS.gray };
   }
 };
 
+const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
+
 export default function OrdersScreen() {
   const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [showItemsDropdown, setShowItemsDropdown] = useState(false);
 
   useEffect(() => {
     if (params.tab) {
@@ -130,20 +458,67 @@ export default function OrdersScreen() {
     }
   }, [params.tab]);
 
+  // Filter orders based on active tab
   const filteredOrders = sampleOrders.filter(order => {
     if (activeTab === 'all') return true;
     if (activeTab === 'delivered') return order.status === 'delivered';
     if (activeTab === 'cancelled') return order.status === 'cancelled';
     if (activeTab === 'dispatched') return order.status === 'dispatched';
     if (activeTab === 'disputed') return order.status === 'disputed';
+    if (activeTab === 'packed') return order.status === 'packed';
+    if (activeTab === 'ready') return order.status === 'ready';
     return true;
   });
 
-  const renderOrderRow = ({ item }: { item: typeof sampleOrders[0] }) => {
+  // Calculate pagination
+  const totalItems = filteredOrders.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
+
+  // Reset to page 1 when changing filters or items per page
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeTab, itemsPerPage]);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const getVisiblePages = () => {
+    const pages: number[] = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= maxVisible; i++) {
+          pages.push(i);
+        }
+      } else if (currentPage >= totalPages - 2) {
+        for (let i = totalPages - maxVisible + 1; i <= totalPages; i++) {
+          pages.push(i);
+        }
+      } else {
+        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+          pages.push(i);
+        }
+      }
+    }
+    return pages;
+  };
+
+  const renderOrderRow = (item: typeof sampleOrders[0], index: number) => {
     const statusColors = getStatusColor(item.status);
 
     return (
-      <View style={styles.orderRow}>
+      <View key={item.id} style={styles.orderRow}>
         <View style={styles.checkboxCell}>
           <View style={styles.checkbox} />
         </View>
@@ -204,7 +579,7 @@ export default function OrdersScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={true}>
       {/* Header */}
       <View style={styles.header}>
         <View>
@@ -292,21 +667,121 @@ export default function OrdersScreen() {
         </View>
       </View>
 
-      {/* Table Body */}
-      <FlatList
-        data={filteredOrders}
-        renderItem={renderOrderRow}
-        keyExtractor={(item) => item.id}
-        style={styles.tableBody}
-        showsVerticalScrollIndicator={false}
-        ListEmptyComponent={
+      {/* Table Body - Full scroll */}
+      <View style={styles.tableBody}>
+        {paginatedOrders.length > 0 ? (
+          paginatedOrders.map((order, index) => renderOrderRow(order, index))
+        ) : (
           <View style={styles.emptyState}>
             <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
             <Text style={styles.emptyText}>No orders found</Text>
           </View>
-        }
-      />
-    </View>
+        )}
+      </View>
+
+      {/* Pagination */}
+      {totalItems > 0 && (
+        <View style={styles.paginationContainer}>
+          {/* Showing X to Y of Z entries */}
+          <Text style={styles.paginationInfo}>
+            Showing {startIndex + 1} to {endIndex} of {totalItems} entries
+          </Text>
+
+          {/* Page Navigation */}
+          <View style={styles.pageNavigation}>
+            {/* First Page */}
+            <TouchableOpacity
+              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+              onPress={() => handlePageChange(1)}
+              disabled={currentPage === 1}
+            >
+              <Text style={styles.pageButtonText}>|{'<'}</Text>
+            </TouchableOpacity>
+
+            {/* Previous Page */}
+            <TouchableOpacity
+              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+              onPress={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <Text style={styles.pageButtonText}>{'<'}</Text>
+            </TouchableOpacity>
+
+            {/* Page Numbers */}
+            {getVisiblePages().map((page) => (
+              <TouchableOpacity
+                key={page}
+                style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
+                onPress={() => handlePageChange(page)}
+              >
+                <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
+                  {page}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            {/* Next Page */}
+            <TouchableOpacity
+              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+              onPress={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              <Text style={styles.pageButtonText}>{'>'}</Text>
+            </TouchableOpacity>
+
+            {/* Last Page */}
+            <TouchableOpacity
+              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+              onPress={() => handlePageChange(totalPages)}
+              disabled={currentPage === totalPages}
+            >
+              <Text style={styles.pageButtonText}>{'>'}|</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Items per page dropdown */}
+          <View style={styles.itemsPerPageContainer}>
+            <Text style={styles.itemsPerPageLabel}>Items per page</Text>
+            <TouchableOpacity
+              style={styles.itemsPerPageDropdown}
+              onPress={() => setShowItemsDropdown(!showItemsDropdown)}
+            >
+              <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
+              <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
+            </TouchableOpacity>
+            {showItemsDropdown && (
+              <View style={styles.dropdownMenu}>
+                {ITEMS_PER_PAGE_OPTIONS.map((option) => (
+                  <TouchableOpacity
+                    key={option}
+                    style={[
+                      styles.dropdownItem,
+                      itemsPerPage === option && styles.dropdownItemActive,
+                    ]}
+                    onPress={() => {
+                      setItemsPerPage(option);
+                      setShowItemsDropdown(false);
+                    }}
+                  >
+                    <Text
+                      style={[
+                        styles.dropdownItemText,
+                        itemsPerPage === option && styles.dropdownItemTextActive,
+                      ]}
+                    >
+                      {option}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+          </View>
+        </View>
+      )}
+
+      {/* Bottom spacing */}
+      <View style={{ height: 40 }} />
+    </ScrollView>
   );
 }
 
@@ -513,7 +988,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tableBody: {
-    flex: 1,
+    minHeight: 200,
   },
   orderRow: {
     flexDirection: 'row',
@@ -621,5 +1096,116 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.gray,
     marginTop: 12,
+  },
+  // Pagination styles
+  paginationContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+    marginTop: 16,
+    flexWrap: 'wrap',
+    gap: 16,
+  },
+  paginationInfo: {
+    fontSize: 14,
+    color: COLORS.gray,
+  },
+  pageNavigation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  pageButton: {
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderRadius: 4,
+  },
+  pageButtonDisabled: {
+    opacity: 0.4,
+  },
+  pageButtonText: {
+    fontSize: 14,
+    color: COLORS.gray,
+    fontWeight: '500',
+  },
+  pageNumberButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 2,
+  },
+  pageNumberActive: {
+    backgroundColor: COLORS.primary,
+  },
+  pageNumberText: {
+    fontSize: 14,
+    color: COLORS.gray,
+    fontWeight: '500',
+  },
+  pageNumberTextActive: {
+    color: COLORS.white,
+  },
+  itemsPerPageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    position: 'relative',
+  },
+  itemsPerPageLabel: {
+    fontSize: 14,
+    color: COLORS.gray,
+  },
+  itemsPerPageDropdown: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    gap: 8,
+  },
+  itemsPerPageValue: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    fontWeight: '500',
+  },
+  dropdownMenu: {
+    position: 'absolute',
+    bottom: 45,
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+    zIndex: 1000,
+  },
+  dropdownItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  dropdownItemActive: {
+    backgroundColor: COLORS.lightGray,
+  },
+  dropdownItemText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+  },
+  dropdownItemTextActive: {
+    color: COLORS.primary,
+    fontWeight: '600',
   },
 });
