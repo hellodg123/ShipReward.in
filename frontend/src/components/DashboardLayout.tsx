@@ -5,7 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  Image,
   Dimensions,
   Modal,
   Pressable,
@@ -14,6 +13,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import { useRouter, usePathname } from 'expo-router';
+import { LogoCompact } from './Logo';
 
 const { width } = Dimensions.get('window');
 const isLargeScreen = width > 768;
