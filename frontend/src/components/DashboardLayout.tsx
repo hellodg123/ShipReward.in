@@ -154,32 +154,38 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </View>
         </View>
 
+        {/* Mobile Horizontal Navigation */}
+        <View style={styles.mobileNavContainer}>
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.mobileNavScrollContent}
+          >
+            {menuItems.map((item, index) => {
+              const isActive = isActiveRoute(item.route);
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={[styles.mobileNavItemHorizontal, isActive && styles.mobileNavItemActive]}
+                  onPress={() => router.push(item.route as any)}
+                >
+                  <Ionicons
+                    name={item.icon as any}
+                    size={18}
+                    color={isActive ? COLORS.white : COLORS.gray}
+                  />
+                  <Text style={[styles.mobileNavLabelHorizontal, isActive && styles.mobileNavLabelHorizontalActive]}>
+                    {item.label}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </View>
+
         {/* Mobile Content */}
         <View style={styles.mobileContent}>
           {children}
-        </View>
-
-        {/* Mobile Bottom Navigation */}
-        <View style={styles.mobileBottomNav}>
-          {menuItems.slice(0, 4).map((item, index) => {
-            const isActive = isActiveRoute(item.route);
-            return (
-              <TouchableOpacity
-                key={index}
-                style={styles.mobileNavItem}
-                onPress={() => router.push(item.route as any)}
-              >
-                <Ionicons
-                  name={item.icon as any}
-                  size={22}
-                  color={isActive ? COLORS.primary : COLORS.gray}
-                />
-                <Text style={[styles.mobileNavLabel, isActive && styles.mobileNavLabelActive]}>
-                  {item.label}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
         </View>
       </SafeAreaView>
     );
