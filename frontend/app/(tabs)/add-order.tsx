@@ -893,8 +893,8 @@ export default function AddOrderScreen() {
         style={[styles.payButton, !selectedShippingPartner && styles.payButtonDisabled]}
         disabled={!selectedShippingPartner}
         onPress={() => {
-          // Handle payment and order creation
-          router.push('/(tabs)/orders');
+          // Navigate to order summary page
+          router.push('/(tabs)/order-summary');
         }}
       >
         <Text style={styles.payButtonText}>Pay and Order</Text>
