@@ -103,11 +103,7 @@ export default function RegisterScreen() {
           <View style={styles.mainContainer}>
             {/* Left Side - Branding */}
             <View style={styles.brandingSection}>
-              <Image
-                source={require('../assets/images/logo.png')}
-                style={styles.logo}
-                resizeMode="contain"
-              />
+              <LogoHorizontal width={180} height={60} variant="light" />
               <Text style={styles.tagline}>Delivering</Text>
               <Text style={styles.taglineHighlight}>Beyond Borders</Text>
               <Text style={styles.subtitle}>International Shipping to</Text>
