@@ -224,7 +224,7 @@ export default function OrderSummaryScreen() {
       {/* Back to Orders Button */}
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => router.push('/(tabs)/orders')}
+        onPress={() => router.push('/(tabs)/orders?tab=drafts')}
       >
         <Text style={styles.backButtonText}>Back to Orders</Text>
       </TouchableOpacity>
