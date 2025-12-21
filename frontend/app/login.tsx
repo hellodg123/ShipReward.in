@@ -144,14 +144,10 @@ export default function LoginScreen() {
     setError('');
 
     try {
-      const result = await login(email, password);
-      if (result.success) {
-        router.replace('/(tabs)/home');
-      } else {
-        setError(result.message || 'Login failed. Please try again.');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+      await login(email, password);
+      router.replace('/(tabs)/home');
+    } catch (err: any) {
+      setError(err.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -178,18 +174,19 @@ export default function LoginScreen() {
     setError('');
 
     try {
-      const result = await register(registerEmail, registerPassword, firstName, lastName);
-      if (result.success) {
-        setSuccessMessage('Account created successfully! Please login.');
-        setTimeout(() => {
-          switchToLogin();
-          setEmail(registerEmail);
-        }, 1500);
-      } else {
-        setError(result.message || 'Registration failed. Please try again.');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+      await register({
+        email: registerEmail,
+        password: registerPassword,
+        first_name: firstName,
+        last_name: lastName,
+        mobile_number: mobileNumber,
+      });
+      setSuccessMessage('Account created successfully!');
+      setTimeout(() => {
+        router.replace('/(tabs)/home');
+      }, 1500);
+    } catch (err: any) {
+      setError(err.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -205,14 +202,13 @@ export default function LoginScreen() {
     setError('');
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await forgotPassword(forgotEmail);
       setSuccessMessage('Password reset link sent to your email!');
       setTimeout(() => {
         switchToLogin();
       }, 2000);
-    } catch (err) {
-      setError('An error occurred. Please try again.');
+    } catch (err: any) {
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
