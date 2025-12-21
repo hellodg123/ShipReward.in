@@ -715,99 +715,105 @@ export default function LoginScreen() {
           </View>
         </View>
 
-        {/* CTA Section */}
-        <View style={styles.ctaSection}>
-          <View style={styles.ctaContent}>
-            <Text style={styles.ctaTitle}>Ready to Ship & Win?</Text>
-            <Text style={styles.ctaSubtitle}>Join thousands of happy shippers earning rewards</Text>
-            <TouchableOpacity style={styles.ctaButton} onPress={() => {
-              scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-              setCardView('login');
-            }}>
-              <Text style={styles.ctaButtonText}>Start Shipping Now</Text>
-              <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        {/* Footer */}
+        {/* Footer - Combined CTA and Info */}
         <View style={styles.footer}>
-          <LogoHorizontal width={200} height={60} variant="dark" />
+          <View style={styles.footerInner}>
+            {/* Left Side - CTA */}
+            <View style={styles.footerLeftSection}>
+              <Text style={styles.footerCtaTitle}>Ready to Ship & Win?</Text>
+              <Text style={styles.footerCtaSubtitle}>Join thousands of happy shippers earning rewards</Text>
+              <TouchableOpacity style={styles.footerCtaButton} onPress={() => {
+                scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+                setCardView('login');
+              }}>
+                <Text style={styles.footerCtaButtonText}>Start Shipping Now</Text>
+                <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
+              </TouchableOpacity>
+            </View>
+
+            {/* Right Side - Footer Content */}
+            <View style={styles.footerRightSection}>
+              <LogoHorizontal width={180} height={50} variant="light" />
+              
+              {/* Countries with Flags */}
+              <View style={styles.footerCountriesRow}>
+                <View style={styles.footerCountryBadge}>
+                  <Text style={styles.footerCountryFlag}>🇺🇸</Text>
+                  <Text style={styles.footerCountryName}>USA</Text>
+                </View>
+                <View style={styles.footerCountryBadge}>
+                  <Text style={styles.footerCountryFlag}>🇨🇦</Text>
+                  <Text style={styles.footerCountryName}>CANADA</Text>
+                </View>
+                <View style={styles.footerCountryBadge}>
+                  <Text style={styles.footerCountryFlag}>🇬🇧</Text>
+                  <Text style={styles.footerCountryName}>UK</Text>
+                </View>
+                <View style={styles.footerCountryBadge}>
+                  <Text style={styles.footerCountryFlag}>🇩🇪</Text>
+                  <Text style={styles.footerCountryName}>GERMANY</Text>
+                </View>
+              </View>
+
+              {/* Social Media Buttons */}
+              <View style={styles.socialButtonsRow}>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-facebook" size={20} color={COLORS.white} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-youtube" size={20} color={COLORS.white} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-twitter" size={20} color={COLORS.white} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-instagram" size={20} color={COLORS.white} />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.socialButton}>
+                  <Ionicons name="logo-linkedin" size={20} color={COLORS.white} />
+                </TouchableOpacity>
+              </View>
+
+              {/* Contact Info */}
+              <View style={styles.footerContactRow}>
+                <View style={styles.footerContactItem}>
+                  <Ionicons name="call" size={16} color={COLORS.accent} />
+                  <Text style={styles.footerContactText}>+91 99065 99065</Text>
+                </View>
+                <View style={styles.footerContactItem}>
+                  <Ionicons name="mail" size={16} color={COLORS.accent} />
+                  <Text style={styles.footerContactText}>support@shipreward.in</Text>
+                </View>
+              </View>
+
+              {/* Company Address */}
+              <View style={styles.footerAddressSection}>
+                <Text style={styles.footerAddressTitle}>Registered Office:</Text>
+                <Text style={styles.footerAddressText}>
+                  ShipReward Logistics Pvt. Ltd., 123, Electronic City Phase 1,{'\n'}
+                  Hosur Road, Bengaluru, Karnataka - 560100, India
+                </Text>
+              </View>
+
+              {/* Policy Links */}
+              <View style={styles.footerLinksRow}>
+                <TouchableOpacity>
+                  <Text style={styles.footerLink}>Privacy Policy</Text>
+                </TouchableOpacity>
+                <Text style={styles.footerLinkDivider}>|</Text>
+                <TouchableOpacity>
+                  <Text style={styles.footerLink}>Terms & Conditions</Text>
+                </TouchableOpacity>
+                <Text style={styles.footerLinkDivider}>|</Text>
+                <TouchableOpacity>
+                  <Text style={styles.footerLink}>Refunds & Cancellation</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
           
-          {/* Countries with Flags */}
-          <View style={styles.footerCountriesRow}>
-            <View style={styles.footerCountryBadge}>
-              <Text style={styles.footerCountryFlag}>🇺🇸</Text>
-              <Text style={styles.footerCountryName}>USA</Text>
-            </View>
-            <View style={styles.footerCountryBadge}>
-              <Text style={styles.footerCountryFlag}>🇨🇦</Text>
-              <Text style={styles.footerCountryName}>CANADA</Text>
-            </View>
-            <View style={styles.footerCountryBadge}>
-              <Text style={styles.footerCountryFlag}>🇬🇧</Text>
-              <Text style={styles.footerCountryName}>UK</Text>
-            </View>
-            <View style={styles.footerCountryBadge}>
-              <Text style={styles.footerCountryFlag}>🇩🇪</Text>
-              <Text style={styles.footerCountryName}>GERMANY</Text>
-            </View>
-          </View>
-
-          {/* Social Media Buttons */}
-          <View style={styles.socialButtonsRow}>
-            <TouchableOpacity style={styles.socialButton}>
-              <Ionicons name="logo-facebook" size={22} color={COLORS.white} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Ionicons name="logo-youtube" size={22} color={COLORS.white} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Ionicons name="logo-twitter" size={22} color={COLORS.white} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Ionicons name="logo-instagram" size={22} color={COLORS.white} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.socialButton}>
-              <Ionicons name="logo-linkedin" size={22} color={COLORS.white} />
-            </TouchableOpacity>
-          </View>
-
-          {/* Contact Info */}
-          <View style={styles.footerContactRow}>
-            <View style={styles.footerContactItem}>
-              <Ionicons name="call" size={18} color={COLORS.accent} />
-              <Text style={styles.footerContactText}>+91 99065 99065</Text>
-            </View>
-            <View style={styles.footerContactItem}>
-              <Ionicons name="mail" size={18} color={COLORS.accent} />
-              <Text style={styles.footerContactText}>support@shipreward.in</Text>
-            </View>
-          </View>
-
-          {/* Company Address */}
-          <View style={styles.footerAddressSection}>
-            <Text style={styles.footerAddressTitle}>Registered Office:</Text>
-            <Text style={styles.footerAddressText}>
-              ShipReward Logistics Pvt. Ltd.{'\n'}
-              123, Electronic City Phase 1,{'\n'}
-              Hosur Road, Bengaluru,{'\n'}
-              Karnataka - 560100, India
-            </Text>
-          </View>
-
-          {/* Policy Links */}
-          <View style={styles.footerLinksRow}>
-            <TouchableOpacity>
-              <Text style={styles.footerLink}>Privacy Policy</Text>
-            </TouchableOpacity>
-            <Text style={styles.footerLinkDivider}>|</Text>
-            <TouchableOpacity>
-              <Text style={styles.footerLink}>Terms & Conditions</Text>
-            </TouchableOpacity>
-            <Text style={styles.footerLinkDivider}>|</Text>
-            <TouchableOpacity>
-              <Text style={styles.footerLink}>Refunds & Cancellation Policy</Text>
+          <Text style={styles.footerCopyright}>© 2025 ShipReward.in - All Rights Reserved</Text>
+        </View>
             </TouchableOpacity>
           </View>
 
