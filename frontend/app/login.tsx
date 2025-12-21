@@ -87,6 +87,8 @@ export default function LoginScreen() {
   const router = useRouter();
   const { login, register, forgotPassword } = useAuth();
   const scrollViewRef = useRef<ScrollView>(null);
+  const { width: screenWidth } = useWindowDimensions();
+  const isMobile = screenWidth < 768;
   
   // Card view state
   const [cardView, setCardView] = useState<CardView>('login');
