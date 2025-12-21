@@ -359,6 +359,48 @@ export default function SettingsScreen() {
     }
   };
 
+  // Mobile view with tabs at top
+  if (!isLargeScreen) {
+    return (
+      <View style={styles.container}>
+        {/* Mobile Tabs */}
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={false} 
+          style={styles.mobileTabsContainer}
+          contentContainerStyle={styles.mobileTabsContent}
+        >
+          {settingsMenu.map((item) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[styles.mobileTab, activeTab === item.id && styles.mobileTabActive]}
+              onPress={() => setActiveTab(item.id)}
+            >
+              <Ionicons 
+                name={item.icon as any} 
+                size={18} 
+                color={activeTab === item.id ? COLORS.white : COLORS.gray} 
+              />
+              <Text style={[
+                styles.mobileTabLabel, 
+                activeTab === item.id && styles.mobileTabLabelActive
+              ]}>
+                {item.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+
+        {/* Content Area */}
+        <ScrollView style={styles.mobileContentArea} showsVerticalScrollIndicator={false}>
+          {renderContent()}
+          <Text style={styles.footerText}>2025 © ShipReward.in</Text>
+        </ScrollView>
+      </View>
+    );
+  }
+
+  // Desktop view with sidebar
   return (
     <View style={styles.container}>
       {/* Settings Sidebar */}
