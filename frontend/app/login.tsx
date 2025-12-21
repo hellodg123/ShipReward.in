@@ -814,11 +814,6 @@ export default function LoginScreen() {
           
           <Text style={styles.footerCopyright}>© 2025 ShipReward.in - All Rights Reserved</Text>
         </View>
-            </TouchableOpacity>
-          </View>
-
-          <Text style={styles.footerCopyright}>© 2025 ShipReward.in - All Rights Reserved</Text>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
