@@ -719,14 +719,17 @@ export default function LoginScreen() {
         </View>
 
         {/* Footer - Combined CTA and Info */}
-        <View style={styles.footer}>
-          <View style={styles.footerInner}>
+        <View style={[styles.footer, { padding: isMobile ? 24 : 50 }]}>
+          <View style={[styles.footerInner, { 
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: isMobile ? 30 : 60,
+          }]}>
             {/* Left Side - Logo & Content */}
-            <View style={styles.footerLeftSection}>
+            <View style={[styles.footerLeftSection, { alignItems: isMobile ? 'center' : 'flex-start' }]}>
               <LogoHorizontal width={isMobile ? 200 : 320} height={isMobile ? 56 : 90} variant="light" />
               
               {/* Countries with Flags */}
-              <View style={styles.footerCountriesRow}>
+              <View style={[styles.footerCountriesRow, { justifyContent: isMobile ? 'center' : 'flex-start' }]}>
                 <View style={styles.footerCountryBadge}>
                   <Text style={styles.footerCountryFlag}>🇺🇸</Text>
                   <Text style={styles.footerCountryName}>USA</Text>
@@ -746,7 +749,7 @@ export default function LoginScreen() {
               </View>
 
               {/* Social Media Buttons */}
-              <View style={styles.socialButtonsRow}>
+              <View style={[styles.socialButtonsRow, { justifyContent: isMobile ? 'center' : 'flex-start' }]}>
                 <TouchableOpacity style={styles.socialButton}>
                   <Ionicons name="logo-facebook" size={20} color={COLORS.white} />
                 </TouchableOpacity>
@@ -765,7 +768,10 @@ export default function LoginScreen() {
               </View>
 
               {/* Contact Info */}
-              <View style={styles.footerContactRow}>
+              <View style={[styles.footerContactRow, { 
+                flexDirection: isMobile ? 'column' : 'row',
+                justifyContent: isMobile ? 'center' : 'flex-start',
+              }]}>
                 <View style={styles.footerContactItem}>
                   <Ionicons name="call" size={16} color={COLORS.accent} />
                   <Text style={styles.footerContactText}>+91 99065 99065</Text>
@@ -777,16 +783,16 @@ export default function LoginScreen() {
               </View>
 
               {/* Company Address */}
-              <View style={styles.footerAddressSection}>
+              <View style={[styles.footerAddressSection, { alignItems: isMobile ? 'center' : 'flex-start' }]}>
                 <Text style={styles.footerAddressTitle}>Registered Office:</Text>
-                <Text style={styles.footerAddressText}>
+                <Text style={[styles.footerAddressText, { textAlign: isMobile ? 'center' : 'left' }]}>
                   ShipReward Logistics Pvt. Ltd., 123, Electronic City Phase 1,{'\n'}
                   Hosur Road, Bengaluru, Karnataka - 560100, India
                 </Text>
               </View>
 
               {/* Policy Links */}
-              <View style={styles.footerLinksRow}>
+              <View style={[styles.footerLinksRow, { justifyContent: isMobile ? 'center' : 'flex-start' }]}>
                 <TouchableOpacity>
                   <Text style={styles.footerLink}>Privacy Policy</Text>
                 </TouchableOpacity>
@@ -802,8 +808,8 @@ export default function LoginScreen() {
             </View>
 
             {/* Right Side - CTA Card */}
-            <View style={styles.footerRightSection}>
-              <View style={styles.footerCtaCard}>
+            <View style={[styles.footerRightSection, { alignItems: isMobile ? 'center' : 'flex-end' }]}>
+              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 340 }]}>
                 <Text style={styles.footerCtaTitle}>Ready to Ship & Win?</Text>
                 <Text style={styles.footerCtaSubtitle}>Join thousands of happy shippers earning rewards</Text>
                 <TouchableOpacity style={styles.footerCtaButton} onPress={() => {
