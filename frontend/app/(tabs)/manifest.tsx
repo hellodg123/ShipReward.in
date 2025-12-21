@@ -8,9 +8,13 @@ import {
   TextInput,
   Modal,
   Pressable,
+  Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 768;
 
 const COLORS = {
   primary: '#2563EB',
