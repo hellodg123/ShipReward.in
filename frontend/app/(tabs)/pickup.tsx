@@ -674,6 +674,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.darkGray,
   },
+  // Table horizontal scroll
+  tableScrollContainer: {
+    flex: 1,
+    marginBottom: 16,
+  },
+  tableWrapper: {
+    minWidth: 900,
+  },
   tableHeader: {
     flexDirection: 'row',
     backgroundColor: COLORS.lightGray,
