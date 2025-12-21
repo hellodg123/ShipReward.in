@@ -243,8 +243,12 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <View style={styles.mainContent}>
           {/* Header */}
           <View style={styles.desktopHeader}>
-            <LogoCompact width={140} height={40} variant="dark" />
+            <LogoCompact width={160} height={48} variant="dark" />
             <View style={styles.headerActions}>
+              <TouchableOpacity style={styles.addOrderBtnDesktop} onPress={handleNavigateToAddOrder}>
+                <Ionicons name="add" size={18} color={COLORS.white} />
+                <Text style={styles.addOrderBtnText}>Add Order</Text>
+              </TouchableOpacity>
               <TouchableOpacity style={styles.walletBalance} onPress={handleNavigateToWallet}>
                 <Ionicons name="wallet" size={18} color={COLORS.green} />
                 <Text style={styles.walletBalanceText}>₹ 2.26</Text>
