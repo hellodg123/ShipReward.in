@@ -719,39 +719,31 @@ export default function LoginScreen() {
         </View>
 
         {/* Footer - Combined CTA and Info */}
-        <View style={[styles.footer, { padding: isMobile ? 24 : 50 }]}>
+        <View style={[styles.footer, { padding: isMobile ? 30 : 60 }]}>
+          {/* Main Footer Content - Two Columns on Desktop */}
           <View style={[styles.footerInner, { 
             flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? 30 : 60,
-            justifyContent: 'center',
-            alignItems: 'center',
+            gap: isMobile ? 40 : 80,
+            maxWidth: 1200,
+            alignSelf: 'center',
+            width: '100%',
           }]}>
-            {/* Left Side - Logo & Content */}
-            <View style={[styles.footerLeftSection, { alignItems: 'center' }]}>
-              <LogoHorizontal width={isMobile ? 260 : 320} height={isMobile ? 72 : 90} variant="light" />
+            {/* Left Column - Company Info */}
+            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 20 }}>
+              <LogoHorizontal width={isMobile ? 240 : 280} height={isMobile ? 68 : 80} variant="light" />
               
-              {/* Countries with Flags */}
-              <View style={[styles.footerCountriesRow, { justifyContent: 'center' }]}>
-                <View style={styles.footerCountryBadge}>
-                  <Text style={styles.footerCountryFlag}>🇺🇸</Text>
-                  <Text style={styles.footerCountryName}>USA</Text>
-                </View>
-                <View style={styles.footerCountryBadge}>
-                  <Text style={styles.footerCountryFlag}>🇨🇦</Text>
-                  <Text style={styles.footerCountryName}>CANADA</Text>
-                </View>
-                <View style={styles.footerCountryBadge}>
-                  <Text style={styles.footerCountryFlag}>🇬🇧</Text>
-                  <Text style={styles.footerCountryName}>UK</Text>
-                </View>
-                <View style={styles.footerCountryBadge}>
-                  <Text style={styles.footerCountryFlag}>🇩🇪</Text>
-                  <Text style={styles.footerCountryName}>GERMANY</Text>
-                </View>
-              </View>
+              <Text style={{ 
+                color: 'rgba(255,255,255,0.8)', 
+                fontSize: 14, 
+                lineHeight: 22,
+                textAlign: isMobile ? 'center' : 'left',
+                maxWidth: 400,
+              }}>
+                India's leading international courier service with rewards. Ship to USA, Canada, UK & Germany at the best rates.
+              </Text>
 
               {/* Social Media Buttons */}
-              <View style={[styles.socialButtonsRow, { justifyContent: 'center' }]}>
+              <View style={{ flexDirection: 'row', gap: 12, marginTop: 4 }}>
                 <TouchableOpacity style={styles.socialButton}>
                   <Ionicons name="logo-facebook" size={20} color={COLORS.white} />
                 </TouchableOpacity>
@@ -768,64 +760,98 @@ export default function LoginScreen() {
                   <Ionicons name="logo-linkedin" size={20} color={COLORS.white} />
                 </TouchableOpacity>
               </View>
+            </View>
 
-              {/* Contact Info */}
-              <View style={[styles.footerContactRow, { 
-                flexDirection: isMobile ? 'column' : 'row',
-                justifyContent: 'center',
-              }]}>
-                <View style={styles.footerContactItem}>
-                  <Ionicons name="call" size={16} color={COLORS.accent} />
-                  <Text style={styles.footerContactText}>+91 99065 99065</Text>
-                </View>
-                <View style={styles.footerContactItem}>
-                  <Ionicons name="mail" size={16} color={COLORS.accent} />
-                  <Text style={styles.footerContactText}>support@shipreward.in</Text>
+            {/* Middle Column - Quick Links & Countries */}
+            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 24 }}>
+              {/* Ship To Section */}
+              <View style={{ gap: 12 }}>
+                <Text style={{ color: COLORS.accent, fontSize: 14, fontWeight: '700' }}>SHIP TO</Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: isMobile ? 'center' : 'flex-start' }}>
+                  <View style={styles.footerCountryBadge}>
+                    <Text style={styles.footerCountryFlag}>🇺🇸</Text>
+                    <Text style={styles.footerCountryName}>USA</Text>
+                  </View>
+                  <View style={styles.footerCountryBadge}>
+                    <Text style={styles.footerCountryFlag}>🇨🇦</Text>
+                    <Text style={styles.footerCountryName}>CANADA</Text>
+                  </View>
+                  <View style={styles.footerCountryBadge}>
+                    <Text style={styles.footerCountryFlag}>🇬🇧</Text>
+                    <Text style={styles.footerCountryName}>UK</Text>
+                  </View>
+                  <View style={styles.footerCountryBadge}>
+                    <Text style={styles.footerCountryFlag}>🇩🇪</Text>
+                    <Text style={styles.footerCountryName}>GERMANY</Text>
+                  </View>
                 </View>
               </View>
 
-              {/* Company Address */}
-              <View style={[styles.footerAddressSection, { alignItems: 'center' }]}>
-                <Text style={styles.footerAddressTitle}>Registered Office:</Text>
-                <Text style={[styles.footerAddressText, { textAlign: 'center' }]}>
-                  ShipReward Logistics Pvt. Ltd., 123, Electronic City Phase 1,{'\n'}
-                  Hosur Road, Bengaluru, Karnataka - 560100, India
-                </Text>
-              </View>
-
-              {/* Policy Links */}
-              <View style={[styles.footerLinksRow, { justifyContent: 'center' }]}>
-                <TouchableOpacity>
-                  <Text style={styles.footerLink}>Privacy Policy</Text>
-                </TouchableOpacity>
-                <Text style={styles.footerLinkDivider}>|</Text>
-                <TouchableOpacity>
-                  <Text style={styles.footerLink}>Terms & Conditions</Text>
-                </TouchableOpacity>
-                <Text style={styles.footerLinkDivider}>|</Text>
-                <TouchableOpacity>
-                  <Text style={styles.footerLink}>Refunds & Cancellation</Text>
-                </TouchableOpacity>
+              {/* Quick Links */}
+              <View style={{ gap: 12 }}>
+                <Text style={{ color: COLORS.accent, fontSize: 14, fontWeight: '700' }}>QUICK LINKS</Text>
+                <View style={{ gap: 8 }}>
+                  <TouchableOpacity>
+                    <Text style={{ color: COLORS.white, fontSize: 14 }}>Privacy Policy</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={{ color: COLORS.white, fontSize: 14 }}>Terms & Conditions</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={{ color: COLORS.white, fontSize: 14 }}>Refunds & Cancellation</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
 
-            {/* Right Side - CTA Card */}
-            <View style={[styles.footerRightSection, { alignItems: 'center' }]}>
-              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 340 }]}>
-                <Text style={styles.footerCtaTitle}>Ready to Ship & Win?</Text>
-                <Text style={styles.footerCtaSubtitle}>Join thousands of happy shippers earning rewards</Text>
+            {/* Right Column - Contact & CTA */}
+            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-end', gap: 24 }}>
+              {/* Contact Info */}
+              <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-end' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 14, fontWeight: '700' }}>CONTACT US</Text>
+                <View style={{ gap: 10 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <Ionicons name="call" size={18} color={COLORS.white} />
+                    <Text style={{ color: COLORS.white, fontSize: 14 }}>+91 99065 99065</Text>
+                  </View>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                    <Ionicons name="mail" size={18} color={COLORS.white} />
+                    <Text style={{ color: COLORS.white, fontSize: 14 }}>support@shipreward.in</Text>
+                  </View>
+                </View>
+              </View>
+
+              {/* CTA Card */}
+              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 280 }]}>
+                <Text style={styles.footerCtaTitle}>Ready to Ship?</Text>
+                <Text style={styles.footerCtaSubtitle}>Start shipping & win amazing rewards</Text>
                 <TouchableOpacity style={styles.footerCtaButton} onPress={() => {
                   scrollViewRef.current?.scrollTo({ y: 0, animated: true });
                   setCardView('login');
                 }}>
-                  <Text style={styles.footerCtaButtonText}>Start Shipping Now</Text>
-                  <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
+                  <Text style={styles.footerCtaButtonText}>Start Now</Text>
+                  <Ionicons name="arrow-forward" size={18} color={COLORS.dark} />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-          
-          <Text style={styles.footerCopyright}>© 2025 ShipReward.in - All Rights Reserved</Text>
+
+          {/* Footer Bottom - Address & Copyright */}
+          <View style={{ 
+            marginTop: 40, 
+            paddingTop: 24, 
+            borderTopWidth: 1, 
+            borderTopColor: 'rgba(255,255,255,0.15)',
+            alignItems: 'center',
+            gap: 12,
+          }}>
+            <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, textAlign: 'center', lineHeight: 18 }}>
+              ShipReward Logistics Pvt. Ltd. | 123, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka - 560100, India
+            </Text>
+            <Text style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>
+              © 2025 ShipReward.in - All Rights Reserved
+            </Text>
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
