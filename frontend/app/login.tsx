@@ -513,7 +513,7 @@ export default function LoginScreen() {
           <View style={styles.heroContent}>
             {/* Logo */}
             <View style={styles.logoSection}>
-              <LogoHorizontal width={280} height={80} variant="light" />
+              <LogoHorizontal width={340} height={100} variant="light" />
             </View>
 
             <View style={styles.heroMain}>
