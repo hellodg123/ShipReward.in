@@ -857,7 +857,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(37, 99, 235, 0.3)',
   },
   heroContent: {
-    padding: isLargeScreen ? 60 : 24,
+    padding: isLargeScreen ? 40 : 20,
+    paddingTop: isLargeScreen ? 30 : 16,
     zIndex: 1,
   },
   logoSection: {
