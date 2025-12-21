@@ -6,9 +6,13 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../../src/context/AuthContext';
+
+const { width } = Dimensions.get('window');
+const isLargeScreen = width > 768;
 
 const COLORS = {
   primary: '#2563EB',
