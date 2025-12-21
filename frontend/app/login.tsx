@@ -724,7 +724,10 @@ export default function LoginScreen() {
           <View style={styles.ctaContent}>
             <Text style={styles.ctaTitle}>Ready to Ship & Win?</Text>
             <Text style={styles.ctaSubtitle}>Join thousands of happy shippers earning rewards</Text>
-            <TouchableOpacity style={styles.ctaButton} onPress={switchToRegister}>
+            <TouchableOpacity style={styles.ctaButton} onPress={() => {
+              scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+              setCardView('login');
+            }}>
               <Text style={styles.ctaButtonText}>Start Shipping Now</Text>
               <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
             </TouchableOpacity>
@@ -733,9 +736,86 @@ export default function LoginScreen() {
 
         {/* Footer */}
         <View style={styles.footer}>
-          <LogoHorizontal width={140} height={40} variant="dark" />
-          <Text style={styles.footerText}>© 2025 ShipReward.in - All Rights Reserved</Text>
-          <Text style={styles.footerCountries}>🇺🇸 USA | 🇬🇧 UK | 🇨🇦 Canada | 🇩🇪 Germany</Text>
+          <LogoHorizontal width={200} height={60} variant="dark" />
+          
+          {/* Countries with Flags */}
+          <View style={styles.footerCountriesRow}>
+            <View style={styles.footerCountryBadge}>
+              <Text style={styles.footerCountryFlag}>🇺🇸</Text>
+              <Text style={styles.footerCountryName}>USA</Text>
+            </View>
+            <View style={styles.footerCountryBadge}>
+              <Text style={styles.footerCountryFlag}>🇨🇦</Text>
+              <Text style={styles.footerCountryName}>CANADA</Text>
+            </View>
+            <View style={styles.footerCountryBadge}>
+              <Text style={styles.footerCountryFlag}>🇬🇧</Text>
+              <Text style={styles.footerCountryName}>UK</Text>
+            </View>
+            <View style={styles.footerCountryBadge}>
+              <Text style={styles.footerCountryFlag}>🇩🇪</Text>
+              <Text style={styles.footerCountryName}>GERMANY</Text>
+            </View>
+          </View>
+
+          {/* Social Media Buttons */}
+          <View style={styles.socialButtonsRow}>
+            <TouchableOpacity style={styles.socialButton}>
+              <Ionicons name="logo-facebook" size={22} color={COLORS.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Ionicons name="logo-youtube" size={22} color={COLORS.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Ionicons name="logo-twitter" size={22} color={COLORS.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Ionicons name="logo-instagram" size={22} color={COLORS.white} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.socialButton}>
+              <Ionicons name="logo-linkedin" size={22} color={COLORS.white} />
+            </TouchableOpacity>
+          </View>
+
+          {/* Contact Info */}
+          <View style={styles.footerContactRow}>
+            <View style={styles.footerContactItem}>
+              <Ionicons name="call" size={18} color={COLORS.accent} />
+              <Text style={styles.footerContactText}>+91 99065 99065</Text>
+            </View>
+            <View style={styles.footerContactItem}>
+              <Ionicons name="mail" size={18} color={COLORS.accent} />
+              <Text style={styles.footerContactText}>support@shipreward.in</Text>
+            </View>
+          </View>
+
+          {/* Company Address */}
+          <View style={styles.footerAddressSection}>
+            <Text style={styles.footerAddressTitle}>Registered Office:</Text>
+            <Text style={styles.footerAddressText}>
+              ShipReward Logistics Pvt. Ltd.{'\n'}
+              123, Electronic City Phase 1,{'\n'}
+              Hosur Road, Bengaluru,{'\n'}
+              Karnataka - 560100, India
+            </Text>
+          </View>
+
+          {/* Policy Links */}
+          <View style={styles.footerLinksRow}>
+            <TouchableOpacity>
+              <Text style={styles.footerLink}>Privacy Policy</Text>
+            </TouchableOpacity>
+            <Text style={styles.footerLinkDivider}>|</Text>
+            <TouchableOpacity>
+              <Text style={styles.footerLink}>Terms & Conditions</Text>
+            </TouchableOpacity>
+            <Text style={styles.footerLinkDivider}>|</Text>
+            <TouchableOpacity>
+              <Text style={styles.footerLink}>Refunds & Cancellation Policy</Text>
+            </TouchableOpacity>
+          </View>
+
+          <Text style={styles.footerCopyright}>© 2025 ShipReward.in - All Rights Reserved</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
