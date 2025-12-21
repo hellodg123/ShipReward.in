@@ -859,8 +859,8 @@ export default function OrdersScreen() {
                   <View style={styles.lastMileCell}>
                     <Text style={styles.headerText}>Last Mile Details</Text>
                   </View>
-                  <View style={styles.viewCell}>
-                    <Text style={styles.headerText}>View Order</Text>
+                  <View style={styles.actionsCell}>
+                    <Text style={styles.headerText}>Actions</Text>
                   </View>
                 </>
               )}
