@@ -524,11 +524,10 @@ export default function LoginScreen() {
                   International Shipping{'\n'}Made <Text style={styles.heroHighlight}>Rewarding</Text>
                 </Text>
                 <Text style={styles.heroSubtitle}>
-                  Ship your orders to USA, Canada, UK & Germany at the best rates and stand a chance to win rewards worth
+                  Ship your orders to USA, Canada, UK & Germany at the best rates and win rewards worth
                 </Text>
                 <View style={styles.rewardHighlight}>
                   <Text style={styles.rewardAmount}>₹21 Crore+</Text>
-                  <Text style={styles.rewardLabel}>in Amazing Rewards!</Text>
                 </View>
 
                 {/* Countries We Ship To */}
