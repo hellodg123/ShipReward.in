@@ -84,7 +84,7 @@ type CardView = 'login' | 'register' | 'forgot';
 
 export default function LoginScreen() {
   const router = useRouter();
-  const { login, register } = useAuth();
+  const { login, register, forgotPassword } = useAuth();
   const scrollViewRef = useRef<ScrollView>(null);
   
   // Card view state
