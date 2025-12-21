@@ -861,7 +861,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   logoSection: {
-    marginBottom: 40,
+    marginBottom: 20,
   },
   heroMain: {
     flexDirection: isLargeScreen ? 'row' : 'column',
