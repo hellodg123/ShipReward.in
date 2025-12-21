@@ -597,7 +597,7 @@ export default function LoginScreen() {
         <View style={styles.rewardsSection}>
           <View style={styles.rewardsSectionHeader}>
             <Text style={styles.sectionTitle}>🏆 Win Amazing <Text style={styles.highlightText}>Rewards!</Text></Text>
-            <Text style={styles.rewardsSectionSubtitle}>Top 100 winners every month get incredible prizes</Text>
+            <Text style={styles.rewardsSectionSubtitle}>22 Lakh Plus Coupon Win ₹1,00,00,000 to ₹60</Text>
           </View>
 
           {/* Prize Showcase */}
