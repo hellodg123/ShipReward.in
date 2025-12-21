@@ -245,17 +245,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           <View style={styles.desktopHeader}>
             <LogoCompact width={160} height={48} variant="dark" />
             <View style={styles.headerActions}>
-              <TouchableOpacity style={styles.addOrderBtnDesktop} onPress={handleNavigateToAddOrder}>
-                <Ionicons name="add" size={18} color={COLORS.white} />
-                <Text style={styles.addOrderBtnText}>Add Order</Text>
-              </TouchableOpacity>
               <TouchableOpacity style={styles.walletBalance} onPress={handleNavigateToWallet}>
                 <Ionicons name="wallet" size={18} color={COLORS.green} />
                 <Text style={styles.walletBalanceText}>₹ 2.26</Text>
                 <Text style={styles.rechargeText}>Recharge</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.headerIconBtn} onPress={handleNavigateToSupport}>
-                <Ionicons name="headset-outline" size={20} color={COLORS.darkGray} />
+              <TouchableOpacity style={styles.addOrderBtn} onPress={handleNavigateToAddOrder}>
+                <Ionicons name="add" size={22} color={COLORS.white} />
               </TouchableOpacity>
               <TouchableOpacity style={styles.profileBtn} onPress={() => setShowProfileMenu(true)}>
                 <Text style={styles.profileInitials}>
