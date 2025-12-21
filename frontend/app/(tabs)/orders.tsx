@@ -613,20 +613,41 @@ export default function OrdersScreen() {
             <>
               <Text style={styles.trackingId}>{item.trackingId}</Text>
               <Text style={styles.carrier}>{item.carrier}</Text>
-              <View style={styles.copyRow}>
-                <Ionicons name="copy-outline" size={14} color={COLORS.gray} />
+              <TouchableOpacity style={styles.copyRow}>
+                <Ionicons name="copy-outline" size={14} color={COLORS.primary} />
                 <Text style={styles.copyText}>Copy</Text>
-              </View>
+              </TouchableOpacity>
             </>
           ) : (
             <Text style={styles.noTracking}>-</Text>
           )}
         </View>
 
-        <View style={styles.viewCell}>
-          <TouchableOpacity style={styles.viewButton}>
-            <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
-          </TouchableOpacity>
+        <View style={styles.actionsCell}>
+          <View style={styles.actionIconsRow}>
+            <TouchableOpacity style={styles.actionIcon}>
+              <Ionicons name="print-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.actionIcon}>
+              <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.actionIcon}
+              onPress={() => setActiveActionDropdown(activeActionDropdown === item.id ? null : item.id)}
+            >
+              <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+          </View>
+          {activeActionDropdown === item.id && (
+            <View style={styles.actionDropdown}>
+              <TouchableOpacity style={styles.actionDropdownItem}>
+                <Text style={styles.actionDropdownText}>Print Invoice</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.actionDropdownItem}>
+                <Text style={styles.actionDropdownText}>Clone Order</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       </View>
     );
