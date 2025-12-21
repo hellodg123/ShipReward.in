@@ -635,11 +635,13 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
-  tabsContainer: {
-    flexDirection: 'row',
+  tabsScrollContainer: {
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
+  },
+  tabsContainer: {
+    flexDirection: 'row',
   },
   tab: {
     paddingVertical: 12,
