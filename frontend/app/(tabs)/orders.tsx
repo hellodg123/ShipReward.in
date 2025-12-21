@@ -491,12 +491,20 @@ export default function OrdersScreen() {
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
   const [activeActionDropdown, setActiveActionDropdown] = useState<string | null>(null);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
 
+  // Handle tab from URL params only on initial load - do NOT change URL when switching tabs
   useEffect(() => {
-    if (params.tab) {
-      setActiveTab(params.tab as string);
+    if (params.tab && typeof params.tab === 'string') {
+      setActiveTab(params.tab);
     }
-  }, [params.tab]);
+  }, []);
+
+  // Handle tab change locally without URL change
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setCurrentPage(1);
+  };
 
   // Get data based on active tab
   const isDraftsTab = activeTab === 'drafts';
