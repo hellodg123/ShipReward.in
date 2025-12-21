@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../src/context/AuthContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LogoHorizontal } from '../src/components/Logo';
-import Svg, { Path, Circle, Rect, G, Defs, LinearGradient, Stop } from 'react-native-svg';
+import Svg, { Path, Circle, Rect, G } from 'react-native-svg';
 
 const { width, height } = Dimensions.get('window');
 const isLargeScreen = width > 768;
@@ -40,31 +40,10 @@ const COLORS = {
   dark: '#111827',
 };
 
-// Country flags as simple colored icons
-const CountryFlag = ({ country }: { country: string }) => {
-  const flagColors: { [key: string]: string[] } = {
-    USA: ['#BF0A30', '#FFFFFF', '#002868'],
-    UK: ['#012169', '#C8102E', '#FFFFFF'],
-    Canada: ['#FF0000', '#FFFFFF'],
-    Germany: ['#000000', '#DD0000', '#FFCE00'],
-  };
-  
-  return (
-    <View style={styles.flagContainer}>
-      <View style={[styles.flagStripe, { backgroundColor: flagColors[country]?.[0] || COLORS.gray }]} />
-      <View style={[styles.flagStripe, { backgroundColor: flagColors[country]?.[1] || COLORS.white }]} />
-      <View style={[styles.flagStripe, { backgroundColor: flagColors[country]?.[2] || flagColors[country]?.[0] || COLORS.gray }]} />
-    </View>
-  );
-};
-
 // Car Icon SVG
 const CarIcon = ({ size = 80, color = COLORS.primary }: { size?: number; color?: string }) => (
   <Svg width={size} height={size * 0.5} viewBox="0 0 100 50">
-    <Path
-      d="M10 35 L20 35 L25 25 L35 15 L65 15 L80 25 L90 35 L90 40 L10 40 Z"
-      fill={color}
-    />
+    <Path d="M10 35 L20 35 L25 25 L35 15 L65 15 L80 25 L90 35 L90 40 L10 40 Z" fill={color} />
     <Circle cx="25" cy="42" r="8" fill="#333" />
     <Circle cx="25" cy="42" r="4" fill="#666" />
     <Circle cx="75" cy="42" r="8" fill="#333" />
@@ -94,18 +73,6 @@ const PhoneIcon = ({ size = 60, color = COLORS.pink }: { size?: number; color?: 
   </Svg>
 );
 
-// Reward data
-const topRewards = [
-  { rank: '1-3', prize: '₹1 Crore Cash', icon: '💰', color: COLORS.gold },
-  { rank: '4', prize: 'Range Rover Velar', value: '₹86.74 Lakh', icon: '🚗', color: COLORS.primary },
-  { rank: '5', prize: 'BMW iX1 xDrive30', value: '₹71.24 Lakh', icon: '🚙', color: COLORS.primaryLight },
-  { rank: '6', prize: 'Audi Q3 Premium', value: '₹49.71 Lakh', icon: '🚘', color: COLORS.secondary },
-  { rank: '7', prize: 'Harley Davidson', value: '₹19.95 Lakh', icon: '🏍️', color: COLORS.orange },
-  { rank: '10-50', prize: 'Royal Enfield Hunter', value: '₹1.88 Lakh', icon: '🏍️', color: COLORS.green },
-  { rank: '51-75', prize: 'Samsung Galaxy Z Fold7', value: '₹1.86 Lakh', icon: '📱', color: COLORS.pink },
-  { rank: '76-100', prize: 'iPhone 17 Pro Max', value: '₹1.69 Lakh', icon: '📱', color: COLORS.gray },
-];
-
 const shippingCountries = [
   { name: 'USA', flag: '🇺🇸', fullName: 'United States' },
   { name: 'UK', flag: '🇬🇧', fullName: 'United Kingdom' },
@@ -113,15 +80,59 @@ const shippingCountries = [
   { name: 'Germany', flag: '🇩🇪', fullName: 'Germany' },
 ];
 
+type CardView = 'login' | 'register' | 'forgot';
+
 export default function LoginScreen() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, register } = useAuth();
+  const scrollViewRef = useRef<ScrollView>(null);
+  
+  // Card view state
+  const [cardView, setCardView] = useState<CardView>('login');
+  
+  // Login state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  
+  // Register state
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showRegisterPassword, setShowRegisterPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [agreeTerms, setAgreeTerms] = useState(false);
+  
+  // Forgot password state
+  const [forgotEmail, setForgotEmail] = useState('');
+  
+  // Common state
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const scrollViewRef = useRef<ScrollView>(null);
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const resetForm = () => {
+    setError('');
+    setSuccessMessage('');
+  };
+
+  const switchToLogin = () => {
+    resetForm();
+    setCardView('login');
+  };
+
+  const switchToRegister = () => {
+    resetForm();
+    setCardView('register');
+  };
+
+  const switchToForgot = () => {
+    resetForm();
+    setCardView('forgot');
+  };
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -146,9 +157,343 @@ export default function LoginScreen() {
     }
   };
 
-  const scrollToLogin = () => {
-    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+  const handleRegister = async () => {
+    if (!firstName.trim() || !lastName.trim() || !mobileNumber.trim() || 
+        !registerEmail.trim() || !registerPassword.trim() || !confirmPassword.trim()) {
+      setError('Please fill in all fields');
+      return;
+    }
+
+    if (registerPassword !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    if (!agreeTerms) {
+      setError('Please agree to the Terms of Service and Privacy Policy');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const result = await register(registerEmail, registerPassword, firstName, lastName);
+      if (result.success) {
+        setSuccessMessage('Account created successfully! Please login.');
+        setTimeout(() => {
+          switchToLogin();
+          setEmail(registerEmail);
+        }, 1500);
+      } else {
+        setError(result.message || 'Registration failed. Please try again.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const handleForgotPassword = async () => {
+    if (!forgotEmail.trim()) {
+      setError('Please enter your email address');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setSuccessMessage('Password reset link sent to your email!');
+      setTimeout(() => {
+        switchToLogin();
+      }, 2000);
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Login Card Component
+  const renderLoginCard = () => (
+    <View style={styles.loginCard}>
+      <Text style={styles.cardTitle}>Welcome Back!</Text>
+      <Text style={styles.cardSubtitle}>Sign in to start shipping & winning</Text>
+
+      {error ? (
+        <View style={styles.errorContainer}>
+          <Ionicons name="alert-circle" size={18} color={COLORS.error} />
+          <Text style={styles.errorText}>{error}</Text>
+        </View>
+      ) : null}
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Email Address</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="mail-outline" size={20} color={COLORS.gray} />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your email"
+            placeholderTextColor={COLORS.gray}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Password</Text>
+        <View style={styles.inputContainer}>
+          <Ionicons name="lock-closed-outline" size={20} color={COLORS.gray} />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter your password"
+            placeholderTextColor={COLORS.gray}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword}
+          />
+          <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons name={showPassword ? "eye-outline" : "eye-off-outline"} size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <TouchableOpacity style={styles.forgotPassword} onPress={switchToForgot}>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={[styles.primaryButton, isLoading && styles.buttonDisabled]}
+        onPress={handleLogin}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <ActivityIndicator color={COLORS.white} />
+        ) : (
+          <>
+            <Text style={styles.primaryButtonText}>Sign In</Text>
+            <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
+          </>
+        )}
+      </TouchableOpacity>
+
+      <View style={styles.switchRow}>
+        <Text style={styles.switchText}>New to ShipReward?</Text>
+        <TouchableOpacity onPress={switchToRegister}>
+          <Text style={styles.switchLink}>Create Account</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  // Register Card Component
+  const renderRegisterCard = () => (
+    <View style={styles.loginCard}>
+      <Text style={styles.cardTitle}>Create Account</Text>
+      <Text style={styles.cardSubtitle}>Join ShipReward and start winning</Text>
+
+      {error ? (
+        <View style={styles.errorContainer}>
+          <Ionicons name="alert-circle" size={18} color={COLORS.error} />
+          <Text style={styles.errorText}>{error}</Text>
+        </View>
+      ) : null}
+
+      {successMessage ? (
+        <View style={styles.successContainer}>
+          <Ionicons name="checkmark-circle" size={18} color={COLORS.green} />
+          <Text style={styles.successText}>{successMessage}</Text>
+        </View>
+      ) : null}
+
+      <View style={styles.inputRow}>
+        <View style={[styles.inputGroup, { flex: 1 }]}>
+          <Text style={styles.inputLabel}>First Name</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter First Name..."
+              placeholderTextColor={COLORS.gray}
+              value={firstName}
+              onChangeText={setFirstName}
+            />
+          </View>
+        </View>
+        <View style={[styles.inputGroup, { flex: 1 }]}>
+          <Text style={styles.inputLabel}>Last Name</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Last Name..."
+              placeholderTextColor={COLORS.gray}
+              value={lastName}
+              onChangeText={setLastName}
+            />
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Mobile Number</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Mobile Number..."
+            placeholderTextColor={COLORS.gray}
+            value={mobileNumber}
+            onChangeText={setMobileNumber}
+            keyboardType="phone-pad"
+          />
+        </View>
+        <Text style={styles.inputHint}>You will receive SMS and WhatsApp updates on this number</Text>
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Email</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email ID..."
+            placeholderTextColor={COLORS.gray}
+            value={registerEmail}
+            onChangeText={setRegisterEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Password</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Type here..."
+            placeholderTextColor={COLORS.gray}
+            value={registerPassword}
+            onChangeText={setRegisterPassword}
+            secureTextEntry={!showRegisterPassword}
+          />
+          <TouchableOpacity onPress={() => setShowRegisterPassword(!showRegisterPassword)}>
+            <Ionicons name={showRegisterPassword ? "eye-outline" : "eye-off-outline"} size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Confirm Password</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Type here..."
+            placeholderTextColor={COLORS.gray}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry={!showConfirmPassword}
+          />
+          <TouchableOpacity onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+            <Ionicons name={showConfirmPassword ? "eye-outline" : "eye-off-outline"} size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <TouchableOpacity 
+        style={styles.checkboxRow}
+        onPress={() => setAgreeTerms(!agreeTerms)}
+      >
+        <View style={[styles.checkbox, agreeTerms && styles.checkboxChecked]}>
+          {agreeTerms && <Ionicons name="checkmark" size={14} color={COLORS.white} />}
+        </View>
+        <Text style={styles.checkboxText}>
+          By clicking on Create Account, you agree to ShipReward's{' '}
+          <Text style={styles.linkText}>Terms of Service</Text> and{' '}
+          <Text style={styles.linkText}>Privacy Policy</Text>
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={[styles.primaryButton, isLoading && styles.buttonDisabled]}
+        onPress={handleRegister}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <ActivityIndicator color={COLORS.white} />
+        ) : (
+          <Text style={styles.primaryButtonText}>Create Account</Text>
+        )}
+      </TouchableOpacity>
+
+      <View style={styles.switchRow}>
+        <Text style={styles.switchText}>Already have an account?</Text>
+        <TouchableOpacity onPress={switchToLogin}>
+          <Text style={styles.switchLink}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  // Forgot Password Card Component
+  const renderForgotCard = () => (
+    <View style={styles.loginCard}>
+      <Text style={styles.cardTitle}>Forgot Your Password?</Text>
+      <Text style={styles.cardSubtitle}>
+        Enter email address linked to your account and we'll email you a link to reset your password.
+      </Text>
+
+      {error ? (
+        <View style={styles.errorContainer}>
+          <Ionicons name="alert-circle" size={18} color={COLORS.error} />
+          <Text style={styles.errorText}>{error}</Text>
+        </View>
+      ) : null}
+
+      {successMessage ? (
+        <View style={styles.successContainer}>
+          <Ionicons name="checkmark-circle" size={18} color={COLORS.green} />
+          <Text style={styles.successText}>{successMessage}</Text>
+        </View>
+      ) : null}
+
+      <View style={styles.inputGroup}>
+        <Text style={styles.inputLabel}>Email <Text style={styles.requiredStar}>*</Text></Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Email ID..."
+            placeholderTextColor={COLORS.gray}
+            value={forgotEmail}
+            onChangeText={setForgotEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+      </View>
+
+      <TouchableOpacity 
+        style={[styles.primaryButton, isLoading && styles.buttonDisabled]}
+        onPress={handleForgotPassword}
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <ActivityIndicator color={COLORS.white} />
+        ) : (
+          <Text style={styles.primaryButtonText}>Submit</Text>
+        )}
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.returnLink} onPress={switchToLogin}>
+        <Ionicons name="arrow-back" size={16} color={COLORS.primary} />
+        <Text style={styles.returnLinkText}>Return to Login</Text>
+      </TouchableOpacity>
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.container}>
@@ -200,86 +545,11 @@ export default function LoginScreen() {
                 </View>
               </View>
 
-              {/* Right Side - Login Form */}
+              {/* Right Side - Dynamic Card */}
               <View style={styles.loginSection}>
-                <View style={styles.loginCard}>
-                  <Text style={styles.loginTitle}>Welcome Back!</Text>
-                  <Text style={styles.loginSubtitle}>Sign in to start shipping & winning</Text>
-
-                  {error ? (
-                    <View style={styles.errorContainer}>
-                      <Ionicons name="alert-circle" size={18} color={COLORS.error} />
-                      <Text style={styles.errorText}>{error}</Text>
-                    </View>
-                  ) : null}
-
-                  <View style={styles.inputGroup}>
-                    <Text style={styles.inputLabel}>Email Address</Text>
-                    <View style={styles.inputContainer}>
-                      <Ionicons name="mail-outline" size={20} color={COLORS.gray} />
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Enter your email"
-                        placeholderTextColor={COLORS.gray}
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType="email-address"
-                        autoCapitalize="none"
-                      />
-                    </View>
-                  </View>
-
-                  <View style={styles.inputGroup}>
-                    <Text style={styles.inputLabel}>Password</Text>
-                    <View style={styles.inputContainer}>
-                      <Ionicons name="lock-closed-outline" size={20} color={COLORS.gray} />
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Enter your password"
-                        placeholderTextColor={COLORS.gray}
-                        value={password}
-                        onChangeText={setPassword}
-                        secureTextEntry={!showPassword}
-                      />
-                      <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                        <Ionicons 
-                          name={showPassword ? "eye-outline" : "eye-off-outline"} 
-                          size={20} 
-                          color={COLORS.gray} 
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-
-                  <TouchableOpacity 
-                    style={styles.forgotPassword}
-                    onPress={() => router.push('/forgot-password')}
-                  >
-                    <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity 
-                    style={[styles.loginButton, isLoading && styles.loginButtonDisabled]}
-                    onPress={handleLogin}
-                    disabled={isLoading}
-                  >
-                    {isLoading ? (
-                      <ActivityIndicator color={COLORS.white} />
-                    ) : (
-                      <>
-                        <Text style={styles.loginButtonText}>Sign In</Text>
-                        <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
-                      </>
-                    )}
-                  </TouchableOpacity>
-
-                  <View style={styles.signupRow}>
-                    <Text style={styles.signupText}>New to ShipReward?</Text>
-                    <TouchableOpacity onPress={() => router.push('/register')}>
-                      <Text style={styles.signupLink}>Create Account</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
+                {cardView === 'login' && renderLoginCard()}
+                {cardView === 'register' && renderRegisterCard()}
+                {cardView === 'forgot' && renderForgotCard()}
               </View>
             </View>
           </View>
@@ -455,9 +725,9 @@ export default function LoginScreen() {
           <View style={styles.ctaContent}>
             <Text style={styles.ctaTitle}>Ready to Ship & Win?</Text>
             <Text style={styles.ctaSubtitle}>Join thousands of happy shippers earning rewards</Text>
-            <TouchableOpacity style={styles.ctaButton} onPress={() => router.push('/register')}>
+            <TouchableOpacity style={styles.ctaButton} onPress={switchToRegister}>
               <Text style={styles.ctaButtonText}>Start Shipping Now</Text>
-              <Ionicons name="arrow-forward" size={20} color={COLORS.white} />
+              <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
             </TouchableOpacity>
           </View>
         </View>
@@ -487,7 +757,7 @@ const styles = StyleSheet.create({
 
   // Hero Section
   heroSection: {
-    minHeight: isLargeScreen ? height * 0.9 : 'auto',
+    minHeight: isLargeScreen ? height * 0.95 : 'auto',
     position: 'relative',
     overflow: 'hidden',
   },
@@ -517,12 +787,12 @@ const styles = StyleSheet.create({
   heroMain: {
     flexDirection: isLargeScreen ? 'row' : 'column',
     justifyContent: 'space-between',
-    alignItems: isLargeScreen ? 'center' : 'stretch',
+    alignItems: isLargeScreen ? 'flex-start' : 'stretch',
     gap: 40,
   },
   heroTextSection: {
     flex: isLargeScreen ? 1 : undefined,
-    maxWidth: isLargeScreen ? 600 : '100%',
+    maxWidth: isLargeScreen ? 550 : '100%',
   },
   heroTagline: {
     fontSize: 16,
@@ -531,39 +801,39 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   heroTitle: {
-    fontSize: isLargeScreen ? 52 : 36,
+    fontSize: isLargeScreen ? 48 : 32,
     fontWeight: '800',
     color: COLORS.white,
-    lineHeight: isLargeScreen ? 62 : 44,
+    lineHeight: isLargeScreen ? 58 : 42,
     marginBottom: 20,
   },
   heroHighlight: {
     color: COLORS.gold,
   },
   heroSubtitle: {
-    fontSize: isLargeScreen ? 18 : 16,
+    fontSize: isLargeScreen ? 17 : 15,
     color: 'rgba(255,255,255,0.9)',
-    lineHeight: 28,
-    marginBottom: 24,
+    lineHeight: 26,
+    marginBottom: 20,
   },
   rewardHighlight: {
     flexDirection: 'row',
     alignItems: 'baseline',
     gap: 12,
-    marginBottom: 32,
+    marginBottom: 28,
   },
   rewardAmount: {
-    fontSize: isLargeScreen ? 48 : 36,
+    fontSize: isLargeScreen ? 44 : 32,
     fontWeight: '800',
     color: COLORS.gold,
   },
   rewardLabel: {
-    fontSize: 18,
+    fontSize: 16,
     color: COLORS.white,
     fontWeight: '600',
   },
   countriesSection: {
-    marginTop: 20,
+    marginTop: 16,
   },
   countriesTitle: {
     fontSize: 14,
@@ -574,61 +844,51 @@ const styles = StyleSheet.create({
   countriesRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 10,
   },
   countryBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255,255,255,0.15)',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    borderRadius: 25,
-    gap: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 6,
   },
   countryFlag: {
-    fontSize: 20,
+    fontSize: 18,
   },
   countryName: {
     color: COLORS.white,
     fontWeight: '600',
-    fontSize: 14,
-  },
-  flagContainer: {
-    width: 24,
-    height: 16,
-    borderRadius: 2,
-    overflow: 'hidden',
-    flexDirection: 'row',
-  },
-  flagStripe: {
-    flex: 1,
-    height: '100%',
+    fontSize: 13,
   },
 
-  // Login Section
+  // Login/Register/Forgot Card Section
   loginSection: {
     width: isLargeScreen ? 420 : '100%',
   },
   loginCard: {
     backgroundColor: COLORS.white,
     borderRadius: 20,
-    padding: 32,
+    padding: isLargeScreen ? 32 : 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.2,
     shadowRadius: 30,
     elevation: 10,
   },
-  loginTitle: {
-    fontSize: 28,
+  cardTitle: {
+    fontSize: 26,
     fontWeight: '700',
     color: COLORS.dark,
-    marginBottom: 8,
+    marginBottom: 6,
   },
-  loginSubtitle: {
+  cardSubtitle: {
     fontSize: 14,
     color: COLORS.gray,
-    marginBottom: 24,
+    marginBottom: 20,
+    lineHeight: 20,
   },
   errorContainer: {
     flexDirection: 'row',
@@ -642,71 +902,140 @@ const styles = StyleSheet.create({
   errorText: {
     color: COLORS.error,
     fontSize: 13,
+    flex: 1,
+  },
+  successContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F0FDF4',
+    padding: 12,
+    borderRadius: 8,
+    marginBottom: 16,
+    gap: 8,
+  },
+  successText: {
+    color: COLORS.green,
+    fontSize: 13,
+    flex: 1,
   },
   inputGroup: {
-    marginBottom: 20,
+    marginBottom: 16,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    gap: 12,
   },
   inputLabel: {
     fontSize: 14,
     fontWeight: '600',
     color: COLORS.darkGray,
-    marginBottom: 8,
+    marginBottom: 6,
+  },
+  requiredStar: {
+    color: COLORS.error,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.lightGray,
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    gap: 12,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    gap: 10,
   },
   input: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 14,
     color: COLORS.dark,
+  },
+  inputHint: {
+    fontSize: 11,
+    color: COLORS.gray,
+    marginTop: 4,
   },
   forgotPassword: {
     alignSelf: 'flex-end',
-    marginBottom: 24,
+    marginBottom: 20,
   },
   forgotPasswordText: {
     color: COLORS.primary,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
   },
-  loginButton: {
+  primaryButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: COLORS.primary,
-    paddingVertical: 16,
-    borderRadius: 12,
+    paddingVertical: 14,
+    borderRadius: 10,
     gap: 8,
   },
-  loginButtonDisabled: {
+  buttonDisabled: {
     opacity: 0.7,
   },
-  loginButtonText: {
+  primaryButtonText: {
     color: COLORS.white,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
   },
-  signupRow: {
+  switchRow: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 24,
+    marginTop: 20,
     gap: 4,
   },
-  signupText: {
+  switchText: {
     color: COLORS.gray,
-    fontSize: 14,
+    fontSize: 13,
   },
-  signupLink: {
+  switchLink: {
+    color: COLORS.primary,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  checkboxRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginBottom: 20,
+    gap: 10,
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: COLORS.gray,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 2,
+  },
+  checkboxChecked: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
+  },
+  checkboxText: {
+    flex: 1,
+    fontSize: 12,
+    color: COLORS.gray,
+    lineHeight: 18,
+  },
+  linkText: {
+    color: COLORS.primary,
+    fontWeight: '600',
+  },
+  returnLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20,
+    gap: 6,
+  },
+  returnLinkText: {
     color: COLORS.primary,
     fontSize: 14,
-    fontWeight: '700',
+    fontWeight: '600',
   },
 
   // Why Choose Us Section
@@ -715,11 +1044,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.lightGray,
   },
   sectionTitle: {
-    fontSize: isLargeScreen ? 40 : 28,
+    fontSize: isLargeScreen ? 36 : 26,
     fontWeight: '800',
     color: COLORS.dark,
     textAlign: 'center',
-    marginBottom: 48,
+    marginBottom: 40,
   },
   highlightText: {
     color: COLORS.primary,
@@ -728,13 +1057,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    gap: 24,
+    gap: 20,
   },
   featureCard: {
     backgroundColor: COLORS.white,
     borderRadius: 16,
-    padding: 28,
-    width: isLargeScreen ? 280 : '100%',
+    padding: 24,
+    width: isLargeScreen ? 260 : '100%',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -743,25 +1072,25 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   featureIcon: {
-    width: 72,
-    height: 72,
-    borderRadius: 20,
+    width: 64,
+    height: 64,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   featureTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: COLORS.dark,
-    marginBottom: 8,
+    marginBottom: 6,
     textAlign: 'center',
   },
   featureDesc: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.gray,
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 20,
   },
 
   // Rewards Section
@@ -770,144 +1099,144 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
   },
   rewardsSectionHeader: {
-    marginBottom: 48,
+    marginBottom: 40,
   },
   rewardsSectionSubtitle: {
-    fontSize: 16,
+    fontSize: 15,
     color: COLORS.gray,
     textAlign: 'center',
-    marginTop: -32,
+    marginTop: -28,
   },
   prizeShowcase: {
     alignItems: 'center',
   },
   grandPrizeCard: {
     backgroundColor: '#FEF3C7',
-    borderRadius: 24,
-    padding: 40,
+    borderRadius: 20,
+    padding: 32,
     alignItems: 'center',
-    marginBottom: 40,
-    width: isLargeScreen ? 400 : '100%',
+    marginBottom: 32,
+    width: isLargeScreen ? 360 : '100%',
     borderWidth: 3,
     borderColor: COLORS.gold,
   },
   grandPrizeBadge: {
     backgroundColor: COLORS.gold,
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 20,
-    marginBottom: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
+    borderRadius: 16,
+    marginBottom: 16,
   },
   grandPrizeBadgeText: {
     color: COLORS.dark,
     fontWeight: '800',
-    fontSize: 12,
+    fontSize: 11,
   },
   grandPrizeEmoji: {
-    fontSize: 64,
-    marginBottom: 16,
+    fontSize: 56,
+    marginBottom: 12,
   },
   grandPrizeAmount: {
-    fontSize: 48,
+    fontSize: 40,
     fontWeight: '800',
     color: COLORS.dark,
   },
   grandPrizeLabel: {
-    fontSize: 16,
+    fontSize: 14,
     color: COLORS.darkGray,
-    marginTop: 8,
+    marginTop: 6,
   },
   vehiclePrizesRow: {
     flexDirection: isLargeScreen ? 'row' : 'column',
-    gap: 24,
-    marginBottom: 32,
+    gap: 20,
+    marginBottom: 28,
     width: '100%',
     justifyContent: 'center',
   },
   vehiclePrizeCard: {
     backgroundColor: COLORS.lightGray,
-    borderRadius: 20,
-    padding: 28,
-    alignItems: 'center',
-    flex: isLargeScreen ? 1 : undefined,
-    maxWidth: isLargeScreen ? 300 : '100%',
-  },
-  vehiclePrizeName: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: COLORS.dark,
-    marginTop: 16,
-    textAlign: 'center',
-  },
-  vehiclePrizeValue: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: COLORS.primary,
-    marginTop: 8,
-  },
-  vehiclePrizeRank: {
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    borderRadius: 16,
-    marginTop: 12,
-  },
-  vehiclePrizeRankText: {
-    color: COLORS.white,
-    fontWeight: '700',
-    fontSize: 12,
-  },
-  bikePrizesRow: {
-    flexDirection: isLargeScreen ? 'row' : 'column',
-    gap: 20,
-    marginBottom: 32,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  bikePrizeCard: {
-    backgroundColor: '#F0FDF4',
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
     flex: isLargeScreen ? 1 : undefined,
     maxWidth: isLargeScreen ? 280 : '100%',
   },
-  bikePrizeName: {
+  vehiclePrizeName: {
     fontSize: 16,
+    fontWeight: '700',
+    color: COLORS.dark,
+    marginTop: 14,
+    textAlign: 'center',
+  },
+  vehiclePrizeValue: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: COLORS.primary,
+    marginTop: 6,
+  },
+  vehiclePrizeRank: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 14,
+    paddingVertical: 5,
+    borderRadius: 14,
+    marginTop: 10,
+  },
+  vehiclePrizeRankText: {
+    color: COLORS.white,
+    fontWeight: '700',
+    fontSize: 11,
+  },
+  bikePrizesRow: {
+    flexDirection: isLargeScreen ? 'row' : 'column',
+    gap: 16,
+    marginBottom: 28,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  bikePrizeCard: {
+    backgroundColor: '#F0FDF4',
+    borderRadius: 14,
+    padding: 20,
+    alignItems: 'center',
+    flex: isLargeScreen ? 1 : undefined,
+    maxWidth: isLargeScreen ? 260 : '100%',
+  },
+  bikePrizeName: {
+    fontSize: 14,
     fontWeight: '600',
     color: COLORS.dark,
-    marginTop: 12,
+    marginTop: 10,
     textAlign: 'center',
   },
   bikePrizeValue: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: COLORS.green,
     marginTop: 4,
   },
   phonePrizesRow: {
     flexDirection: isLargeScreen ? 'row' : 'column',
-    gap: 20,
+    gap: 16,
     width: '100%',
     justifyContent: 'center',
   },
   phonePrizeCard: {
     backgroundColor: '#FDF2F8',
-    borderRadius: 16,
-    padding: 24,
+    borderRadius: 14,
+    padding: 20,
     alignItems: 'center',
     flex: isLargeScreen ? 1 : undefined,
-    maxWidth: isLargeScreen ? 300 : '100%',
+    maxWidth: isLargeScreen ? 280 : '100%',
   },
   phonePrizeName: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '600',
     color: COLORS.dark,
-    marginTop: 12,
+    marginTop: 10,
     textAlign: 'center',
   },
   phonePrizeValue: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '700',
     color: COLORS.pink,
     marginTop: 4,
@@ -922,14 +1251,14 @@ const styles = StyleSheet.create({
     flexDirection: isLargeScreen ? 'row' : 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: isLargeScreen ? 20 : 24,
+    gap: isLargeScreen ? 16 : 20,
   },
   stepCard: {
     backgroundColor: COLORS.white,
-    borderRadius: 20,
-    padding: 32,
+    borderRadius: 16,
+    padding: 28,
     alignItems: 'center',
-    width: isLargeScreen ? 280 : '100%',
+    width: isLargeScreen ? 260 : '100%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.08,
@@ -937,30 +1266,30 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   stepNumber: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
+    width: 50,
+    height: 50,
+    borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
   },
   stepNumberText: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '800',
     color: COLORS.white,
   },
   stepTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '700',
     color: COLORS.dark,
-    marginBottom: 8,
+    marginBottom: 6,
     textAlign: 'center',
   },
   stepDesc: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.gray,
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 20,
   },
   stepArrow: {
     display: isLargeScreen ? 'flex' : 'none',
@@ -975,46 +1304,46 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ctaTitle: {
-    fontSize: isLargeScreen ? 40 : 28,
+    fontSize: isLargeScreen ? 36 : 26,
     fontWeight: '800',
     color: COLORS.white,
-    marginBottom: 12,
+    marginBottom: 10,
     textAlign: 'center',
   },
   ctaSubtitle: {
-    fontSize: 18,
+    fontSize: 16,
     color: 'rgba(255,255,255,0.9)',
-    marginBottom: 32,
+    marginBottom: 28,
     textAlign: 'center',
   },
   ctaButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.gold,
-    paddingHorizontal: 32,
-    paddingVertical: 18,
-    borderRadius: 30,
-    gap: 12,
+    paddingHorizontal: 28,
+    paddingVertical: 16,
+    borderRadius: 28,
+    gap: 10,
   },
   ctaButtonText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
     color: COLORS.dark,
   },
 
   // Footer
   footer: {
-    padding: 40,
+    padding: 36,
     alignItems: 'center',
     backgroundColor: COLORS.lightGray,
-    gap: 16,
+    gap: 14,
   },
   footerText: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.gray,
   },
   footerCountries: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.darkGray,
   },
 });
