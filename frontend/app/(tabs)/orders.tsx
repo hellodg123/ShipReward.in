@@ -6,9 +6,13 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 768;
 
 const COLORS = {
   primary: '#2563EB',
