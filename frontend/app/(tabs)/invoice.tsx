@@ -6,8 +6,12 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+
+const { width } = Dimensions.get('window');
+const isMobile = width < 768;
 
 const COLORS = {
   primary: '#2563EB',
