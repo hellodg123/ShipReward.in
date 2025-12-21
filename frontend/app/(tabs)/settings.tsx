@@ -447,9 +447,46 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: isLargeScreen ? 'row' : 'column',
     backgroundColor: COLORS.lightGray,
   },
+  // Mobile styles
+  mobileTabsContainer: {
+    backgroundColor: COLORS.white,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    flexGrow: 0,
+  },
+  mobileTabsContent: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    gap: 10,
+  },
+  mobileTab: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 20,
+    backgroundColor: COLORS.lightGray,
+    gap: 8,
+  },
+  mobileTabActive: {
+    backgroundColor: COLORS.primary,
+  },
+  mobileTabLabel: {
+    fontSize: 13,
+    color: COLORS.gray,
+    fontWeight: '500',
+  },
+  mobileTabLabelActive: {
+    color: COLORS.white,
+  },
+  mobileContentArea: {
+    flex: 1,
+    padding: 16,
+  },
+  // Desktop styles
   settingsSidebar: {
     width: 200,
     backgroundColor: COLORS.white,
