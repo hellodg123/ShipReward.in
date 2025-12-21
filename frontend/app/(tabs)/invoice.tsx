@@ -358,9 +358,50 @@ export default function InvoiceScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Table Header and Body - Horizontal Scroll */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
-        <View style={styles.tableWrapper}>
+      {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
+          <View style={styles.tableWrapper}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={styles.checkboxCell}>
+                <View style={styles.checkbox} />
+              </View>
+              <View style={[styles.tableHeaderCell, { flex: 1.2 }]}>
+                <Text style={styles.tableHeaderText}>Invoice code</Text>
+              </View>
+              <View style={[styles.tableHeaderCell, { flex: 0.8 }]}>
+                <Text style={styles.tableHeaderText}>Date</Text>
+              </View>
+              <View style={[styles.tableHeaderCell, { flex: 1.5 }]}>
+                <Text style={styles.tableHeaderText}>Company</Text>
+              </View>
+              <View style={[styles.tableHeaderCell, { flex: 1.5 }]}>
+                <Text style={styles.tableHeaderText}>Customer</Text>
+              </View>
+              <View style={[styles.tableHeaderCell, { flex: 1 }]}>
+                <Text style={styles.tableHeaderText}>GST</Text>
+              </View>
+              <View style={[styles.tableHeaderCell, { flex: 0.5, alignItems: 'center' }]}>
+                <Text style={styles.tableHeaderText}>Actions</Text>
+              </View>
+            </View>
+
+            {/* Table Body */}
+            <View style={styles.tableBody}>
+              {paginatedInvoices.length > 0 ? (
+                paginatedInvoices.map((item, index) => renderInvoiceRow(item, index))
+              ) : (
+                <View style={styles.emptyState}>
+                  <Ionicons name="document-text-outline" size={48} color={COLORS.gray} />
+                  <Text style={styles.emptyText}>No invoices found</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      ) : (
+        <>
           {/* Table Header */}
           <View style={styles.tableHeader}>
             <View style={styles.checkboxCell}>
@@ -386,7 +427,7 @@ export default function InvoiceScreen() {
             </View>
           </View>
 
-          {/* Table Body - Full scroll */}
+          {/* Table Body */}
           <View style={styles.tableBody}>
             {paginatedInvoices.length > 0 ? (
               paginatedInvoices.map((item, index) => renderInvoiceRow(item, index))
@@ -397,8 +438,8 @@ export default function InvoiceScreen() {
               </View>
             )}
           </View>
-        </View>
-      </ScrollView>
+        </>
+      )}
 
       {/* Pagination */}
       {totalItems > 0 && (
