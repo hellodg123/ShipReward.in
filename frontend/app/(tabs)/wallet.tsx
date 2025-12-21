@@ -665,6 +665,14 @@ const styles = StyleSheet.create({
     color: COLORS.darkGray,
     fontWeight: '600',
   },
+  // Table horizontal scroll
+  tableScrollContainer: {
+    flex: 1,
+    marginBottom: 16,
+  },
+  tableWrapper: {
+    minWidth: 800,
+  },
   filterSection: {
     flexDirection: 'row',
     alignItems: 'center',
