@@ -133,6 +133,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     </Modal>
   );
 
+  const handleNavigateToAddOrder = () => {
+    router.push('/(tabs)/add-order');
+  };
+
   // Mobile view
   if (!isLargeScreen) {
     return (
@@ -141,10 +145,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         
         {/* Mobile Header */}
         <View style={styles.mobileHeader}>
-          <LogoCompact width={120} height={36} variant="dark" />
+          <LogoCompact width={140} height={42} variant="dark" />
           <View style={styles.mobileHeaderRight}>
-            <TouchableOpacity style={styles.headerIconBtn} onPress={handleNavigateToSupport}>
-              <Ionicons name="headset-outline" size={22} color={COLORS.darkGray} />
+            <TouchableOpacity style={styles.addOrderBtn} onPress={handleNavigateToAddOrder}>
+              <Ionicons name="add" size={22} color={COLORS.white} />
             </TouchableOpacity>
             <TouchableOpacity style={styles.profileBtn} onPress={() => setShowProfileMenu(true)}>
               <Text style={styles.profileInitials}>
@@ -154,8 +158,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           </View>
         </View>
 
-        {/* Mobile Horizontal Navigation */}
-        <View style={styles.mobileNavContainer}>
+        {/* Mobile Content */}
+        <View style={styles.mobileContent}>
+          {children}
+        </View>
+
+        {/* Mobile Bottom Navigation */}
+        <View style={styles.mobileBottomNavContainer}>
           <ScrollView 
             horizontal 
             showsHorizontalScrollIndicator={false}
@@ -181,11 +190,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               );
             })}
           </ScrollView>
-        </View>
-
-        {/* Mobile Content */}
-        <View style={styles.mobileContent}>
-          {children}
         </View>
       </SafeAreaView>
     );
