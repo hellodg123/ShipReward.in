@@ -725,7 +725,7 @@ export default function OrdersScreen() {
           <TouchableOpacity
             key={tab.id}
             style={[styles.tab, activeTab === tab.id && styles.activeTab]}
-            onPress={() => setActiveTab(tab.id)}
+            onPress={() => handleTabChange(tab.id)}
           >
             <Text style={[styles.tabText, activeTab === tab.id && styles.activeTabText]}>
               {tab.label}
@@ -756,10 +756,50 @@ export default function OrdersScreen() {
             <Text style={styles.bulkPayButtonText}>Bulk Pay</Text>
           </TouchableOpacity>
         )}
-        <TouchableOpacity style={styles.exportButton}>
-          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.exportButtonText}>Export</Text>
-        </TouchableOpacity>
+        {!isDraftsTab && (
+          <>
+            <TouchableOpacity style={styles.bulkLabelButton}>
+              <Ionicons name="pricetag-outline" size={16} color={COLORS.gray} />
+              <Text style={styles.bulkLabelButtonText}>Bulk Label</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bulkInvoiceButton}>
+              <Ionicons name="document-text-outline" size={16} color={COLORS.gray} />
+              <Text style={styles.bulkInvoiceButtonText}>Bulk Invoice</Text>
+            </TouchableOpacity>
+          </>
+        )}
+        <View style={styles.exportButtonWrapper}>
+          <TouchableOpacity 
+            style={styles.exportButton}
+            onPress={() => setShowExportDropdown(!showExportDropdown)}
+          >
+            <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
+            <Text style={styles.exportButtonText}>Export</Text>
+            <Ionicons name="chevron-down" size={14} color={COLORS.darkGray} />
+          </TouchableOpacity>
+          {showExportDropdown && (
+            <View style={styles.exportDropdown}>
+              <TouchableOpacity 
+                style={styles.exportDropdownItem}
+                onPress={() => {
+                  setShowExportDropdown(false);
+                  // Handle XLSX export
+                }}
+              >
+                <Text style={styles.exportDropdownText}>Export as XLSX</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.exportDropdownItem}
+                onPress={() => {
+                  setShowExportDropdown(false);
+                  // Handle PDF export
+                }}
+              >
+                <Text style={styles.exportDropdownText}>Export as PDF</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </View>
 
       {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
