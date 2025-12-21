@@ -720,7 +720,7 @@ export default function LoginScreen() {
           <View style={styles.footerInner}>
             {/* Left Side - Logo & Content */}
             <View style={styles.footerLeftSection}>
-              <LogoHorizontal width={320} height={90} variant="light" />
+              <LogoHorizontal width={isLargeScreen ? 320 : 200} height={isLargeScreen ? 90 : 56} variant="light" />
               
               {/* Countries with Flags */}
               <View style={styles.footerCountriesRow}>
