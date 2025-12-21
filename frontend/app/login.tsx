@@ -723,7 +723,7 @@ export default function LoginScreen() {
           <View style={styles.footerInner}>
             {/* Left Side - Logo & Content */}
             <View style={styles.footerLeftSection}>
-              <LogoHorizontal width={isLargeScreen ? 320 : 200} height={isLargeScreen ? 90 : 56} variant="light" />
+              <LogoHorizontal width={isMobile ? 200 : 320} height={isMobile ? 56 : 90} variant="light" />
               
               {/* Countries with Flags */}
               <View style={styles.footerCountriesRow}>
