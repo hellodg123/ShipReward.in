@@ -342,45 +342,50 @@ export default function PickupScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Table Header */}
-        <View style={styles.tableHeader}>
-          <View style={styles.pickupCodeCell}>
-            <Text style={styles.headerText}>Pickup code</Text>
-          </View>
-          <View style={styles.pickupDateCell}>
-            <Text style={styles.headerText}>Pickup Date</Text>
-            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-          </View>
-          <View style={styles.addressCell}>
-            <Text style={styles.headerText}>Pickup Address</Text>
-          </View>
-          <View style={styles.dateAddedCell}>
-            <Text style={styles.headerText}>Date Added</Text>
-            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-          </View>
-          <View style={styles.detailsCell}>
-            <Text style={styles.headerText}>Pickup Details</Text>
-            <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-          </View>
-          <View style={styles.statusCell}>
-            <Text style={styles.headerText}>Status</Text>
-          </View>
-          <View style={styles.viewCell}>
-            <Text style={styles.headerText}>Actions</Text>
-          </View>
-        </View>
-
-        {/* Table Body */}
-        <View style={styles.tableBody}>
-          {paginatedPickups.length > 0 ? (
-            paginatedPickups.map((item) => renderPickupRow(item))
-          ) : (
-            <View style={styles.emptyState}>
-              <Ionicons name="car-outline" size={48} color={COLORS.gray} />
-              <Text style={styles.emptyText}>No pickup requests found</Text>
+        {/* Table Header and Body - Horizontal Scroll */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
+          <View style={styles.tableWrapper}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={styles.pickupCodeCell}>
+                <Text style={styles.headerText}>Pickup code</Text>
+              </View>
+              <View style={styles.pickupDateCell}>
+                <Text style={styles.headerText}>Pickup Date</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.addressCell}>
+                <Text style={styles.headerText}>Pickup Address</Text>
+              </View>
+              <View style={styles.dateAddedCell}>
+                <Text style={styles.headerText}>Date Added</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.detailsCell}>
+                <Text style={styles.headerText}>Pickup Details</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.statusCell}>
+                <Text style={styles.headerText}>Status</Text>
+              </View>
+              <View style={styles.viewCell}>
+                <Text style={styles.headerText}>Actions</Text>
+              </View>
             </View>
-          )}
-        </View>
+
+            {/* Table Body */}
+            <View style={styles.tableBody}>
+              {paginatedPickups.length > 0 ? (
+                paginatedPickups.map((item) => renderPickupRow(item))
+              ) : (
+                <View style={styles.emptyState}>
+                  <Ionicons name="car-outline" size={48} color={COLORS.gray} />
+                  <Text style={styles.emptyText}>No pickup requests found</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </ScrollView>
 
         {/* Pagination */}
         {totalItems > 0 && (
