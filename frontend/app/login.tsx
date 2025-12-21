@@ -1415,7 +1415,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   footerInner: {
-    flexDirection: isLargeScreen ? 'row' : 'column-reverse',
+    flexDirection: isLargeScreen ? 'row' : 'column',
     justifyContent: 'space-between',
     alignItems: isLargeScreen ? 'flex-start' : 'center',
     gap: isLargeScreen ? 60 : 30,
@@ -1427,7 +1427,6 @@ const styles = StyleSheet.create({
     width: isLargeScreen ? undefined : '100%',
   },
   footerRightSection: {
-    flex: isLargeScreen ? undefined : undefined,
     alignItems: isLargeScreen ? 'flex-end' : 'center',
     width: isLargeScreen ? undefined : '100%',
   },
