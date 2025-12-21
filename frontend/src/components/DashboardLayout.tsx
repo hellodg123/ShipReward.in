@@ -394,12 +394,13 @@ const styles = StyleSheet.create({
     color: COLORS.primary,
     fontWeight: '600',
   },
-  // Mobile Horizontal Navigation Styles
-  mobileNavContainer: {
+  // Mobile Bottom Navigation Styles
+  mobileBottomNavContainer: {
     backgroundColor: COLORS.white,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
     paddingVertical: 8,
+    paddingBottom: 20,
   },
   mobileNavScrollContent: {
     paddingHorizontal: 16,
@@ -425,6 +426,29 @@ const styles = StyleSheet.create({
   },
   mobileNavLabelHorizontalActive: {
     color: COLORS.white,
+  },
+  // Add Order Button Styles
+  addOrderBtn: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: COLORS.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addOrderBtnDesktop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 8,
+    gap: 6,
+  },
+  addOrderBtnText: {
+    color: COLORS.white,
+    fontSize: 14,
+    fontWeight: '600',
   },
   // Desktop Styles
   desktopContainer: {
