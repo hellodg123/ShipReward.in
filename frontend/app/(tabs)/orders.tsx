@@ -753,9 +753,66 @@ export default function OrdersScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Table Header and Body - Horizontal Scroll */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
-        <View style={styles.tableWrapper}>
+      {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
+          <View style={styles.tableWrapper}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={styles.checkboxCell}>
+                <View style={styles.checkbox} />
+              </View>
+              <View style={styles.orderIdCell}>
+                <Text style={styles.headerText}>Order ID</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.customerCell}>
+                <Text style={styles.headerText}>Customer Details</Text>
+              </View>
+              <View style={styles.dateCell}>
+                <Text style={styles.headerText}>Order Date</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.packageCell}>
+                <Text style={styles.headerText}>Package Details</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.statusCell}>
+                <Text style={styles.headerText}>Status</Text>
+              </View>
+              {isDraftsTab ? (
+                <View style={styles.actionsCell}>
+                  <Text style={styles.headerText}>Actions</Text>
+                </View>
+              ) : (
+                <>
+                  <View style={styles.lastMileCell}>
+                    <Text style={styles.headerText}>Last Mile Details</Text>
+                  </View>
+                  <View style={styles.viewCell}>
+                    <Text style={styles.headerText}>View Order</Text>
+                  </View>
+                </>
+              )}
+            </View>
+
+            {/* Table Body */}
+            <View style={styles.tableBody}>
+              {paginatedOrders.length > 0 ? (
+                isDraftsTab
+                  ? paginatedOrders.map((order, index) => renderDraftRow(order as typeof draftOrders[0], index))
+                  : paginatedOrders.map((order, index) => renderOrderRow(order as typeof sampleOrders[0], index))
+              ) : (
+                <View style={styles.emptyState}>
+                  <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
+                  <Text style={styles.emptyText}>{isDraftsTab ? 'No draft orders found' : 'No orders found'}</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      ) : (
+        <>
           {/* Table Header */}
           <View style={styles.tableHeader}>
             <View style={styles.checkboxCell}>
@@ -795,7 +852,7 @@ export default function OrdersScreen() {
             )}
           </View>
 
-          {/* Table Body - Full scroll */}
+          {/* Table Body */}
           <View style={styles.tableBody}>
             {paginatedOrders.length > 0 ? (
               isDraftsTab
@@ -808,8 +865,8 @@ export default function OrdersScreen() {
               </View>
             )}
           </View>
-        </View>
-      </ScrollView>
+        </>
+      )}
 
       {/* Pagination */}
       {totalItems > 0 && (
