@@ -723,41 +723,42 @@ export default function LoginScreen() {
           {/* Main Footer Content - Two Columns on Desktop */}
           <View style={[styles.footerInner, { 
             flexDirection: isMobile ? 'column' : 'row',
-            gap: isMobile ? 40 : 80,
+            gap: isMobile ? 36 : 80,
             maxWidth: 1200,
             alignSelf: 'center',
             width: '100%',
           }]}>
             {/* Left Column - Company Info */}
             <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 20 }}>
-              <LogoHorizontal width={isMobile ? 240 : 280} height={isMobile ? 68 : 80} variant="light" />
+              <LogoHorizontal width={isMobile ? 220 : 280} height={isMobile ? 62 : 80} variant="light" />
               
               <Text style={{ 
                 color: 'rgba(255,255,255,0.8)', 
-                fontSize: 14, 
-                lineHeight: 22,
+                fontSize: isMobile ? 13 : 14, 
+                lineHeight: 20,
                 textAlign: isMobile ? 'center' : 'left',
                 maxWidth: 400,
+                paddingHorizontal: isMobile ? 10 : 0,
               }}>
                 India's leading international courier service with rewards. Ship to USA, Canada, UK & Germany at the best rates.
               </Text>
 
               {/* Social Media Buttons */}
-              <View style={{ flexDirection: 'row', gap: 12, marginTop: 4 }}>
+              <View style={{ flexDirection: 'row', gap: 10, marginTop: 4, justifyContent: 'center' }}>
                 <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-facebook" size={20} color={COLORS.white} />
+                  <Ionicons name="logo-facebook" size={18} color={COLORS.white} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-youtube" size={20} color={COLORS.white} />
+                  <Ionicons name="logo-youtube" size={18} color={COLORS.white} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-twitter" size={20} color={COLORS.white} />
+                  <Ionicons name="logo-twitter" size={18} color={COLORS.white} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-instagram" size={20} color={COLORS.white} />
+                  <Ionicons name="logo-instagram" size={18} color={COLORS.white} />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-linkedin" size={20} color={COLORS.white} />
+                  <Ionicons name="logo-linkedin" size={18} color={COLORS.white} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -765,9 +766,9 @@ export default function LoginScreen() {
             {/* Middle Column - Quick Links & Countries */}
             <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 24 }}>
               {/* Ship To Section */}
-              <View style={{ gap: 12 }}>
-                <Text style={{ color: COLORS.accent, fontSize: 14, fontWeight: '700' }}>SHIP TO</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: isMobile ? 'center' : 'flex-start' }}>
+              <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-start' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 13, fontWeight: '700', textAlign: 'center' }}>SHIP TO</Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
                   <View style={styles.footerCountryBadge}>
                     <Text style={styles.footerCountryFlag}>🇺🇸</Text>
                     <Text style={styles.footerCountryName}>USA</Text>
@@ -788,17 +789,17 @@ export default function LoginScreen() {
               </View>
 
               {/* Quick Links */}
-              <View style={{ gap: 12 }}>
-                <Text style={{ color: COLORS.accent, fontSize: 14, fontWeight: '700' }}>QUICK LINKS</Text>
-                <View style={{ gap: 8 }}>
+              <View style={{ gap: 10, alignItems: isMobile ? 'center' : 'flex-start' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 13, fontWeight: '700', textAlign: 'center' }}>QUICK LINKS</Text>
+                <View style={{ gap: 6, alignItems: isMobile ? 'center' : 'flex-start' }}>
                   <TouchableOpacity>
-                    <Text style={{ color: COLORS.white, fontSize: 14 }}>Privacy Policy</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 13 }}>Privacy Policy</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={{ color: COLORS.white, fontSize: 14 }}>Terms & Conditions</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 13 }}>Terms & Conditions</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={{ color: COLORS.white, fontSize: 14 }}>Refunds & Cancellation</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 13 }}>Refunds & Cancellation</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -807,30 +808,30 @@ export default function LoginScreen() {
             {/* Right Column - Contact & CTA */}
             <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-end', gap: 24 }}>
               {/* Contact Info */}
-              <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-end' }}>
-                <Text style={{ color: COLORS.accent, fontSize: 14, fontWeight: '700' }}>CONTACT US</Text>
-                <View style={{ gap: 10 }}>
+              <View style={{ gap: 10, alignItems: 'center' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 13, fontWeight: '700', textAlign: 'center' }}>CONTACT US</Text>
+                <View style={{ gap: 8, alignItems: 'center' }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <Ionicons name="call" size={18} color={COLORS.white} />
-                    <Text style={{ color: COLORS.white, fontSize: 14 }}>+91 99065 99065</Text>
+                    <Ionicons name="call" size={16} color={COLORS.white} />
+                    <Text style={{ color: COLORS.white, fontSize: 13 }}>+91 99065 99065</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <Ionicons name="mail" size={18} color={COLORS.white} />
-                    <Text style={{ color: COLORS.white, fontSize: 14 }}>support@shipreward.in</Text>
+                    <Ionicons name="mail" size={16} color={COLORS.white} />
+                    <Text style={{ color: COLORS.white, fontSize: 13 }}>support@shipreward.in</Text>
                   </View>
                 </View>
               </View>
 
               {/* CTA Card */}
-              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 280 }]}>
-                <Text style={styles.footerCtaTitle}>Ready to Ship?</Text>
-                <Text style={styles.footerCtaSubtitle}>Start shipping & win amazing rewards</Text>
-                <TouchableOpacity style={styles.footerCtaButton} onPress={() => {
+              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 280, maxWidth: 300 }]}>
+                <Text style={[styles.footerCtaTitle, { fontSize: isMobile ? 18 : 22 }]}>Ready to Ship?</Text>
+                <Text style={[styles.footerCtaSubtitle, { fontSize: isMobile ? 12 : 13 }]}>Start shipping & win amazing rewards</Text>
+                <TouchableOpacity style={[styles.footerCtaButton, { paddingHorizontal: 18, paddingVertical: 10 }]} onPress={() => {
                   scrollViewRef.current?.scrollTo({ y: 0, animated: true });
                   setCardView('login');
                 }}>
-                  <Text style={styles.footerCtaButtonText}>Start Now</Text>
-                  <Ionicons name="arrow-forward" size={18} color={COLORS.dark} />
+                  <Text style={[styles.footerCtaButtonText, { fontSize: 13 }]}>Start Now</Text>
+                  <Ionicons name="arrow-forward" size={16} color={COLORS.dark} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -838,17 +839,17 @@ export default function LoginScreen() {
 
           {/* Footer Bottom - Address & Copyright */}
           <View style={{ 
-            marginTop: 40, 
-            paddingTop: 24, 
+            marginTop: 30, 
+            paddingTop: 20, 
             borderTopWidth: 1, 
             borderTopColor: 'rgba(255,255,255,0.15)',
             alignItems: 'center',
-            gap: 12,
+            gap: 8,
           }}>
-            <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, textAlign: 'center', lineHeight: 18 }}>
+            <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, textAlign: 'center', lineHeight: 16, paddingHorizontal: 16 }}>
               ShipReward Logistics Pvt. Ltd. | 123, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka - 560100, India
             </Text>
-            <Text style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12 }}>
+            <Text style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11 }}>
               © 2025 ShipReward.in - All Rights Reserved
             </Text>
           </View>
