@@ -718,22 +718,9 @@ export default function LoginScreen() {
         {/* Footer - Combined CTA and Info */}
         <View style={styles.footer}>
           <View style={styles.footerInner}>
-            {/* Left Side - CTA */}
+            {/* Left Side - Logo & Content */}
             <View style={styles.footerLeftSection}>
-              <Text style={styles.footerCtaTitle}>Ready to Ship & Win?</Text>
-              <Text style={styles.footerCtaSubtitle}>Join thousands of happy shippers earning rewards</Text>
-              <TouchableOpacity style={styles.footerCtaButton} onPress={() => {
-                scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-                setCardView('login');
-              }}>
-                <Text style={styles.footerCtaButtonText}>Start Shipping Now</Text>
-                <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
-              </TouchableOpacity>
-            </View>
-
-            {/* Right Side - Footer Content */}
-            <View style={styles.footerRightSection}>
-              <LogoHorizontal width={180} height={50} variant="light" />
+              <LogoHorizontal width={320} height={90} variant="light" />
               
               {/* Countries with Flags */}
               <View style={styles.footerCountriesRow}>
@@ -807,6 +794,21 @@ export default function LoginScreen() {
                 <Text style={styles.footerLinkDivider}>|</Text>
                 <TouchableOpacity>
                   <Text style={styles.footerLink}>Refunds & Cancellation</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Right Side - CTA Card */}
+            <View style={styles.footerRightSection}>
+              <View style={styles.footerCtaCard}>
+                <Text style={styles.footerCtaTitle}>Ready to Ship & Win?</Text>
+                <Text style={styles.footerCtaSubtitle}>Join thousands of happy shippers earning rewards</Text>
+                <TouchableOpacity style={styles.footerCtaButton} onPress={() => {
+                  scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+                  setCardView('login');
+                }}>
+                  <Text style={styles.footerCtaButtonText}>Start Shipping Now</Text>
+                  <Ionicons name="arrow-forward" size={20} color={COLORS.dark} />
                 </TouchableOpacity>
               </View>
             </View>
