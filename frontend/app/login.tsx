@@ -702,7 +702,7 @@ export default function LoginScreen() {
                 <Text style={styles.stepNumberText}>2</Text>
               </View>
               <Text style={styles.stepTitle}>Earn Coupons</Text>
-              <Text style={styles.stepDesc}>Get reward coupons for every shipment you make</Text>
+              <Text style={styles.stepDesc}>Get reward coupons on every 6 shipment</Text>
             </View>
 
             <View style={styles.stepArrow}>
