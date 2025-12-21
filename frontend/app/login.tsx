@@ -75,9 +75,9 @@ const PhoneIcon = ({ size = 60, color = COLORS.pink }: { size?: number; color?: 
 
 const shippingCountries = [
   { name: 'USA', flag: '🇺🇸', fullName: 'United States' },
+  { name: 'CANADA', flag: '🇨🇦', fullName: 'Canada' },
   { name: 'UK', flag: '🇬🇧', fullName: 'United Kingdom' },
-  { name: 'Canada', flag: '🇨🇦', fullName: 'Canada' },
-  { name: 'Germany', flag: '🇩🇪', fullName: 'Germany' },
+  { name: 'GERMANY', flag: '🇩🇪', fullName: 'Germany' },
 ];
 
 type CardView = 'login' | 'register' | 'forgot';
