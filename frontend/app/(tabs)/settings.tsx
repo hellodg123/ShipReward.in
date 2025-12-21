@@ -221,46 +221,93 @@ export default function SettingsScreen() {
         <Text style={styles.addAddressButtonText}>Add Pickup Address</Text>
       </TouchableOpacity>
 
-      {/* Address Table */}
+      {/* Address Table - with horizontal scroll on mobile */}
       <View style={styles.card}>
-        <View style={styles.tableHeader}>
-          <Text style={[styles.tableHeaderText, { flex: 1 }]}>Nickname</Text>
-          <Text style={[styles.tableHeaderText, { flex: 1.5 }]}>Contact Details</Text>
-          <Text style={[styles.tableHeaderText, { flex: 2 }]}>Address</Text>
-          <Text style={[styles.tableHeaderText, { flex: 0.5 }]}>Actions</Text>
-        </View>
+        {!isLargeScreen ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+            <View style={styles.addressTableWrapper}>
+              <View style={styles.tableHeader}>
+                <Text style={[styles.tableHeaderText, { width: 100 }]}>Nickname</Text>
+                <Text style={[styles.tableHeaderText, { width: 150 }]}>Contact Details</Text>
+                <Text style={[styles.tableHeaderText, { width: 200 }]}>Address</Text>
+                <Text style={[styles.tableHeaderText, { width: 80 }]}>Actions</Text>
+              </View>
 
-        <View style={styles.tableRow}>
-          <View style={[styles.tableCell, { flex: 1 }]}>
-            <View style={styles.defaultBadge}>
-              <Text style={styles.defaultBadgeText}>Default</Text>
+              <View style={styles.tableRow}>
+                <View style={[styles.tableCell, { width: 100 }]}>
+                  <View style={styles.defaultBadge}>
+                    <Text style={styles.defaultBadgeText}>Default</Text>
+                  </View>
+                  <Text style={styles.nickname}>Home</Text>
+                </View>
+                <View style={[styles.tableCell, { width: 150 }]}>
+                  <View style={styles.contactRow}>
+                    <Ionicons name="person-outline" size={14} color={COLORS.gray} />
+                    <Text style={styles.contactText}>{user?.first_name} {user?.last_name}</Text>
+                  </View>
+                  <View style={styles.contactRow}>
+                    <Ionicons name="call-outline" size={14} color={COLORS.gray} />
+                    <Text style={styles.contactText}>{user?.mobile_number}</Text>
+                  </View>
+                </View>
+                <View style={[styles.tableCell, { width: 200 }]}>
+                  <Text style={styles.addressTableText}>
+                    123 Main Street, Mumbai, 400001, Maharashtra, India
+                  </Text>
+                </View>
+                <View style={[styles.tableCell, { width: 80, flexDirection: 'row', gap: 8 }]}>
+                  <TouchableOpacity>
+                    <Ionicons name="create-outline" size={20} color={COLORS.primary} />
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Ionicons name="trash-outline" size={20} color={COLORS.red} />
+                  </TouchableOpacity>
+                </View>
+              </View>
             </View>
-            <Text style={styles.nickname}>Home</Text>
-          </View>
-          <View style={[styles.tableCell, { flex: 1.5 }]}>
-            <View style={styles.contactRow}>
-              <Ionicons name="person-outline" size={14} color={COLORS.gray} />
-              <Text style={styles.contactText}>{user?.first_name} {user?.last_name}</Text>
+          </ScrollView>
+        ) : (
+          <>
+            <View style={styles.tableHeader}>
+              <Text style={[styles.tableHeaderText, { flex: 1 }]}>Nickname</Text>
+              <Text style={[styles.tableHeaderText, { flex: 1.5 }]}>Contact Details</Text>
+              <Text style={[styles.tableHeaderText, { flex: 2 }]}>Address</Text>
+              <Text style={[styles.tableHeaderText, { flex: 0.5 }]}>Actions</Text>
             </View>
-            <View style={styles.contactRow}>
-              <Ionicons name="call-outline" size={14} color={COLORS.gray} />
-              <Text style={styles.contactText}>{user?.mobile_number}</Text>
+
+            <View style={styles.tableRow}>
+              <View style={[styles.tableCell, { flex: 1 }]}>
+                <View style={styles.defaultBadge}>
+                  <Text style={styles.defaultBadgeText}>Default</Text>
+                </View>
+                <Text style={styles.nickname}>Home</Text>
+              </View>
+              <View style={[styles.tableCell, { flex: 1.5 }]}>
+                <View style={styles.contactRow}>
+                  <Ionicons name="person-outline" size={14} color={COLORS.gray} />
+                  <Text style={styles.contactText}>{user?.first_name} {user?.last_name}</Text>
+                </View>
+                <View style={styles.contactRow}>
+                  <Ionicons name="call-outline" size={14} color={COLORS.gray} />
+                  <Text style={styles.contactText}>{user?.mobile_number}</Text>
+                </View>
+              </View>
+              <View style={[styles.tableCell, { flex: 2 }]}>
+                <Text style={styles.addressTableText}>
+                  123 Main Street, Mumbai, 400001, Maharashtra, India
+                </Text>
+              </View>
+              <View style={[styles.tableCell, { flex: 0.5, flexDirection: 'row', gap: 8 }]}>
+                <TouchableOpacity>
+                  <Ionicons name="create-outline" size={20} color={COLORS.primary} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Ionicons name="trash-outline" size={20} color={COLORS.red} />
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-          <View style={[styles.tableCell, { flex: 2 }]}>
-            <Text style={styles.addressTableText}>
-              123 Main Street, Mumbai, 400001, Maharashtra, India
-            </Text>
-          </View>
-          <View style={[styles.tableCell, { flex: 0.5, flexDirection: 'row', gap: 8 }]}>
-            <TouchableOpacity>
-              <Ionicons name="create-outline" size={20} color={COLORS.primary} />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons name="trash-outline" size={20} color={COLORS.red} />
-            </TouchableOpacity>
-          </View>
-        </View>
+          </>
+        )}
       </View>
     </View>
   );
