@@ -1412,10 +1412,104 @@ const styles = StyleSheet.create({
 
   // Footer
   footer: {
-    padding: 36,
+    padding: 40,
     alignItems: 'center',
-    backgroundColor: COLORS.lightGray,
-    gap: 14,
+    backgroundColor: COLORS.primaryDark,
+    gap: 20,
+  },
+  footerCountriesRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 12,
+    marginTop: 8,
+  },
+  footerCountryBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 6,
+  },
+  footerCountryFlag: {
+    fontSize: 18,
+  },
+  footerCountryName: {
+    color: COLORS.white,
+    fontWeight: '600',
+    fontSize: 12,
+  },
+  socialButtonsRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 12,
+    marginTop: 8,
+  },
+  socialButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerContactRow: {
+    flexDirection: isLargeScreen ? 'row' : 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: isLargeScreen ? 32 : 12,
+    marginTop: 8,
+  },
+  footerContactItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  footerContactText: {
+    color: COLORS.white,
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  footerAddressSection: {
+    alignItems: 'center',
+    marginTop: 8,
+    paddingHorizontal: 20,
+  },
+  footerAddressTitle: {
+    color: COLORS.accent,
+    fontSize: 13,
+    fontWeight: '700',
+    marginBottom: 6,
+  },
+  footerAddressText: {
+    color: 'rgba(255,255,255,0.8)',
+    fontSize: 12,
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  footerLinksRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 8,
+  },
+  footerLink: {
+    color: COLORS.white,
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  footerLinkDivider: {
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: 13,
+  },
+  footerCopyright: {
+    color: 'rgba(255,255,255,0.6)',
+    fontSize: 12,
+    marginTop: 8,
   },
   footerText: {
     fontSize: 13,
