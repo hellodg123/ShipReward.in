@@ -454,9 +454,51 @@ export default function WalletScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Table Header and Body - Horizontal Scroll */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
-        <View style={styles.tableWrapper}>
+      {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
+          <View style={styles.tableWrapper}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={styles.checkboxCell}>
+                <View style={styles.checkbox} />
+              </View>
+              <View style={styles.dateCell}>
+                <Text style={styles.headerText}>Transaction Date</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.descCell}>
+                <Text style={styles.headerText}>Description</Text>
+              </View>
+              <View style={styles.amountCell}>
+                <Text style={styles.headerText}>Amount</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={styles.statusCell}>
+                <Text style={styles.headerText}>Status</Text>
+              </View>
+              <View style={styles.viewCell}>
+                <Text style={styles.headerText}>View Detail</Text>
+              </View>
+            </View>
+
+            {/* Table Body */}
+            <View style={styles.tableBody}>
+              {paginatedData.length > 0 ? (
+                activeTab === 'transactions' 
+                  ? paginatedData.map((item) => renderTransactionRow(item as typeof transactionHistory[0]))
+                  : paginatedData.map((item) => renderRechargeRow(item as typeof rechargeHistory[0]))
+              ) : (
+                <View style={styles.emptyState}>
+                  <Ionicons name="wallet-outline" size={48} color={COLORS.gray} />
+                  <Text style={styles.emptyText}>No transactions found</Text>
+                </View>
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      ) : (
+        <>
           {/* Table Header */}
           <View style={styles.tableHeader}>
             <View style={styles.checkboxCell}>
@@ -481,7 +523,7 @@ export default function WalletScreen() {
             </View>
           </View>
 
-          {/* Table Body - Full scroll */}
+          {/* Table Body */}
           <View style={styles.tableBody}>
             {paginatedData.length > 0 ? (
               activeTab === 'transactions' 
@@ -494,8 +536,8 @@ export default function WalletScreen() {
               </View>
             )}
           </View>
-        </View>
-      </ScrollView>
+        </>
+      )}
 
       {/* Pagination */}
       {totalItems > 0 && (
