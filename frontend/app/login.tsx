@@ -1415,28 +1415,41 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.primary,
   },
   footerInner: {
-    flexDirection: isLargeScreen ? 'row' : 'column',
+    flexDirection: isLargeScreen ? 'row' : 'column-reverse',
     justifyContent: 'space-between',
     alignItems: isLargeScreen ? 'flex-start' : 'center',
     gap: isLargeScreen ? 60 : 40,
   },
   footerLeftSection: {
     flex: isLargeScreen ? 1 : undefined,
-    maxWidth: isLargeScreen ? 400 : '100%',
     alignItems: isLargeScreen ? 'flex-start' : 'center',
+    gap: 16,
+  },
+  footerRightSection: {
+    flex: isLargeScreen ? undefined : undefined,
+    alignItems: isLargeScreen ? 'flex-end' : 'center',
+  },
+  footerCtaCard: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 20,
+    padding: isLargeScreen ? 32 : 24,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    minWidth: isLargeScreen ? 340 : '100%',
   },
   footerCtaTitle: {
-    fontSize: isLargeScreen ? 32 : 24,
+    fontSize: isLargeScreen ? 28 : 22,
     fontWeight: '800',
     color: COLORS.white,
     marginBottom: 10,
-    textAlign: isLargeScreen ? 'left' : 'center',
+    textAlign: 'center',
   },
   footerCtaSubtitle: {
-    fontSize: 15,
+    fontSize: 14,
     color: 'rgba(255,255,255,0.85)',
-    marginBottom: 24,
-    textAlign: isLargeScreen ? 'left' : 'center',
+    marginBottom: 20,
+    textAlign: 'center',
   },
   footerCtaButton: {
     flexDirection: 'row',
@@ -1452,15 +1465,10 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.dark,
   },
-  footerRightSection: {
-    flex: isLargeScreen ? 1 : undefined,
-    alignItems: isLargeScreen ? 'flex-end' : 'center',
-    gap: 16,
-  },
   footerCountriesRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: isLargeScreen ? 'flex-end' : 'center',
+    justifyContent: isLargeScreen ? 'flex-start' : 'center',
     gap: 10,
   },
   footerCountryBadge: {
@@ -1482,7 +1490,7 @@ const styles = StyleSheet.create({
   },
   socialButtonsRow: {
     flexDirection: 'row',
-    justifyContent: isLargeScreen ? 'flex-end' : 'center',
+    justifyContent: isLargeScreen ? 'flex-start' : 'center',
     gap: 10,
   },
   socialButton: {
@@ -1495,7 +1503,7 @@ const styles = StyleSheet.create({
   },
   footerContactRow: {
     flexDirection: 'row',
-    justifyContent: isLargeScreen ? 'flex-end' : 'center',
+    justifyContent: isLargeScreen ? 'flex-start' : 'center',
     alignItems: 'center',
     gap: 20,
     flexWrap: 'wrap',
@@ -1511,7 +1519,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   footerAddressSection: {
-    alignItems: isLargeScreen ? 'flex-end' : 'center',
+    alignItems: isLargeScreen ? 'flex-start' : 'center',
   },
   footerAddressTitle: {
     color: COLORS.accent,
@@ -1522,13 +1530,13 @@ const styles = StyleSheet.create({
   footerAddressText: {
     color: 'rgba(255,255,255,0.8)',
     fontSize: 11,
-    textAlign: isLargeScreen ? 'right' : 'center',
+    textAlign: isLargeScreen ? 'left' : 'center',
     lineHeight: 18,
   },
   footerLinksRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: isLargeScreen ? 'flex-end' : 'center',
+    justifyContent: isLargeScreen ? 'flex-start' : 'center',
     alignItems: 'center',
     gap: 8,
   },
