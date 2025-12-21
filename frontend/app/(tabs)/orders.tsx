@@ -514,12 +514,13 @@ export default function OrdersScreen() {
   const filteredOrders = currentData.filter(order => {
     if (activeTab === 'all') return true;
     if (activeTab === 'drafts') return order.status === 'draft';
-    if (activeTab === 'delivered') return order.status === 'delivered';
+    if (activeTab === 'delivered' || activeTab === 'received') return order.status === 'delivered';
     if (activeTab === 'cancelled') return order.status === 'cancelled';
     if (activeTab === 'dispatched') return order.status === 'dispatched';
     if (activeTab === 'disputed') return order.status === 'disputed';
     if (activeTab === 'packed') return order.status === 'packed';
     if (activeTab === 'ready') return order.status === 'ready';
+    if (activeTab === 'manifested') return order.status === 'manifested';
     return true;
   });
 
