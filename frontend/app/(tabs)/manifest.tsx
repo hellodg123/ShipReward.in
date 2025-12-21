@@ -336,9 +336,53 @@ export default function ManifestScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Table Header and Body - Horizontal Scroll */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
-          <View style={styles.tableWrapper}>
+        {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
+        {isMobile ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
+            <View style={styles.tableWrapper}>
+              {/* Table Header */}
+              <View style={styles.tableHeader}>
+                <View style={styles.checkboxCell}>
+                  <View style={styles.checkbox} />
+                </View>
+                <View style={styles.manifestCodeCell}>
+                  <Text style={styles.headerText}>Manifest Code</Text>
+                </View>
+                <View style={styles.dateCell}>
+                  <Text style={styles.headerText}>Date</Text>
+                </View>
+                <View style={styles.addressCell}>
+                  <Text style={styles.headerText}>Pickup Address</Text>
+                </View>
+                <View style={styles.packetCell}>
+                  <Text style={styles.headerText}>Packet Count</Text>
+                </View>
+                <View style={styles.valueCell}>
+                  <Text style={styles.headerText}>Manifest Value</Text>
+                </View>
+                <View style={styles.statusCell}>
+                  <Text style={styles.headerText}>Status</Text>
+                </View>
+                <View style={styles.viewCell}>
+                  <Text style={styles.headerText}>View Detail</Text>
+                </View>
+              </View>
+
+              {/* Table Body */}
+              <View style={styles.tableBody}>
+                {paginatedManifests.length > 0 ? (
+                  paginatedManifests.map((item) => renderManifestRow(item))
+                ) : (
+                  <View style={styles.emptyState}>
+                    <Ionicons name="document-text-outline" size={48} color={COLORS.gray} />
+                    <Text style={styles.emptyText}>No manifests found</Text>
+                  </View>
+                )}
+              </View>
+            </View>
+          </ScrollView>
+        ) : (
+          <>
             {/* Table Header */}
             <View style={styles.tableHeader}>
               <View style={styles.checkboxCell}>
@@ -378,8 +422,8 @@ export default function ManifestScreen() {
                 </View>
               )}
             </View>
-          </View>
-        </ScrollView>
+          </>
+        )}
 
         {/* Pagination */}
         {totalItems > 0 && (
