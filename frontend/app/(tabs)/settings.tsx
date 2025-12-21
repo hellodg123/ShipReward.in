@@ -775,6 +775,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
+  // Address table wrapper for mobile scroll
+  addressTableWrapper: {
+    minWidth: 530,
+  },
   tableHeader: {
     flexDirection: 'row',
     paddingVertical: 12,
