@@ -1420,18 +1420,16 @@ const styles = StyleSheet.create({
   footerInner: {
     flexDirection: isLargeScreen ? 'row' : 'column',
     justifyContent: 'space-between',
-    alignItems: isLargeScreen ? 'flex-start' : 'center',
+    alignItems: isLargeScreen ? 'flex-start' : 'stretch',
     gap: isLargeScreen ? 60 : 30,
   },
   footerLeftSection: {
     flex: isLargeScreen ? 1 : undefined,
     alignItems: isLargeScreen ? 'flex-start' : 'center',
     gap: 14,
-    width: isLargeScreen ? undefined : '100%',
   },
   footerRightSection: {
     alignItems: isLargeScreen ? 'flex-end' : 'center',
-    width: isLargeScreen ? undefined : '100%',
   },
   footerCtaCard: {
     backgroundColor: 'rgba(255,255,255,0.1)',
