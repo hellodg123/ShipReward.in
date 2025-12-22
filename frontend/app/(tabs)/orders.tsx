@@ -690,7 +690,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   tabsScrollContainer: {
-    marginBottom: 16,
+    marginBottom: 0,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
