@@ -689,7 +689,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.bikePrizeName}>Harley Davidson Sportster S</Text>
-                <Text style={styles.bikePrizeValue}>₹19 Lakh approx</Text>
+                <Text style={styles.bikePrizeValue}>₹19.95 Lakh approx</Text>
               </View>
 
               <View style={styles.bikePrizeCard}>
@@ -699,7 +699,17 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.bikePrizeName}>Kawasaki Ninja 500</Text>
-                <Text style={styles.bikePrizeValue}>₹6 Lakh approx</Text>
+                <Text style={styles.bikePrizeValue}>₹6.26 Lakh approx</Text>
+              </View>
+
+              <View style={[styles.bikePrizeCard, { backgroundColor: '#E3F2FD' }]}>
+                <Image 
+                  source={require('../assets/images/bmw-logo.jpg')} 
+                  style={styles.bikePrizeLogo}
+                  resizeMode="contain"
+                />
+                <Text style={styles.bikePrizeName}>BMW G 310 RR</Text>
+                <Text style={styles.bikePrizeValue}>₹3.30 Lakh approx</Text>
               </View>
 
               <View style={styles.bikePrizeCard}>
@@ -709,7 +719,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.bikePrizeName}>Royal Enfield Hunter 350</Text>
-                <Text style={styles.bikePrizeValue}>₹1 Lakh approx × 41</Text>
+                <Text style={styles.bikePrizeValue}>₹1.88 Lakh approx × 41</Text>
               </View>
             </View>
 
