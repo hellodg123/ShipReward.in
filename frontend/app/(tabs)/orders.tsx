@@ -860,10 +860,18 @@ export default function OrdersScreen() {
           <Text style={styles.pageTitle}>{getPageTitle()}</Text>
           <Text style={styles.breadcrumb}>Orders {'>'} {activeTab === 'all' ? 'All' : getPageTitle()}</Text>
         </View>
-        <TouchableOpacity style={styles.addOrderBtn} onPress={() => router.push('/(tabs)/add-order')}>
-          <Ionicons name="add" size={18} color={COLORS.white} />
-          <Text style={styles.addOrderBtnText}>Add Order</Text>
-        </TouchableOpacity>
+        <View style={styles.headerButtons}>
+          {activeTab === 'drafts' && (
+            <TouchableOpacity style={styles.bulkPayBtn} onPress={handleBulkPay}>
+              <Ionicons name="wallet-outline" size={18} color={COLORS.primary} />
+              <Text style={styles.bulkPayBtnText}>Bulk Pay</Text>
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity style={styles.addOrderBtn} onPress={() => router.push('/(tabs)/add-order')}>
+            <Ionicons name="add" size={18} color={COLORS.white} />
+            <Text style={styles.addOrderBtnText}>Add Order</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Tabs */}
