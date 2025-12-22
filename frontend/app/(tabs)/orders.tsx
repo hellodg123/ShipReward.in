@@ -958,18 +958,24 @@ const styles = StyleSheet.create({
   cellDateMobile: { width: 110, paddingHorizontal: 8, flexDirection: 'column', gap: 2 },
   cellPackageMobile: { width: 110, paddingHorizontal: 8, flexDirection: 'column', gap: 2 },
   cellStatusMobile: { width: 100, paddingHorizontal: 8 },
-  cellLastMileMobile: { width: 180, paddingHorizontal: 8, flexDirection: 'column', gap: 2 },
+  cellLastMileMobile: { width: 180, paddingHorizontal: 8 },
   cellViewMobile: { width: 80, paddingHorizontal: 8, alignItems: 'center' },
   cellActionsMobile: { width: 100, paddingHorizontal: 8 },
-  // Cell styles - Desktop (flex-based)
-  cellOrderId: { flex: 2, paddingHorizontal: 8, flexDirection: 'row', alignItems: 'center', gap: 4, minWidth: 150 },
+  // Cell styles - Desktop (flex-based) - for data rows
+  cellOrderId: { flex: 2, paddingHorizontal: 8, minWidth: 150 },
   cellCustomer: { flex: 2.5, paddingHorizontal: 8, minWidth: 180 },
-  cellDate: { flex: 1.2, paddingHorizontal: 8, flexDirection: 'row', alignItems: 'center', gap: 4, minWidth: 100 },
-  cellPackage: { flex: 1.2, paddingHorizontal: 8, flexDirection: 'row', alignItems: 'center', gap: 4, minWidth: 100 },
+  cellDate: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
+  cellPackage: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
   cellStatus: { flex: 1, paddingHorizontal: 8, minWidth: 90 },
   cellLastMile: { flex: 2, paddingHorizontal: 8, minWidth: 160 },
   cellView: { flex: 0.8, paddingHorizontal: 8, alignItems: 'center', minWidth: 70 },
   cellActions: { flex: 1, paddingHorizontal: 8, minWidth: 90 },
+  // Header cell with sort icon
+  headerCellWithSort: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
   // Text styles
   headerText: {
     fontSize: 13,
