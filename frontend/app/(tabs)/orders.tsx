@@ -449,21 +449,21 @@ const sampleOrders = [
 const getStatusColor = (status: string) => {
   switch (status) {
     case 'delivered':
-      return { bg: '#ECFDF5', text: COLORS.green };
+      return { bg: '#ECFDF5', text: COLORS.success };
     case 'cancelled':
-      return { bg: '#FEF2F2', text: COLORS.red };
+      return { bg: '#FEF2F2', text: COLORS.error };
     case 'dispatched':
-      return { bg: '#EFF6FF', text: COLORS.primary };
+      return { bg: '#EEF2FF', text: COLORS.primary };
     case 'packed':
-      return { bg: '#FEF3C7', text: COLORS.orange };
+      return { bg: '#FEF3C7', text: COLORS.warning };
     case 'ready':
       return { bg: '#E0E7FF', text: '#4F46E5' };
     case 'disputed':
       return { bg: '#FEE2E2', text: '#DC2626' };
     case 'draft':
-      return { bg: '#F3F4F6', text: COLORS.gray };
+      return { bg: '#F3F4F6', text: COLORS.textMuted };
     default:
-      return { bg: COLORS.lightGray, text: COLORS.gray };
+      return { bg: COLORS.bgLight, text: COLORS.textMuted };
   }
 };
 
