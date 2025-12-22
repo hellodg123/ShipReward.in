@@ -82,7 +82,7 @@ export default function RegisterScreen() {
         last_name: formData.lastName.trim(),
         mobile_number: formData.mobileNumber.trim(),
       });
-      router.replace('/(tabs)/home');
+      router.replace('/(tabs)/dashboard');
     } catch (err: any) {
       setError(err.message || 'Registration failed');
     } finally {

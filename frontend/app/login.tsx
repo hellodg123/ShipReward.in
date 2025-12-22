@@ -149,7 +149,7 @@ export default function LoginScreen() {
 
     try {
       await login(email, password);
-      router.replace('/(tabs)/home');
+      router.replace('/(tabs)/dashboard');
     } catch (err: any) {
       setError(err.message || 'Login failed. Please try again.');
     } finally {
@@ -187,7 +187,7 @@ export default function LoginScreen() {
       });
       setSuccessMessage('Account created successfully!');
       setTimeout(() => {
-        router.replace('/(tabs)/home');
+        router.replace('/(tabs)/dashboard');
       }, 1500);
     } catch (err: any) {
       setError(err.message || 'Registration failed. Please try again.');
