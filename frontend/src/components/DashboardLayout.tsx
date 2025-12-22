@@ -21,9 +21,9 @@ const isLargeScreen = width > 768;
 // New Modern Color Scheme
 const COLORS = {
   // Primary Colors
-  primary: '#1f46a7',        // Deep Blue
-  primaryDark: '#183a8c',    // Darker Blue
-  primaryLight: '#3d5fb8',   // Lighter Blue
+  primary: '#2563EB',        // Blue (matches wallet recharge button)
+  primaryDark: '#1E40AF',    // Darker Blue
+  primaryLight: '#3B82F6',   // Lighter Blue
   
   // Secondary Colors
   secondary: '#ffd700',      // Gold
@@ -55,7 +55,7 @@ const COLORS = {
   divider: '#F1F5F9',        // Slate 100
   
   // Gradient accents
-  gradientStart: '#1f46a7',
+  gradientStart: '#2563EB',
   gradientEnd: '#ffd700',
 };
 
