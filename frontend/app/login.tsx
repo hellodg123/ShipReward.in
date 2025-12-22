@@ -612,6 +612,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+                <Text style={styles.grandPrizeCashText}>Cash</Text>
               </View>
 
               {/* 2nd Prize */}
@@ -622,6 +623,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+                <Text style={styles.grandPrizeCashText}>Cash</Text>
               </View>
 
               {/* 3rd Prize */}
@@ -632,6 +634,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+                <Text style={styles.grandPrizeCashText}>Cash</Text>
               </View>
             </View>
 
