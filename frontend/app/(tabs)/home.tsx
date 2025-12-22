@@ -12,13 +12,13 @@ import { useRouter } from 'expo-router';
 // New Modern Color Scheme
 const COLORS = {
   // Primary Colors
-  primary: '#6366F1',        // Indigo
-  primaryDark: '#4F46E5',    // Darker Indigo
-  primaryLight: '#818CF8',   // Lighter Indigo
+  primary: '#1f46a7',        // Deep Blue
+  primaryDark: '#183a8c',    // Darker Blue
+  primaryLight: '#3d5fb8',   // Lighter Blue
   
   // Secondary Colors
-  secondary: '#EC4899',      // Pink
-  accent: '#F59E0B',         // Amber/Gold
+  secondary: '#ffd700',      // Gold
+  accent: '#ffd700',         // Gold
   
   // Background Colors
   bgLight: '#F8FAFC',        // Very light gray
