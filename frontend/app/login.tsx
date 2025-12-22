@@ -638,7 +638,11 @@ export default function LoginScreen() {
             {/* Vehicle Prizes */}
             <View style={styles.vehiclePrizesRow}>
               <View style={styles.vehiclePrizeCard}>
-                <CarIcon size={100} color={COLORS.primary} />
+                <Image 
+                  source={require('../assets/images/land-rover.jpg')} 
+                  style={styles.vehicleBrandLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.vehiclePrizeName}>Range Rover Velar</Text>
                 <Text style={styles.vehiclePrizeValue}>₹86 Lakh approx</Text>
                 <View style={styles.vehiclePrizeRank}>
@@ -647,7 +651,11 @@ export default function LoginScreen() {
               </View>
 
               <View style={styles.vehiclePrizeCard}>
-                <CarIcon size={100} color={COLORS.secondary} />
+                <Image 
+                  source={require('../assets/images/bmw-logo.jpg')} 
+                  style={styles.vehicleBrandLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.vehiclePrizeName}>BMW iX1 xDrive30</Text>
                 <Text style={styles.vehiclePrizeValue}>₹71 Lakh approx</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: COLORS.secondary }]}>
@@ -656,7 +664,11 @@ export default function LoginScreen() {
               </View>
 
               <View style={styles.vehiclePrizeCard}>
-                <CarIcon size={100} color={COLORS.orange} />
+                <Image 
+                  source={require('../assets/images/audi-logo.jpg')} 
+                  style={styles.vehicleBrandLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.vehiclePrizeName}>Audi Q3 Premium</Text>
                 <Text style={styles.vehiclePrizeValue}>₹49 Lakh approx</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: COLORS.orange }]}>
