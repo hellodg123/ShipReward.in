@@ -382,6 +382,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: COLORS.textDark,
   },
+  billedTableWrapper: {
+    minWidth: 660,
+  },
   billedTableHeader: {
     flexDirection: 'row',
     backgroundColor: COLORS.lightGray,
