@@ -230,9 +230,6 @@ export default function ViewOrderScreen() {
               </>
             )}
           </View>
-              <Text style={styles.productTotalValue}>{order.productTotal}</Text>
-            </View>
-          </View>
         </View>
 
         {/* Right Column - Summary */}
