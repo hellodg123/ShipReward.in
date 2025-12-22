@@ -605,7 +605,7 @@ export default function LoginScreen() {
             {/* Grand Prizes - 3 Cards */}
             <View style={[styles.grandPrizesRow, { flexDirection: isMobile ? 'column' : 'row' }]}>
               {/* 1st Prize */}
-              <View style={[styles.grandPrizeCard, { backgroundColor: '#FEF9E7', borderColor: '#FFD700' }]}>
+              <View style={[styles.grandPrizeCard, { backgroundColor: '#FFFFFF', borderColor: '#FFD700', borderWidth: 3 }]}>
                 <Image 
                   source={require('../assets/images/1st.png')} 
                   style={styles.prizeRankIcon}
@@ -616,7 +616,7 @@ export default function LoginScreen() {
               </View>
 
               {/* 2nd Prize */}
-              <View style={[styles.grandPrizeCard, { backgroundColor: '#F5F5F5', borderColor: '#C0C0C0' }]}>
+              <View style={[styles.grandPrizeCard, { backgroundColor: '#FFFFFF', borderColor: '#A8A8A8', borderWidth: 3 }]}>
                 <Image 
                   source={require('../assets/images/2nd.png')} 
                   style={styles.prizeRankIcon}
@@ -627,7 +627,7 @@ export default function LoginScreen() {
               </View>
 
               {/* 3rd Prize */}
-              <View style={[styles.grandPrizeCard, { backgroundColor: '#FDF5E6', borderColor: '#CD7F32' }]}>
+              <View style={[styles.grandPrizeCard, { backgroundColor: '#FFFFFF', borderColor: '#CD7F32', borderWidth: 3 }]}>
                 <Image 
                   source={require('../assets/images/3rd.png')} 
                   style={styles.prizeRankIcon}
