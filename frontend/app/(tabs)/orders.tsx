@@ -517,19 +517,25 @@ export default function OrdersScreen() {
         </TouchableOpacity>
       </View>
       <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
-        <Text style={styles.headerText}>Order ID</Text>
-        <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order ID</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
       </View>
       <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
         <Text style={styles.headerText}>Customer Details</Text>
       </View>
       <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
-        <Text style={styles.headerText}>Order Date</Text>
-        <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order Date</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
       </View>
       <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
-        <Text style={styles.headerText}>Package Details</Text>
-        <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Package Details</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
       </View>
       <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
         <Text style={styles.headerText}>Status</Text>
