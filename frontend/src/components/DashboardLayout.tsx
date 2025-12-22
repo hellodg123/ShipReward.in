@@ -173,7 +173,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         
         {/* Mobile Header */}
         <View style={styles.mobileHeader}>
-          <LogoCompact width={160} height={50} variant="dark" />
+          <TouchableOpacity onPress={() => router.push('/(tabs)/dashboard')}>
+            <LogoCompact width={160} height={50} variant="dark" />
+          </TouchableOpacity>
           <View style={styles.mobileHeaderRight}>
             <TouchableOpacity style={styles.addOrderBtn} onPress={handleNavigateToAddOrder}>
               <Ionicons name="add" size={22} color={COLORS.white} />
