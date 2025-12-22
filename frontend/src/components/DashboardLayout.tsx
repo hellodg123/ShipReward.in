@@ -271,7 +271,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <View style={styles.mainContent}>
           {/* Header */}
           <View style={styles.desktopHeader}>
-            <LogoCompact width={200} height={60} variant="dark" />
+            <TouchableOpacity onPress={() => router.push('/(tabs)/dashboard')}>
+              <LogoCompact width={200} height={60} variant="dark" />
+            </TouchableOpacity>
             <View style={styles.headerActions}>
               <TouchableOpacity style={styles.walletBalance} onPress={handleNavigateToWallet}>
                 <Ionicons name="wallet" size={18} color={COLORS.green} />
