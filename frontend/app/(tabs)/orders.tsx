@@ -668,6 +668,164 @@ export default function OrdersScreen() {
     );
   };
 
+  // Handle Ready tab actions
+  const handlePrintInvoice = (orderId: string) => {
+    setActionMenuOrderId(null);
+    alert(`Print Invoice: ${orderId}`);
+  };
+
+  const handleCloneOrder = (orderId: string) => {
+    setActionMenuOrderId(null);
+    alert(`Clone Order: ${orderId}`);
+  };
+
+  const handleCancelReadyOrder = (orderId: string) => {
+    setActionMenuOrderId(null);
+    alert(`Cancel Order: ${orderId}`);
+  };
+
+  // Render table for Ready tab
+  const renderReadyTable = () => (
+    <View style={isMobile ? undefined : styles.tableContainerDesktop}>
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          <View style={styles.tableMobile}>
+            {renderReadyHeader()}
+            {paginatedOrders.map(order => renderReadyRow(order))}
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.tableDesktop}>
+          {renderReadyHeader()}
+          {paginatedOrders.map(order => renderReadyRow(order))}
+        </View>
+      )}
+    </View>
+  );
+
+  const renderReadyHeader = () => (
+    <View style={[styles.tableHeader, isMobile ? styles.tableHeaderMobile : styles.tableHeaderDesktop]}>
+      <View style={styles.cellCheckbox}>
+        <TouchableOpacity 
+          style={[styles.checkbox, selectAll && styles.checkboxSelected]}
+          onPress={handleSelectAll}
+        >
+          {selectAll && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+        </TouchableOpacity>
+      </View>
+      <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order ID</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+        <Text style={styles.headerText}>Customer Details</Text>
+      </View>
+      <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order Date</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Package Details</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+        <Text style={styles.headerText}>Status</Text>
+      </View>
+      <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
+        <Text style={styles.headerText}>Actions</Text>
+      </View>
+    </View>
+  );
+
+  const renderReadyRow = (order: any) => {
+    const statusStyle = getStatusStyle(order.status);
+    const isSelected = selectedOrders.includes(order.id);
+    const showMenu = actionMenuOrderId === order.id;
+    
+    return (
+      <View key={order.id} style={[styles.tableRow, isMobile ? styles.tableRowMobile : styles.tableRowDesktop]}>
+        <View style={styles.cellCheckbox}>
+          <TouchableOpacity 
+            style={[styles.checkbox, isSelected && styles.checkboxSelected]}
+            onPress={() => handleSelectOrder(order.id)}
+          >
+            {isSelected && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+          </TouchableOpacity>
+        </View>
+        <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+          <Text style={styles.orderIdText}>{order.id}</Text>
+          <Text style={styles.subText}>{order.prefix}</Text>
+          <Text style={styles.subTextLight}>{order.invoiceNo}</Text>
+        </View>
+        <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+          <Text style={styles.customerName}>{order.customerName}</Text>
+          <Text style={styles.subText}>{order.customerEmail}</Text>
+          <Text style={styles.subText}>{order.customerPhone}</Text>
+        </View>
+        <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+          <Text style={styles.dateText}>{order.orderDate}</Text>
+          <Text style={styles.subText}>{order.orderTime}</Text>
+        </View>
+        <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+          <Text style={styles.weightText}>{order.weight}</Text>
+          <Text style={styles.priceText}>{order.price}</Text>
+          <Text style={styles.subText}>{order.packageType}</Text>
+        </View>
+        <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+          <View style={[styles.statusBadge, { backgroundColor: statusStyle.bg }]}>
+            <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
+          </View>
+        </View>
+        <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
+          <View style={styles.actionsRow}>
+            <TouchableOpacity onPress={() => handlePrintInvoice(order.id)} style={styles.actionIcon}>
+              <Ionicons name="print-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleViewOrder(order.id)} style={styles.actionIcon}>
+              <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <View style={styles.actionMenuContainer}>
+              <TouchableOpacity 
+                onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
+                style={styles.actionIcon}
+              >
+                <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
+              </TouchableOpacity>
+              {showMenu && (
+                <View style={styles.actionMenu}>
+                  <TouchableOpacity 
+                    style={styles.actionMenuItem}
+                    onPress={() => handlePrintInvoice(order.id)}
+                  >
+                    <Text style={styles.actionMenuText}>Print Invoice</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={styles.actionMenuItem}
+                    onPress={() => handleCloneOrder(order.id)}
+                  >
+                    <Text style={styles.actionMenuText}>Clone Order</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={[styles.actionMenuItem, { borderBottomWidth: 0 }]}
+                    onPress={() => handleCancelReadyOrder(order.id)}
+                  >
+                    <Text style={styles.actionMenuText}>Cancel Order</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
