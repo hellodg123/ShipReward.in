@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
   profileInitials: {
     fontSize: 15,
     fontWeight: '700',
-    color: COLORS.white,
+    color: COLORS.textDark,
   },
   pageContent: {
     flex: 1,
