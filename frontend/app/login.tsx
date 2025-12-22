@@ -682,7 +682,7 @@ export default function LoginScreen() {
 
             {/* Bike Prizes */}
             <View style={styles.bikePrizesRow}>
-              <View style={styles.bikePrizeCard}>
+              <View style={[styles.bikePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#111827' }]}>
                 <Image 
                   source={require('../assets/images/harley-davidson.jpg')} 
                   style={styles.bikePrizeLogo}
@@ -692,7 +692,7 @@ export default function LoginScreen() {
                 <Text style={styles.bikePrizeValue}>₹19.95 Lakh approx</Text>
               </View>
 
-              <View style={styles.bikePrizeCard}>
+              <View style={[styles.bikePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#10B981' }]}>
                 <Image 
                   source={require('../assets/images/kawasaki.jpg')} 
                   style={styles.bikePrizeLogo}
@@ -702,7 +702,7 @@ export default function LoginScreen() {
                 <Text style={styles.bikePrizeValue}>₹6.26 Lakh approx</Text>
               </View>
 
-              <View style={[styles.bikePrizeCard, { backgroundColor: '#E3F2FD' }]}>
+              <View style={[styles.bikePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#3B82F6' }]}>
                 <Image 
                   source={require('../assets/images/bmw-logo.jpg')} 
                   style={styles.bikePrizeLogo}
@@ -712,7 +712,7 @@ export default function LoginScreen() {
                 <Text style={styles.bikePrizeValue}>₹3.30 Lakh approx</Text>
               </View>
 
-              <View style={styles.bikePrizeCard}>
+              <View style={[styles.bikePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#DC2626' }]}>
                 <Image 
                   source={require('../assets/images/royal-enfield.jpg')} 
                   style={styles.bikePrizeLogo}
