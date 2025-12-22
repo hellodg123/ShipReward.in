@@ -1351,6 +1351,11 @@ const styles = StyleSheet.create({
     flex: isLargeScreen ? 1 : undefined,
     maxWidth: isLargeScreen ? 280 : '100%',
   },
+  vehicleBrandLogo: {
+    width: 100,
+    height: 80,
+    marginBottom: 8,
+  },
   vehiclePrizeName: {
     fontSize: 16,
     fontWeight: '700',
