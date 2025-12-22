@@ -54,23 +54,23 @@ const COLORS = {
 };
 
 const orderStatusCards = [
-  { title: 'All Orders', count: '00', color: COLORS.blue, bgColor: COLORS.lightBlue, icon: 'layers-outline', route: '/(tabs)/orders', tab: 'all' },
-  { title: 'Drafted Orders', count: '00', color: COLORS.orange, bgColor: COLORS.lightYellow, icon: 'create-outline', route: '/(tabs)/orders', tab: 'drafts' },
-  { title: 'Pending for Label', count: '00', color: COLORS.green, bgColor: COLORS.lightGreen, icon: 'pricetag-outline', route: '/(tabs)/orders', tab: 'ready' },
-  { title: 'Packed Orders', count: '00', color: COLORS.red, bgColor: COLORS.lightRed, icon: 'cube-outline', route: '/(tabs)/orders', tab: 'packed' },
-  { title: 'Dispatched Orders', count: '00', color: COLORS.purple, bgColor: COLORS.lightPurple, icon: 'send-outline', route: '/(tabs)/orders', tab: 'dispatched' },
+  { title: 'All Orders', count: '00', color: COLORS.primary, bgColor: COLORS.bgBlue, icon: 'layers-outline', route: '/(tabs)/orders', tab: 'all' },
+  { title: 'Drafted Orders', count: '00', color: COLORS.warning, bgColor: COLORS.bgYellow, icon: 'create-outline', route: '/(tabs)/orders', tab: 'drafts' },
+  { title: 'Pending for Label', count: '00', color: COLORS.success, bgColor: COLORS.bgGreen, icon: 'pricetag-outline', route: '/(tabs)/orders', tab: 'ready' },
+  { title: 'Packed Orders', count: '00', color: COLORS.cyan, bgColor: COLORS.bgCyan, icon: 'cube-outline', route: '/(tabs)/orders', tab: 'packed' },
+  { title: 'Dispatched Orders', count: '00', color: COLORS.purple, bgColor: COLORS.bgPurple, icon: 'send-outline', route: '/(tabs)/orders', tab: 'dispatched' },
 ];
 
 const actionCards = [
-  { title: 'Pickups In Progress', count: '00', color: COLORS.purple, icon: 'checkmark-done-outline', route: '/(tabs)/pickup', tab: '' },
-  { title: 'Open Manifests', count: '00', color: COLORS.blue, icon: 'mail-outline', route: '/(tabs)/manifest', tab: '' },
-  { title: 'Disputed Orders', count: '00', color: COLORS.red, icon: 'close-circle-outline', route: '/(tabs)/orders', tab: 'disputed' },
+  { title: 'Pickups In Progress', count: '00', color: COLORS.secondary, icon: 'checkmark-done-outline', route: '/(tabs)/pickup', tab: '' },
+  { title: 'Open Manifests', count: '00', color: COLORS.primary, icon: 'mail-outline', route: '/(tabs)/manifest', tab: '' },
+  { title: 'Disputed Orders', count: '00', color: COLORS.rose, icon: 'close-circle-outline', route: '/(tabs)/orders', tab: 'disputed' },
 ];
 
 const walletActivity = [
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.orange },
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Restricted', date: '09 Oct 25 - 04:35 PM', color: COLORS.blue },
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283G7 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.gold },
+  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.warning },
+  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Restricted', date: '09 Oct 25 - 04:35 PM', color: COLORS.primary },
+  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283G7 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.accent },
 ];
 
 export default function HomeScreen() {
