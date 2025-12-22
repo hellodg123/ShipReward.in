@@ -18,17 +18,41 @@ import { LogoCompact } from './Logo';
 const { width } = Dimensions.get('window');
 const isLargeScreen = width > 768;
 
+// New Modern Color Scheme
 const COLORS = {
-  primary: '#2563EB',
-  primaryDark: '#1E3A8A',
+  // Primary Colors
+  primary: '#6366F1',        // Indigo
+  primaryDark: '#4F46E5',    // Darker Indigo
+  primaryLight: '#818CF8',   // Lighter Indigo
+  
+  // Secondary Colors
+  secondary: '#EC4899',      // Pink
+  accent: '#F59E0B',         // Amber/Gold
+  
+  // Background Colors
+  bgDark: '#1E1B4B',         // Dark Indigo for sidebar
+  bgLight: '#F8FAFC',        // Very light gray
+  bgCard: '#FFFFFF',         // White
+  
+  // Text Colors
+  textDark: '#1E293B',       // Slate 800
+  textMuted: '#64748B',      // Slate 500
+  textLight: '#94A3B8',      // Slate 400
+  
+  // Status Colors
+  success: '#10B981',        // Emerald
+  warning: '#F59E0B',        // Amber
+  error: '#EF4444',          // Red
+  info: '#3B82F6',           // Blue
+  
+  // UI Colors
   white: '#FFFFFF',
-  lightGray: '#F8F9FA',
-  gray: '#6B7280',
-  darkGray: '#374151',
-  green: '#10B981',
-  orange: '#F97316',
-  red: '#EF4444',
-  border: '#E5E7EB',
+  border: '#E2E8F0',         // Slate 200
+  divider: '#F1F5F9',        // Slate 100
+  
+  // Gradient accents
+  gradientStart: '#6366F1',
+  gradientEnd: '#EC4899',
 };
 
 const menuItems = [
