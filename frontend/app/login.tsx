@@ -604,40 +604,31 @@ export default function LoginScreen() {
           <View style={styles.prizeShowcase}>
             {/* Grand Prizes - 3 Cards */}
             <View style={[styles.grandPrizesRow, { flexDirection: isMobile ? 'column' : 'row' }]}>
-              {/* 1st Prize - Royal Enfield */}
-              <View style={styles.grandPrizeCard}>
-                <View style={styles.grandPrizeBadge}>
-                  <Text style={styles.grandPrizeBadgeText}>1ST PRIZE</Text>
-                </View>
+              {/* 1st Prize */}
+              <View style={[styles.grandPrizeCard, { backgroundColor: '#FEF9E7', borderColor: '#FFD700' }]}>
                 <Image 
-                  source={require('../assets/images/royal-enfield.jpg')} 
-                  style={styles.grandPrizeLogo}
+                  source={require('../assets/images/1st.png')} 
+                  style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
               </View>
 
-              {/* 2nd Prize - BMW */}
-              <View style={styles.grandPrizeCard}>
-                <View style={[styles.grandPrizeBadge, { backgroundColor: '#C0C0C0' }]}>
-                  <Text style={styles.grandPrizeBadgeText}>2ND PRIZE</Text>
-                </View>
+              {/* 2nd Prize */}
+              <View style={[styles.grandPrizeCard, { backgroundColor: '#F5F5F5', borderColor: '#C0C0C0' }]}>
                 <Image 
-                  source={require('../assets/images/bmw.jpg')} 
-                  style={styles.grandPrizeLogo}
+                  source={require('../assets/images/2nd.png')} 
+                  style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
               </View>
 
-              {/* 3rd Prize - Audi */}
-              <View style={styles.grandPrizeCard}>
-                <View style={[styles.grandPrizeBadge, { backgroundColor: '#CD7F32' }]}>
-                  <Text style={styles.grandPrizeBadgeText}>3RD PRIZE</Text>
-                </View>
+              {/* 3rd Prize */}
+              <View style={[styles.grandPrizeCard, { backgroundColor: '#FDF5E6', borderColor: '#CD7F32' }]}>
                 <Image 
-                  source={require('../assets/images/audi.jpg')} 
-                  style={styles.grandPrizeLogo}
+                  source={require('../assets/images/3rd.png')} 
+                  style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
