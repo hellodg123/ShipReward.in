@@ -799,12 +799,12 @@ export default function LoginScreen() {
           }]}>
             {/* Left Column - Company Info */}
             <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 20 }}>
-              <LogoHorizontal width={isMobile ? 220 : 280} height={isMobile ? 62 : 80} variant="light" />
+              <LogoHorizontal width={isMobile ? 240 : 300} height={isMobile ? 70 : 90} variant="light" />
               
               <Text style={{ 
-                color: 'rgba(255,255,255,0.8)', 
-                fontSize: isMobile ? 13 : 14, 
-                lineHeight: 20,
+                color: 'rgba(255,255,255,0.9)', 
+                fontSize: isMobile ? 15 : 16, 
+                lineHeight: 24,
                 textAlign: isMobile ? 'center' : 'left',
                 maxWidth: 400,
                 paddingHorizontal: isMobile ? 10 : 0,
@@ -813,94 +813,94 @@ export default function LoginScreen() {
               </Text>
 
               {/* Social Media Buttons */}
-              <View style={{ flexDirection: 'row', gap: 10, marginTop: 4, justifyContent: 'center' }}>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-facebook" size={18} color={COLORS.white} />
+              <View style={{ flexDirection: 'row', gap: 12, marginTop: 4, justifyContent: 'center' }}>
+                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                  <Ionicons name="logo-facebook" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-youtube" size={18} color={COLORS.white} />
+                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                  <Ionicons name="logo-youtube" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-twitter" size={18} color={COLORS.white} />
+                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                  <Ionicons name="logo-twitter" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-instagram" size={18} color={COLORS.white} />
+                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                  <Ionicons name="logo-instagram" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.socialButton}>
-                  <Ionicons name="logo-linkedin" size={18} color={COLORS.white} />
+                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                  <Ionicons name="logo-linkedin" size={22} color={COLORS.white} />
                 </TouchableOpacity>
               </View>
             </View>
 
             {/* Middle Column - Quick Links & Countries */}
-            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 24 }}>
+            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-start', gap: 28 }}>
               {/* Ship To Section */}
-              <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-start' }}>
-                <Text style={{ color: COLORS.accent, fontSize: 13, fontWeight: '700', textAlign: 'center' }}>SHIP TO</Text>
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center' }}>
-                  <View style={styles.footerCountryBadge}>
-                    <Text style={styles.footerCountryFlag}>🇺🇸</Text>
-                    <Text style={styles.footerCountryName}>USA</Text>
+              <View style={{ gap: 14, alignItems: isMobile ? 'center' : 'flex-start' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 15, fontWeight: '700', textAlign: 'center' }}>SHIP TO</Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: 'center' }}>
+                  <View style={[styles.footerCountryBadge, { paddingHorizontal: 14, paddingVertical: 8 }]}>
+                    <Text style={[styles.footerCountryFlag, { fontSize: 18 }]}>🇺🇸</Text>
+                    <Text style={[styles.footerCountryName, { fontSize: 13 }]}>USA</Text>
                   </View>
-                  <View style={styles.footerCountryBadge}>
-                    <Text style={styles.footerCountryFlag}>🇨🇦</Text>
-                    <Text style={styles.footerCountryName}>CANADA</Text>
+                  <View style={[styles.footerCountryBadge, { paddingHorizontal: 14, paddingVertical: 8 }]}>
+                    <Text style={[styles.footerCountryFlag, { fontSize: 18 }]}>🇨🇦</Text>
+                    <Text style={[styles.footerCountryName, { fontSize: 13 }]}>CANADA</Text>
                   </View>
-                  <View style={styles.footerCountryBadge}>
-                    <Text style={styles.footerCountryFlag}>🇬🇧</Text>
-                    <Text style={styles.footerCountryName}>UK</Text>
+                  <View style={[styles.footerCountryBadge, { paddingHorizontal: 14, paddingVertical: 8 }]}>
+                    <Text style={[styles.footerCountryFlag, { fontSize: 18 }]}>🇬🇧</Text>
+                    <Text style={[styles.footerCountryName, { fontSize: 13 }]}>UK</Text>
                   </View>
-                  <View style={styles.footerCountryBadge}>
-                    <Text style={styles.footerCountryFlag}>🇩🇪</Text>
-                    <Text style={styles.footerCountryName}>GERMANY</Text>
+                  <View style={[styles.footerCountryBadge, { paddingHorizontal: 14, paddingVertical: 8 }]}>
+                    <Text style={[styles.footerCountryFlag, { fontSize: 18 }]}>🇩🇪</Text>
+                    <Text style={[styles.footerCountryName, { fontSize: 13 }]}>GERMANY</Text>
                   </View>
                 </View>
               </View>
 
               {/* Quick Links */}
-              <View style={{ gap: 10, alignItems: isMobile ? 'center' : 'flex-start' }}>
-                <Text style={{ color: COLORS.accent, fontSize: 13, fontWeight: '700', textAlign: 'center' }}>QUICK LINKS</Text>
-                <View style={{ gap: 6, alignItems: isMobile ? 'center' : 'flex-start' }}>
+              <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-start' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 15, fontWeight: '700', textAlign: 'center' }}>QUICK LINKS</Text>
+                <View style={{ gap: 10, alignItems: isMobile ? 'center' : 'flex-start' }}>
                   <TouchableOpacity>
-                    <Text style={{ color: COLORS.white, fontSize: 13 }}>Privacy Policy</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 15 }}>Privacy Policy</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={{ color: COLORS.white, fontSize: 13 }}>Terms & Conditions</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 15 }}>Terms & Conditions</Text>
                   </TouchableOpacity>
                   <TouchableOpacity>
-                    <Text style={{ color: COLORS.white, fontSize: 13 }}>Refunds & Cancellation</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 15 }}>Refunds & Cancellation</Text>
                   </TouchableOpacity>
                 </View>
               </View>
             </View>
 
             {/* Right Column - Contact & CTA */}
-            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-end', gap: 24 }}>
+            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-end', gap: 28 }}>
               {/* Contact Info */}
-              <View style={{ gap: 10, alignItems: 'center' }}>
-                <Text style={{ color: COLORS.accent, fontSize: 13, fontWeight: '700', textAlign: 'center' }}>CONTACT US</Text>
-                <View style={{ gap: 8, alignItems: 'center' }}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <Ionicons name="call" size={16} color={COLORS.white} />
-                    <Text style={{ color: COLORS.white, fontSize: 13 }}>+91 99065 99065</Text>
+              <View style={{ gap: 12, alignItems: 'center' }}>
+                <Text style={{ color: COLORS.accent, fontSize: 15, fontWeight: '700', textAlign: 'center' }}>CONTACT US</Text>
+                <View style={{ gap: 10, alignItems: 'center' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                    <Ionicons name="call" size={20} color={COLORS.white} />
+                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: '500' }}>+91 99065 99065</Text>
                   </View>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <Ionicons name="mail" size={16} color={COLORS.white} />
-                    <Text style={{ color: COLORS.white, fontSize: 13 }}>support@shipreward.in</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+                    <Ionicons name="mail" size={20} color={COLORS.white} />
+                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: '500' }}>support@shipreward.in</Text>
                   </View>
                 </View>
               </View>
 
               {/* CTA Card */}
-              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 280, maxWidth: 300 }]}>
-                <Text style={[styles.footerCtaTitle, { fontSize: isMobile ? 18 : 22 }]}>Ready to Ship?</Text>
-                <Text style={[styles.footerCtaSubtitle, { fontSize: isMobile ? 12 : 13 }]}>Start shipping & win amazing rewards</Text>
-                <TouchableOpacity style={[styles.footerCtaButton, { paddingHorizontal: 18, paddingVertical: 10 }]} onPress={() => {
+              <View style={[styles.footerCtaCard, { width: isMobile ? '100%' : 300, maxWidth: 320, padding: isMobile ? 28 : 32 }]}>
+                <Text style={[styles.footerCtaTitle, { fontSize: isMobile ? 22 : 26 }]}>Ready to Ship?</Text>
+                <Text style={[styles.footerCtaSubtitle, { fontSize: isMobile ? 14 : 15 }]}>Start shipping & win amazing rewards</Text>
+                <TouchableOpacity style={[styles.footerCtaButton, { paddingHorizontal: 24, paddingVertical: 12 }]} onPress={() => {
                   scrollViewRef.current?.scrollTo({ y: 0, animated: true });
                   setCardView('login');
                 }}>
-                  <Text style={[styles.footerCtaButtonText, { fontSize: 13 }]}>Start Now</Text>
-                  <Ionicons name="arrow-forward" size={16} color={COLORS.dark} />
+                  <Text style={[styles.footerCtaButtonText, { fontSize: 15 }]}>Start Now</Text>
+                  <Ionicons name="arrow-forward" size={18} color={COLORS.dark} />
                 </TouchableOpacity>
               </View>
             </View>
@@ -908,17 +908,17 @@ export default function LoginScreen() {
 
           {/* Footer Bottom - Address & Copyright */}
           <View style={{ 
-            marginTop: 30, 
-            paddingTop: 20, 
+            marginTop: 36, 
+            paddingTop: 24, 
             borderTopWidth: 1, 
             borderTopColor: 'rgba(255,255,255,0.15)',
             alignItems: 'center',
-            gap: 8,
+            gap: 10,
           }}>
-            <Text style={{ color: 'rgba(255,255,255,0.7)', fontSize: 11, textAlign: 'center', lineHeight: 16, paddingHorizontal: 16 }}>
+            <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, textAlign: 'center', lineHeight: 20, paddingHorizontal: 16 }}>
               ShipReward Logistics Pvt. Ltd. | 123, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka - 560100, India
             </Text>
-            <Text style={{ color: 'rgba(255,255,255,0.5)', fontSize: 11 }}>
+            <Text style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>
               © 2025 ShipReward.in - All Rights Reserved
             </Text>
           </View>
