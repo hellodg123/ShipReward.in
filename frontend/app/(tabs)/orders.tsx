@@ -688,7 +688,7 @@ export default function OrdersScreen() {
       {activeTab === 'drafts' ? renderDraftsTable() : renderAllOrdersTable()}
 
       {/* Pagination */}
-      <View style={styles.paginationRow}>
+      <View style={isMobile ? styles.paginationRowMobile : styles.paginationRow}>
         <Text style={styles.showingText}>
           Showing {totalEntries > 0 ? startIndex + 1 : 0} to {endIndex} of {totalEntries} entries
         </Text>
