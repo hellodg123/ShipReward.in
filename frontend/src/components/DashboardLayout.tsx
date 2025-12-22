@@ -169,7 +169,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         
         {/* Mobile Header */}
         <View style={styles.mobileHeader}>
-          <LogoCompact width={140} height={42} variant="dark" />
+          <LogoCompact width={160} height={50} variant="dark" />
           <View style={styles.mobileHeaderRight}>
             <TouchableOpacity style={styles.addOrderBtn} onPress={handleNavigateToAddOrder}>
               <Ionicons name="add" size={22} color={COLORS.white} />
