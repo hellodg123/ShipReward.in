@@ -661,6 +661,9 @@ export default function OrdersScreen() {
         </View>
         <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
           <View style={styles.actionsRow}>
+            <TouchableOpacity onPress={() => handlePayNow(order)} style={styles.payNowBtn}>
+              <Text style={styles.payNowBtnText}>Pay Now</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={() => handleViewOrder(order.id)} style={styles.actionIcon}>
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
