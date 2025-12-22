@@ -38,12 +38,16 @@ const COLORS = {
   textDark: '#1E293B',       // Slate 800
   textMuted: '#64748B',      // Slate 500
   textLight: '#94A3B8',      // Slate 400
+  black: '#000000',          // Pure black
   
   // Status Colors
   success: '#10B981',        // Emerald
+  green: '#10B981',          // Green for recharge
   warning: '#F59E0B',        // Amber
   error: '#EF4444',          // Red
+  red: '#EF4444',            // Red
   info: '#3B82F6',           // Blue
+  gray: '#64748B',           // Gray
   
   // UI Colors
   white: '#FFFFFF',
@@ -56,7 +60,7 @@ const COLORS = {
 };
 
 const menuItems = [
-  { icon: 'speedometer-outline', label: 'Dashboard', route: '/(tabs)/home' },
+  { icon: 'speedometer-outline', label: 'Dashboard', route: '/(tabs)/dashboard' },
   { icon: 'receipt-outline', label: 'Orders', route: '/(tabs)/orders' },
   { icon: 'document-text-outline', label: 'Manifest', route: '/(tabs)/manifest' },
   { icon: 'car-outline', label: 'Pickup', route: '/(tabs)/pickup' },
@@ -101,7 +105,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     return pathname === route || pathname.startsWith(route + '/');
   };
 
-  // Profile Menu Popup
+  // Profile Menu Popup - Updated with white backgrounds and black text
   const ProfileMenu = () => (
     <Modal
       transparent
@@ -112,7 +116,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <Pressable style={styles.modalOverlay} onPress={() => setShowProfileMenu(false)}>
         <View style={styles.profileMenuContainer}>
           <View style={styles.profileMenuContent}>
-            {/* User Info */}
+            {/* User Info - White background */}
             <View style={styles.profileMenuHeader}>
               <View style={styles.profileMenuAvatar}>
                 <Text style={styles.profileMenuAvatarText}>
@@ -131,17 +135,17 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
             {/* Menu Items */}
             <TouchableOpacity style={styles.profileMenuItem} onPress={handleNavigateToSettings}>
-              <Ionicons name="settings-outline" size={20} color={COLORS.gray} />
+              <Ionicons name="settings-outline" size={20} color={COLORS.black} />
               <Text style={styles.profileMenuItemText}>Account Settings</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.profileMenuItem} onPress={handleNavigateToSupport}>
-              <Ionicons name="headset-outline" size={20} color={COLORS.gray} />
+              <Ionicons name="headset-outline" size={20} color={COLORS.black} />
               <Text style={styles.profileMenuItemText}>Support Center</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.profileMenuItem}>
-              <Ionicons name="log-out-outline" size={20} color={COLORS.gray} />
+              <Ionicons name="log-out-outline" size={20} color={COLORS.black} />
               <Text style={styles.profileMenuItemText}>Logout all the other devices</Text>
             </TouchableOpacity>
 
@@ -205,7 +209,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   <Ionicons
                     name={item.icon as any}
                     size={18}
-                    color={isActive ? COLORS.white : COLORS.gray}
+                    color={isActive ? COLORS.white : COLORS.black}
                   />
                   <Text style={[styles.mobileNavLabelHorizontal, isActive && styles.mobileNavLabelHorizontalActive]}>
                     {item.label}
@@ -250,7 +254,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   <Ionicons
                     name={item.icon as any}
                     size={20}
-                    color={isActive ? COLORS.white : COLORS.gray}
+                    color={isActive ? COLORS.white : COLORS.black}
                   />
                   {!sidebarCollapsed && (
                     <Text style={[styles.menuLabel, isActive && styles.menuLabelActive]}>
@@ -315,7 +319,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 16,
     width: 300,
-    shadowColor: COLORS.primary,
+    shadowColor: COLORS.black,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.15,
     shadowRadius: 24,
@@ -327,7 +331,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.white,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
   },
@@ -335,16 +339,16 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: 'rgba(255,255,255,0.3)',
+    borderWidth: 2,
+    borderColor: COLORS.black,
   },
   profileMenuAvatarText: {
     fontSize: 18,
     fontWeight: '700',
-    color: COLORS.white,
+    color: COLORS.black,
   },
   profileMenuUserInfo: {
     marginLeft: 14,
@@ -353,11 +357,11 @@ const styles = StyleSheet.create({
   profileMenuName: {
     fontSize: 17,
     fontWeight: '700',
-    color: COLORS.white,
+    color: COLORS.black,
   },
   profileMenuEmail: {
     fontSize: 13,
-    color: 'rgba(255,255,255,0.7)',
+    color: COLORS.textMuted,
     marginTop: 2,
   },
   profileMenuDivider: {
@@ -374,7 +378,7 @@ const styles = StyleSheet.create({
   },
   profileMenuItemText: {
     fontSize: 15,
-    color: COLORS.textDark,
+    color: COLORS.black,
     fontWeight: '500',
   },
   // Mobile Styles
@@ -459,7 +463,7 @@ const styles = StyleSheet.create({
   },
   mobileNavLabelHorizontal: {
     fontSize: 13,
-    color: COLORS.textMuted,
+    color: COLORS.black,
     fontWeight: '600',
   },
   mobileNavLabelHorizontalActive: {
@@ -530,7 +534,7 @@ const styles = StyleSheet.create({
   },
   menuLabel: {
     fontSize: 15,
-    color: COLORS.textMuted,
+    color: COLORS.black,
     fontWeight: '500',
   },
   menuLabelActive: {
@@ -581,7 +585,7 @@ const styles = StyleSheet.create({
   },
   rechargeText: {
     fontSize: 14,
-    color: COLORS.accent,
+    color: COLORS.green,
     fontWeight: '600',
   },
   headerIconBtn: {
@@ -596,16 +600,16 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: 22,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.white,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: COLORS.divider,
+    borderWidth: 2,
+    borderColor: COLORS.black,
   },
   profileInitials: {
     fontSize: 15,
     fontWeight: '700',
-    color: COLORS.textDark,
+    color: COLORS.black,
   },
   pageContent: {
     flex: 1,
