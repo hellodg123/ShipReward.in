@@ -1411,6 +1411,11 @@ const styles = StyleSheet.create({
     flex: isLargeScreen ? 1 : undefined,
     maxWidth: isLargeScreen ? 280 : '100%',
   },
+  phoneBrandLogo: {
+    width: 80,
+    height: 80,
+    marginBottom: 8,
+  },
   phonePrizeName: {
     fontSize: 14,
     fontWeight: '600',
