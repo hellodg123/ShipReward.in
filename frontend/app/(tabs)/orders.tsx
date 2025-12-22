@@ -14,36 +14,26 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 const { width } = Dimensions.get('window');
 const isMobile = width < 768;
 
-// New Modern Color Scheme
+// Color Scheme
 const COLORS = {
-  // Primary Colors
-  primary: '#1f46a7',        // Deep Blue
-  primaryDark: '#183a8c',    // Darker Blue
-  primaryLight: '#3d5fb8',   // Lighter Blue
-  
-  // Secondary Colors
-  secondary: '#ffd700',      // Gold
-  accent: '#ffd700',         // Gold
-  
-  // Background Colors
-  bgLight: '#F8FAFC',        // Very light gray
-  bgCard: '#FFFFFF',         // White
-  
-  // Text Colors
-  textDark: '#1E293B',       // Slate 800
-  textMuted: '#64748B',      // Slate 500
-  textLight: '#94A3B8',      // Slate 400
-  
-  // Status Colors
-  success: '#10B981',        // Emerald
-  warning: '#F59E0B',        // Amber
-  error: '#EF4444',          // Red
-  info: '#3B82F6',           // Blue
-  
-  // UI Colors
+  primary: '#2563EB',         // Blue (matches wallet recharge button)
+  primaryDark: '#1E40AF',
   white: '#FFFFFF',
-  border: '#E2E8F0',
-  divider: '#F1F5F9',
+  bgWhite: '#FFFFFF',
+  lightGray: '#F8F9FA',
+  gray: '#6B7280',
+  darkGray: '#374151',
+  textDark: '#1F2937',
+  textMuted: '#6B7280',
+  textLight: '#9CA3AF',
+  border: '#E5E7EB',
+  divider: '#F3F4F6',
+  success: '#10B981',
+  warning: '#F59E0B',
+  error: '#EF4444',
+  info: '#3B82F6',
+  cyan: '#06B6D4',
+  purple: '#8B5CF6',
 };
 
 const tabs = [
@@ -58,502 +48,133 @@ const tabs = [
   { id: 'disputed', label: 'Disputed' },
 ];
 
-// Extended sample orders data for pagination
+// Sample orders data
 const sampleOrders = [
   {
-    id: 'SG32510063928386',
+    id: 'SG32512224554864',
+    prefix: 'US - 33612',
+    invoiceNo: 'Inv no. DP-114-8297781-8009853',
+    customerName: 'Mahammad Naazeem Shaik',
+    customerEmail: 'ASHISHSAVANI477@GMAIL.COM',
+    customerPhone: '+1 415-419-8616',
+    orderDate: '22 Dec, 2025',
+    orderTime: '01:07 PM',
+    weight: '0.05 kg',
+    price: '₹ 476.72',
+    packageType: 'CSB-IV',
+    status: 'Picked Up',
+    trackingId: 'UUS5CN4987718180989',
+    carrier: 'UNI UNI',
+  },
+  {
+    id: 'SG32512224554794',
+    prefix: 'US - 98144',
+    invoiceNo: 'Inv no. HV-114-1265569-7493835',
+    customerName: 'Sezibel Cabrera',
+    customerEmail: 'YASHDHAMELIYA477@GMAIL.COM',
+    customerPhone: '+1 207-835-4259',
+    orderDate: '22 Dec, 2025',
+    orderTime: '12:55 PM',
+    weight: '0.25 kg',
+    price: '₹ 628.94',
+    packageType: 'CSB-IV',
+    status: 'Picked Up',
+    trackingId: 'UUS5CN4989718184382',
+    carrier: 'UNI UNI',
+  },
+  {
+    id: 'SG32512224553313',
+    prefix: 'US - 79423',
+    invoiceNo: 'Inv no. DP-113-5218508-2365839',
+    customerName: 'Roy Roy',
+    customerEmail: 'ASHISHSAVANI477@GMAIL.COM',
+    customerPhone: '+1 480-818-5344',
+    orderDate: '22 Dec, 2025',
+    orderTime: '01:07 PM',
+    weight: '0.45 kg',
+    price: '₹ 818.92',
+    packageType: 'CSB-IV',
+    status: 'Picked Up',
+    trackingId: 'UUS5CN4989718184383',
+    carrier: 'UNI UNI',
+  },
+  {
+    id: 'SG32512224553314',
     prefix: 'US - 94520',
-    invoiceNo: 'DP-111-2884301-7196240',
+    invoiceNo: 'Inv no. DP-111-2884301-7196240',
     customerName: 'Armando Armando',
     customerEmail: 'HARDIKSOJITRA477@gmail.com',
     customerPhone: '+1 415-419-8616',
-    orderDate: '06 Oct, 2025',
-    orderTime: '01:41 PM',
+    orderDate: '21 Dec, 2025',
+    orderTime: '02:30 PM',
     weight: '0.7 kg',
     price: '₹ 1951.72',
     packageType: 'CSB-IV',
-    status: 'delivered',
+    status: 'Delivered',
     trackingId: 'CR000516948986',
     carrier: 'Cirro',
   },
   {
-    id: 'SG32510063928367',
-    prefix: 'US - 98002',
-    invoiceNo: 'DP-112-7427052-2815434',
-    customerName: 'RAFAEL MIGUEL',
-    customerEmail: 'ASHISHSAVANI477@GMAIL.COM',
-    customerPhone: '+1 210-728-4548',
-    orderDate: '06 Oct, 2025',
-    orderTime: '01:41 PM',
-    weight: '0.7 kg',
-    price: '₹ 1951.72',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64989985119667',
-    carrier: 'UNI UNI',
-  },
-  {
-    id: 'SG32510063928304',
-    prefix: 'US - 08619',
-    invoiceNo: 'DP-111-9815145-5159440',
-    customerName: 'Sugel Cruz',
-    customerEmail: 'HARDIKSOJITRA477@gmail.com',
-    customerPhone: '+1 763-225-9463',
-    orderDate: '06 Oct, 2025',
-    orderTime: '01:41 PM',
-    weight: '0.7 kg',
-    price: '₹ 1951.72',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120610',
-    carrier: 'UNI UNI',
-  },
-  {
-    id: 'SG32507133359313',
-    prefix: 'US - 97203',
-    invoiceNo: 'JGJHJ',
-    customerName: 'Jemal Harun',
-    customerEmail: 'KRUNALSOJITRA760000@GMAIL.COM',
-    customerPhone: '+1 347-448-3190',
-    orderDate: '13 Jul, 2025',
-    orderTime: '03:09 PM',
-    weight: '0.35 kg',
-    price: '₹ 0.00',
-    packageType: 'CSB-IV',
-    status: 'cancelled',
-    trackingId: '',
-    carrier: '',
-  },
-  {
-    id: 'SG32510063928401',
-    prefix: 'US - 90210',
-    invoiceNo: 'DP-113-5521478-9874523',
-    customerName: 'Maria Santos',
-    customerEmail: 'maria.santos@email.com',
-    customerPhone: '+1 323-555-1234',
-    orderDate: '05 Oct, 2025',
-    orderTime: '10:30 AM',
-    weight: '1.2 kg',
-    price: '₹ 2450.00',
-    packageType: 'CSB-IV',
-    status: 'dispatched',
-    trackingId: 'UU55A64987985120611',
-    carrier: 'FedEx',
-  },
-  {
-    id: 'SG32510063928402',
+    id: 'SG32512224553315',
     prefix: 'CA - 10001',
-    invoiceNo: 'DP-114-7894561-2365478',
+    invoiceNo: 'Inv no. DP-114-7894561-2365478',
     customerName: 'John Smith',
     customerEmail: 'john.smith@email.com',
     customerPhone: '+1 212-555-7890',
-    orderDate: '05 Oct, 2025',
-    orderTime: '02:15 PM',
+    orderDate: '21 Dec, 2025',
+    orderTime: '10:15 AM',
     weight: '0.5 kg',
     price: '₹ 1850.00',
     packageType: 'CSB-IV',
-    status: 'packed',
+    status: 'Packed',
     trackingId: 'CR000516948987',
     carrier: 'DHL',
   },
-  {
-    id: 'SG32510063928403',
-    prefix: 'UK - 20001',
-    invoiceNo: 'DP-115-1234567-8901234',
-    customerName: 'Emma Wilson',
-    customerEmail: 'emma.wilson@email.com',
-    customerPhone: '+44 20-7946-0958',
-    orderDate: '04 Oct, 2025',
-    orderTime: '11:45 AM',
-    weight: '2.0 kg',
-    price: '₹ 3200.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120612',
-    carrier: 'Royal Mail',
-  },
-  {
-    id: 'SG32510063928404',
-    prefix: 'DE - 30001',
-    invoiceNo: 'DP-116-9876543-2109876',
-    customerName: 'Hans Mueller',
-    customerEmail: 'hans.mueller@email.com',
-    customerPhone: '+49 30-1234-5678',
-    orderDate: '04 Oct, 2025',
-    orderTime: '09:00 AM',
-    weight: '1.5 kg',
-    price: '₹ 2800.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'CR000516948988',
-    carrier: 'DPD',
-  },
-  {
-    id: 'SG32510063928405',
-    prefix: 'US - 30301',
-    invoiceNo: 'DP-117-5678901-2345678',
-    customerName: 'Sarah Johnson',
-    customerEmail: 'sarah.johnson@email.com',
-    customerPhone: '+1 404-555-2345',
-    orderDate: '03 Oct, 2025',
-    orderTime: '04:30 PM',
-    weight: '0.8 kg',
-    price: '₹ 2100.00',
-    packageType: 'CSB-IV',
-    status: 'dispatched',
-    trackingId: 'UU55A64987985120613',
-    carrier: 'UPS',
-  },
-  {
-    id: 'SG32510063928406',
-    prefix: 'US - 60601',
-    invoiceNo: 'DP-118-3456789-0123456',
-    customerName: 'Michael Brown',
-    customerEmail: 'michael.brown@email.com',
-    customerPhone: '+1 312-555-6789',
-    orderDate: '03 Oct, 2025',
-    orderTime: '01:00 PM',
-    weight: '3.0 kg',
-    price: '₹ 4500.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'CR000516948989',
-    carrier: 'USPS',
-  },
-  {
-    id: 'SG32510063928407',
-    prefix: 'CA - 75201',
-    invoiceNo: 'DP-119-7890123-4567890',
-    customerName: 'Lisa Garcia',
-    customerEmail: 'lisa.garcia@email.com',
-    customerPhone: '+1 214-555-0123',
-    orderDate: '02 Oct, 2025',
-    orderTime: '03:45 PM',
-    weight: '0.6 kg',
-    price: '₹ 1750.00',
-    packageType: 'CSB-IV',
-    status: 'ready',
-    trackingId: '',
-    carrier: '',
-  },
-  {
-    id: 'SG32510063928408',
-    prefix: 'US - 98101',
-    invoiceNo: 'DP-120-2345678-9012345',
-    customerName: 'David Lee',
-    customerEmail: 'david.lee@email.com',
-    customerPhone: '+1 206-555-4567',
-    orderDate: '02 Oct, 2025',
-    orderTime: '10:15 AM',
-    weight: '1.0 kg',
-    price: '₹ 2200.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120614',
-    carrier: 'FedEx',
-  },
-  {
-    id: 'SG32510063928409',
-    prefix: 'UK - 33101',
-    invoiceNo: 'DP-121-6789012-3456789',
-    customerName: 'Robert Martinez',
-    customerEmail: 'robert.martinez@email.com',
-    customerPhone: '+1 305-555-8901',
-    orderDate: '01 Oct, 2025',
-    orderTime: '12:30 PM',
-    weight: '0.4 kg',
-    price: '₹ 1500.00',
-    packageType: 'CSB-IV',
-    status: 'disputed',
-    trackingId: 'CR000516948990',
-    carrier: 'DHL',
-  },
-  {
-    id: 'SG32510063928410',
-    prefix: 'DE - 85001',
-    invoiceNo: 'DP-122-0123456-7890123',
-    customerName: 'Jennifer Taylor',
-    customerEmail: 'jennifer.taylor@email.com',
-    customerPhone: '+1 602-555-2345',
-    orderDate: '01 Oct, 2025',
-    orderTime: '08:45 AM',
-    weight: '2.5 kg',
-    price: '₹ 3800.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120615',
-    carrier: 'UPS',
-  },
-  {
-    id: 'SG32510063928411',
-    prefix: 'US - 02101',
-    invoiceNo: 'DP-123-4567890-1234567',
-    customerName: 'William Anderson',
-    customerEmail: 'william.anderson@email.com',
-    customerPhone: '+1 617-555-6789',
-    orderDate: '30 Sep, 2025',
-    orderTime: '05:00 PM',
-    weight: '0.9 kg',
-    price: '₹ 2050.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'CR000516948991',
-    carrier: 'USPS',
-  },
-  {
-    id: 'SG32510063928412',
-    prefix: 'CA - 80202',
-    invoiceNo: 'DP-124-8901234-5678901',
-    customerName: 'Elizabeth Thomas',
-    customerEmail: 'elizabeth.thomas@email.com',
-    customerPhone: '+1 303-555-0123',
-    orderDate: '30 Sep, 2025',
-    orderTime: '02:30 PM',
-    weight: '1.8 kg',
-    price: '₹ 2900.00',
-    packageType: 'CSB-IV',
-    status: 'cancelled',
-    trackingId: '',
-    carrier: '',
-  },
-  {
-    id: 'SG32510063928413',
-    prefix: 'UK - 19101',
-    invoiceNo: 'DP-125-2345678-9012345',
-    customerName: 'Christopher White',
-    customerEmail: 'chris.white@email.com',
-    customerPhone: '+1 215-555-4567',
-    orderDate: '29 Sep, 2025',
-    orderTime: '11:00 AM',
-    weight: '0.7 kg',
-    price: '₹ 1900.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120616',
-    carrier: 'FedEx',
-  },
-  {
-    id: 'SG32510063928414',
-    prefix: 'DE - 48201',
-    invoiceNo: 'DP-126-6789012-3456789',
-    customerName: 'Patricia Harris',
-    customerEmail: 'patricia.harris@email.com',
-    customerPhone: '+1 313-555-8901',
-    orderDate: '29 Sep, 2025',
-    orderTime: '09:30 AM',
-    weight: '1.3 kg',
-    price: '₹ 2600.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'CR000516948992',
-    carrier: 'DHL',
-  },
-  {
-    id: 'SG32510063928415',
-    prefix: 'US - 55401',
-    invoiceNo: 'DP-127-0123456-7890123',
-    customerName: 'Daniel Clark',
-    customerEmail: 'daniel.clark@email.com',
-    customerPhone: '+1 612-555-2345',
-    orderDate: '28 Sep, 2025',
-    orderTime: '04:15 PM',
-    weight: '0.5 kg',
-    price: '₹ 1650.00',
-    packageType: 'CSB-IV',
-    status: 'dispatched',
-    trackingId: 'UU55A64987985120617',
-    carrier: 'UPS',
-  },
-  {
-    id: 'SG32510063928416',
-    prefix: 'CA - 63101',
-    invoiceNo: 'DP-128-4567890-1234567',
-    customerName: 'Nancy Lewis',
-    customerEmail: 'nancy.lewis@email.com',
-    customerPhone: '+1 314-555-6789',
-    orderDate: '28 Sep, 2025',
-    orderTime: '01:45 PM',
-    weight: '2.2 kg',
-    price: '₹ 3400.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'CR000516948993',
-    carrier: 'USPS',
-  },
-  {
-    id: 'SG32510063928417',
-    prefix: 'UK - 92101',
-    invoiceNo: 'DP-129-8901234-5678901',
-    customerName: 'Mark Robinson',
-    customerEmail: 'mark.robinson@email.com',
-    customerPhone: '+1 619-555-0123',
-    orderDate: '27 Sep, 2025',
-    orderTime: '10:00 AM',
-    weight: '1.1 kg',
-    price: '₹ 2300.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120618',
-    carrier: 'FedEx',
-  },
-  {
-    id: 'SG32510063928418',
-    prefix: 'DE - 77002',
-    invoiceNo: 'DP-130-2345678-9012345',
-    customerName: 'Karen Walker',
-    customerEmail: 'karen.walker@email.com',
-    customerPhone: '+1 713-555-4567',
-    orderDate: '27 Sep, 2025',
-    orderTime: '07:30 AM',
-    weight: '0.3 kg',
-    price: '₹ 1400.00',
-    packageType: 'CSB-IV',
-    status: 'packed',
-    trackingId: '',
-    carrier: '',
-  },
-  {
-    id: 'SG32510063928419',
-    prefix: 'US - 30303',
-    invoiceNo: 'DP-131-6789012-3456789',
-    customerName: 'Steven Hall',
-    customerEmail: 'steven.hall@email.com',
-    customerPhone: '+1 404-555-8901',
-    orderDate: '26 Sep, 2025',
-    orderTime: '03:00 PM',
-    weight: '1.6 kg',
-    price: '₹ 2750.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'CR000516948994',
-    carrier: 'DHL',
-  },
-  {
-    id: 'SG32510063928420',
-    prefix: 'CA - 94102',
-    invoiceNo: 'DP-132-0123456-7890123',
-    customerName: 'Betty Allen',
-    customerEmail: 'betty.allen@email.com',
-    customerPhone: '+1 415-555-2345',
-    orderDate: '26 Sep, 2025',
-    orderTime: '12:15 PM',
-    weight: '0.8 kg',
-    price: '₹ 2000.00',
-    packageType: 'CSB-IV',
-    status: 'delivered',
-    trackingId: 'UU55A64987985120619',
-    carrier: 'UPS',
-  },
 ];
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'delivered':
-      return { bg: '#ECFDF5', text: COLORS.success };
-    case 'cancelled':
-      return { bg: '#FEF2F2', text: COLORS.error };
-    case 'dispatched':
-      return { bg: '#EEF2FF', text: COLORS.primary };
-    case 'packed':
-      return { bg: '#FEF3C7', text: COLORS.warning };
-    case 'ready':
-      return { bg: '#E0E7FF', text: '#4F46E5' };
-    case 'disputed':
-      return { bg: '#FEE2E2', text: '#DC2626' };
-    case 'draft':
-      return { bg: '#F3F4F6', text: COLORS.textMuted };
-    default:
-      return { bg: COLORS.bgLight, text: COLORS.textMuted };
-  }
-};
-
-// Sample draft orders
-const draftOrders = [
-  {
-    id: 'SG32512204545620',
-    prefix: 'US - 364050',
-    invoiceNo: 'rwerwerwer',
-    customerName: 'Dfsdf Dsfdf',
-    customerEmail: 'dfasdfdsf@gmail.com',
-    customerPhone: '8849966135',
-    orderDate: '20 Dec, 2025',
-    orderTime: '01:04 PM',
-    weight: '1 kg',
-    price: '₹ 1722.80',
-    packageType: 'CSB-IV',
-    status: 'draft',
-  },
-  {
-    id: 'SG32512204545621',
-    prefix: 'US - 90210',
-    invoiceNo: 'INV-2025-001',
-    customerName: 'John Smith',
-    customerEmail: 'john.smith@email.com',
-    customerPhone: '9876543210',
-    orderDate: '19 Dec, 2025',
-    orderTime: '10:30 AM',
-    weight: '2.5 kg',
-    price: '₹ 2450.00',
-    packageType: 'CSB-IV',
-    status: 'draft',
-  },
-];
-
-const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
+const ITEMS_PER_PAGE_OPTIONS = [10, 25, 50, 100];
 
 export default function OrdersScreen() {
-  const params = useLocalSearchParams();
   const router = useRouter();
+  const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
-  const [activeActionDropdown, setActiveActionDropdown] = useState<string | null>(null);
-  const [showExportDropdown, setShowExportDropdown] = useState(false);
 
-  // Handle tab from URL params only on initial load - do NOT change URL when switching tabs
   useEffect(() => {
-    if (params.tab && typeof params.tab === 'string') {
-      setActiveTab(params.tab);
+    if (params.tab) {
+      setActiveTab(params.tab as string);
     }
-  }, []);
+  }, [params.tab]);
 
-  // Handle tab change locally without URL change
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    setCurrentPage(1);
-  };
-
-  // Get data based on active tab
-  const isDraftsTab = activeTab === 'drafts';
-  const currentData = isDraftsTab ? draftOrders : sampleOrders;
-
-  // Filter orders based on active tab
-  const filteredOrders = currentData.filter(order => {
-    if (activeTab === 'all') return true;
-    if (activeTab === 'drafts') return order.status === 'draft';
-    if (activeTab === 'delivered' || activeTab === 'received') return order.status === 'delivered';
-    if (activeTab === 'cancelled') return order.status === 'cancelled';
-    if (activeTab === 'dispatched') return order.status === 'dispatched';
-    if (activeTab === 'disputed') return order.status === 'disputed';
-    if (activeTab === 'packed') return order.status === 'packed';
-    if (activeTab === 'ready') return order.status === 'ready';
-    if (activeTab === 'manifested') return order.status === 'manifested';
+  const filteredOrders = sampleOrders.filter(order => {
+    if (activeTab !== 'all') {
+      const statusMap: { [key: string]: string[] } = {
+        drafts: ['draft'],
+        ready: ['ready'],
+        packed: ['packed'],
+        manifested: ['manifested'],
+        dispatched: ['dispatched', 'Picked Up'],
+        received: ['received', 'Delivered'],
+        cancelled: ['cancelled'],
+        disputed: ['disputed'],
+      };
+      if (!statusMap[activeTab]?.some(s => order.status.toLowerCase().includes(s.toLowerCase()))) {
+        return false;
+      }
+    }
+    if (searchQuery) {
+      return order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
+             order.trackingId.toLowerCase().includes(searchQuery.toLowerCase());
+    }
     return true;
   });
 
-  // Calculate pagination
-  const totalItems = filteredOrders.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-  const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
-
-  // Reset to page 1 when changing filters or items per page
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [activeTab, itemsPerPage]);
+  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -561,79 +182,79 @@ export default function OrdersScreen() {
     }
   };
 
-  const getVisiblePages = () => {
-    const pages: number[] = [];
-    const maxVisible = 5;
-    
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) {
-        pages.push(i);
-      }
-    } else {
-      if (currentPage <= 3) {
-        for (let i = 1; i <= maxVisible; i++) {
-          pages.push(i);
-        }
-      } else if (currentPage >= totalPages - 2) {
-        for (let i = totalPages - maxVisible + 1; i <= totalPages; i++) {
-          pages.push(i);
-        }
-      } else {
-        for (let i = currentPage - 2; i <= currentPage + 2; i++) {
-          pages.push(i);
-        }
-      }
+  const getStatusStyle = (status: string) => {
+    const statusLower = status.toLowerCase();
+    if (statusLower.includes('picked') || statusLower.includes('dispatched')) {
+      return { backgroundColor: '#EFF6FF', color: COLORS.primary, borderColor: COLORS.primary };
     }
-    return pages;
+    if (statusLower.includes('delivered') || statusLower.includes('received')) {
+      return { backgroundColor: '#ECFDF5', color: COLORS.success, borderColor: COLORS.success };
+    }
+    if (statusLower.includes('packed')) {
+      return { backgroundColor: '#F0FDFA', color: COLORS.cyan, borderColor: COLORS.cyan };
+    }
+    if (statusLower.includes('cancelled')) {
+      return { backgroundColor: '#FEF2F2', color: COLORS.error, borderColor: COLORS.error };
+    }
+    return { backgroundColor: '#FFF7ED', color: COLORS.warning, borderColor: COLORS.warning };
   };
 
-  const renderOrderRow = (item: typeof sampleOrders[0], index: number) => {
-    const statusColors = getStatusColor(item.status);
+  const handleViewOrder = (orderId: string) => {
+    router.push(`/(tabs)/view-order?id=${orderId}`);
+  };
 
+  const renderOrderRow = (order: typeof sampleOrders[0]) => {
+    const statusStyle = getStatusStyle(order.status);
+    
     return (
-      <View key={item.id} style={styles.orderRow}>
+      <View key={order.id} style={styles.tableRow}>
+        {/* Checkbox */}
         <View style={styles.checkboxCell}>
           <View style={styles.checkbox} />
         </View>
-
+        
+        {/* Order ID */}
         <View style={styles.orderIdCell}>
-          <Text style={styles.orderId}>{item.id}</Text>
-          <Text style={styles.orderPrefix}>{item.prefix}</Text>
-          <Text style={styles.orderInvoice}>Inv no. {item.invoiceNo}</Text>
+          <Text style={styles.orderId}>{order.id}</Text>
+          <Text style={styles.orderPrefix}>{order.prefix}</Text>
+          <Text style={styles.invoiceNo}>{order.invoiceNo}</Text>
         </View>
-
+        
+        {/* Customer Details */}
         <View style={styles.customerCell}>
-          <Text style={styles.customerName}>{item.customerName}</Text>
-          <Text style={styles.customerEmail}>{item.customerEmail}</Text>
-          <Text style={styles.customerPhone}>{item.customerPhone}</Text>
+          <Text style={styles.customerName}>{order.customerName}</Text>
+          <Text style={styles.customerEmail}>{order.customerEmail}</Text>
+          <Text style={styles.customerPhone}>{order.customerPhone}</Text>
         </View>
-
+        
+        {/* Order Date */}
         <View style={styles.dateCell}>
-          <Text style={styles.orderDate}>{item.orderDate}</Text>
-          <Text style={styles.orderTime}>{item.orderTime}</Text>
+          <Text style={styles.orderDate}>{order.orderDate}</Text>
+          <Text style={styles.orderTime}>{order.orderTime}</Text>
         </View>
-
+        
+        {/* Package Details */}
         <View style={styles.packageCell}>
-          <Text style={styles.packageWeight}>{item.weight}</Text>
-          <Text style={styles.packagePrice}>{item.price}</Text>
-          <Text style={styles.packageType}>{item.packageType}</Text>
+          <Text style={styles.packageWeight}>{order.weight}</Text>
+          <Text style={styles.packagePrice}>{order.price}</Text>
+          <Text style={styles.packageType}>{order.packageType}</Text>
         </View>
-
+        
+        {/* Status */}
         <View style={styles.statusCell}>
-          <View style={[styles.statusBadge, { backgroundColor: statusColors.bg }]}>
-            <Text style={[styles.statusText, { color: statusColors.text }]}>
-              {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
-            </Text>
+          <View style={[styles.statusBadge, { backgroundColor: statusStyle.backgroundColor, borderColor: statusStyle.borderColor }]}>
+            <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
           </View>
         </View>
-
+        
+        {/* Last Mile Details */}
         <View style={styles.lastMileCell}>
-          {item.trackingId ? (
+          {order.trackingId ? (
             <>
-              <Text style={styles.trackingId}>{item.trackingId}</Text>
-              <Text style={styles.carrier}>{item.carrier}</Text>
-              <TouchableOpacity style={styles.copyRow}>
-                <Ionicons name="copy-outline" size={14} color={COLORS.primary} />
+              <Text style={styles.trackingId}>{order.trackingId}</Text>
+              <Text style={styles.carrier}>{order.carrier}</Text>
+              <TouchableOpacity style={styles.copyBtn}>
+                <Ionicons name="copy-outline" size={14} color={COLORS.gray} />
                 <Text style={styles.copyText}>Copy</Text>
               </TouchableOpacity>
             </>
@@ -641,352 +262,137 @@ export default function OrdersScreen() {
             <Text style={styles.noTracking}>-</Text>
           )}
         </View>
-
-        <View style={styles.actionsCell}>
-          <View style={styles.actionIconsRow}>
-            <TouchableOpacity style={styles.actionIcon}>
-              <Ionicons name="print-outline" size={18} color={COLORS.gray} />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.actionIcon}>
-              <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={styles.actionIcon}
-              onPress={() => setActiveActionDropdown(activeActionDropdown === item.id ? null : item.id)}
-            >
-              <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
-            </TouchableOpacity>
-          </View>
-          {activeActionDropdown === item.id && (
-            <View style={styles.actionDropdown}>
-              <TouchableOpacity style={styles.actionDropdownItem}>
-                <Text style={styles.actionDropdownText}>Print Invoice</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.actionDropdownItem}>
-                <Text style={styles.actionDropdownText}>Clone Order</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </View>
-    );
-  };
-
-  const renderDraftRow = (item: typeof draftOrders[0], index: number) => {
-    const statusColors = getStatusColor(item.status);
-    const isDropdownOpen = activeActionDropdown === item.id;
-
-    return (
-      <View key={item.id} style={styles.orderRow}>
-        <View style={styles.checkboxCell}>
-          <View style={styles.checkbox} />
-        </View>
-
-        <View style={styles.orderIdCell}>
-          <Text style={styles.orderId}>{item.id}</Text>
-          <Text style={styles.orderPrefix}>{item.prefix}</Text>
-          <Text style={styles.orderInvoice}>Inv no. {item.invoiceNo}</Text>
-        </View>
-
-        <View style={styles.customerCell}>
-          <Text style={styles.customerName}>{item.customerName}</Text>
-          <Text style={styles.customerEmail}>{item.customerEmail}</Text>
-          <Text style={styles.customerPhone}>{item.customerPhone}</Text>
-        </View>
-
-        <View style={styles.dateCell}>
-          <Text style={styles.orderDate}>{item.orderDate}</Text>
-          <Text style={styles.orderTime}>{item.orderTime}</Text>
-        </View>
-
-        <View style={styles.packageCell}>
-          <Text style={styles.packageWeight}>{item.weight}</Text>
-          <Text style={styles.packagePrice}>{item.price}</Text>
-          <Text style={styles.packageType}>{item.packageType}</Text>
-        </View>
-
-        <View style={styles.statusCell}>
-          <View style={[styles.statusBadge, { backgroundColor: statusColors.bg }]}>
-            <Text style={[styles.statusText, { color: statusColors.text }]}>
-              {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.actionsCell}>
-          <TouchableOpacity style={styles.actionIconButton}>
-            <Ionicons name="cube-outline" size={20} color={COLORS.gray} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.actionIconButton}>
+        
+        {/* View Order */}
+        <View style={styles.viewCell}>
+          <TouchableOpacity onPress={() => handleViewOrder(order.id)}>
             <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
           </TouchableOpacity>
-          <View style={styles.actionDropdownContainer}>
-            <TouchableOpacity 
-              style={styles.actionIconButton}
-              onPress={() => setActiveActionDropdown(isDropdownOpen ? null : item.id)}
-            >
-              <Ionicons name="ellipsis-vertical" size={20} color={COLORS.gray} />
-            </TouchableOpacity>
-            {isDropdownOpen && (
-              <View style={styles.actionDropdownMenu}>
-                <TouchableOpacity style={styles.actionDropdownItem}>
-                  <Text style={styles.actionDropdownText}>Edit Order</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.actionDropdownItem, styles.actionDropdownItemLast]}>
-                  <Text style={[styles.actionDropdownText, { color: COLORS.red }]}>Cancel Order</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
         </View>
       </View>
     );
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={true}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.pageTitle}>{isDraftsTab ? 'Drafts' : 'All Orders'}</Text>
-          <Text style={styles.breadcrumb}>Orders {'>'} {isDraftsTab ? 'Drafts' : 'All'}</Text>
+          <Text style={styles.pageTitle}>All Orders</Text>
+          <Text style={styles.breadcrumb}>Orders {'>'} All</Text>
         </View>
         <View style={styles.headerButtons}>
-          <TouchableOpacity style={styles.addButton} onPress={() => router.push('/(tabs)/add-order')}>
+          <TouchableOpacity style={styles.addOrderButton}>
             <Ionicons name="add" size={18} color={COLORS.white} />
-            <Text style={styles.addButtonText}>Add Order</Text>
+            <Text style={styles.addOrderButtonText}>Add Order</Text>
           </TouchableOpacity>
         </View>
       </View>
 
       {/* Tabs */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabsContainer}>
-        {tabs.map((tab) => (
-          <TouchableOpacity
-            key={tab.id}
-            style={[styles.tab, activeTab === tab.id && styles.activeTab]}
-            onPress={() => handleTabChange(tab.id)}
-          >
-            <Text style={[styles.tabText, activeTab === tab.id && styles.activeTabText]}>
-              {tab.label}
-            </Text>
-          </TouchableOpacity>
-        ))}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabsScrollContainer}>
+        <View style={styles.tabsContainer}>
+          {tabs.map((tab) => (
+            <TouchableOpacity
+              key={tab.id}
+              style={[styles.tab, activeTab === tab.id && styles.activeTab]}
+              onPress={() => {
+                setActiveTab(tab.id);
+                setCurrentPage(1);
+              }}
+            >
+              <Text style={[styles.tabText, activeTab === tab.id && styles.activeTabText]}>
+                {tab.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
       </ScrollView>
 
-      {/* Search and Filter */}
-      <View style={styles.searchSection}>
-        <View style={styles.searchInputContainer}>
+      {/* Search and Export */}
+      <View style={styles.filterSection}>
+        <View style={styles.searchContainer}>
           <Ionicons name="search-outline" size={18} color={COLORS.gray} />
           <TextInput
             style={styles.searchInput}
-            placeholder={isDraftsTab ? "Enter Order Id..." : "Enter Tracking Id..."}
-            placeholderTextColor={COLORS.gray}
+            placeholder="Enter Tracking Id..."
             value={searchQuery}
             onChangeText={setSearchQuery}
+            placeholderTextColor={COLORS.textLight}
           />
         </View>
-        <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.filterButtonText}>More Filters</Text>
+        <TouchableOpacity style={styles.exportButton}>
+          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
+          <Text style={styles.exportButtonText}>Export</Text>
         </TouchableOpacity>
-        <View style={{ flex: 1 }} />
-        {isDraftsTab && (
-          <TouchableOpacity style={styles.bulkPayButton}>
-            <Text style={styles.bulkPayButtonText}>Bulk Pay</Text>
-          </TouchableOpacity>
-        )}
-        {!isDraftsTab && (
-          <>
-            <TouchableOpacity style={styles.bulkLabelButton}>
-              <Ionicons name="pricetag-outline" size={16} color={COLORS.gray} />
-              <Text style={styles.bulkLabelButtonText}>Bulk Label</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.bulkInvoiceButton}>
-              <Ionicons name="document-text-outline" size={16} color={COLORS.gray} />
-              <Text style={styles.bulkInvoiceButtonText}>Bulk Invoice</Text>
-            </TouchableOpacity>
-          </>
-        )}
-        <View style={styles.exportButtonWrapper}>
-          <TouchableOpacity 
-            style={styles.exportButton}
-            onPress={() => setShowExportDropdown(!showExportDropdown)}
-          >
-            <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
-            <Text style={styles.exportButtonText}>Export</Text>
-            <Ionicons name="chevron-down" size={14} color={COLORS.darkGray} />
-          </TouchableOpacity>
-          {showExportDropdown && (
-            <View style={styles.exportDropdown}>
-              <TouchableOpacity 
-                style={styles.exportDropdownItem}
-                onPress={() => {
-                  setShowExportDropdown(false);
-                  // Handle XLSX export
-                }}
-              >
-                <Text style={styles.exportDropdownText}>Export as XLSX</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={styles.exportDropdownItem}
-                onPress={() => {
-                  setShowExportDropdown(false);
-                  // Handle PDF export
-                }}
-              >
-                <Text style={styles.exportDropdownText}>Export as PDF</Text>
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
       </View>
 
-      {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
-      {isMobile ? (
-        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
-          <View style={styles.tableWrapper}>
-            {/* Table Header */}
-            <View style={styles.tableHeader}>
-              <View style={styles.checkboxCell}>
-                <View style={styles.checkbox} />
-              </View>
-              <View style={styles.orderIdCell}>
-                <Text style={styles.headerText}>Order ID</Text>
-                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-              </View>
-              <View style={styles.customerCell}>
-                <Text style={styles.headerText}>Customer Details</Text>
-              </View>
-              <View style={styles.dateCell}>
-                <Text style={styles.headerText}>Order Date</Text>
-                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-              </View>
-              <View style={styles.packageCell}>
-                <Text style={styles.headerText}>Package Details</Text>
-                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-              </View>
-              <View style={styles.statusCell}>
-                <Text style={styles.headerText}>Status</Text>
-              </View>
-              {isDraftsTab ? (
-                <View style={styles.actionsCell}>
-                  <Text style={styles.headerText}>Actions</Text>
-                </View>
-              ) : (
-                <>
-                  <View style={styles.lastMileCell}>
-                    <Text style={styles.headerText}>Last Mile Details</Text>
-                  </View>
-                  <View style={styles.actionsCell}>
-                    <Text style={styles.headerText}>Actions</Text>
-                  </View>
-                </>
-              )}
-            </View>
-
-            {/* Table Body */}
-            <View style={styles.tableBody}>
-              {paginatedOrders.length > 0 ? (
-                isDraftsTab
-                  ? paginatedOrders.map((order, index) => renderDraftRow(order as typeof draftOrders[0], index))
-                  : paginatedOrders.map((order, index) => renderOrderRow(order as typeof sampleOrders[0], index))
-              ) : (
-                <View style={styles.emptyState}>
-                  <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
-                  <Text style={styles.emptyText}>{isDraftsTab ? 'No draft orders found' : 'No orders found'}</Text>
-                </View>
-              )}
-            </View>
-          </View>
-        </ScrollView>
-      ) : (
-        <>
+      {/* Table */}
+      <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
+        <View style={styles.tableWrapper}>
           {/* Table Header */}
           <View style={styles.tableHeader}>
             <View style={styles.checkboxCell}>
               <View style={styles.checkbox} />
             </View>
             <View style={styles.orderIdCell}>
-              <Text style={styles.headerText}>Order ID</Text>
-              <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              <View style={styles.headerWithSort}>
+                <Text style={styles.headerText}>Order ID</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
             </View>
             <View style={styles.customerCell}>
               <Text style={styles.headerText}>Customer Details</Text>
             </View>
             <View style={styles.dateCell}>
-              <Text style={styles.headerText}>Order Date</Text>
-              <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              <View style={styles.headerWithSort}>
+                <Text style={styles.headerText}>Order Date</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
             </View>
             <View style={styles.packageCell}>
-              <Text style={styles.headerText}>Package Details</Text>
-              <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              <View style={styles.headerWithSort}>
+                <Text style={styles.headerText}>Package Details</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
             </View>
             <View style={styles.statusCell}>
               <Text style={styles.headerText}>Status</Text>
             </View>
-            {isDraftsTab ? (
-              <View style={styles.actionsCell}>
-                <Text style={styles.headerText}>Actions</Text>
-              </View>
-            ) : (
-              <>
-                <View style={styles.lastMileCell}>
-                  <Text style={styles.headerText}>Last Mile Details</Text>
-                </View>
-                <View style={styles.viewCell}>
-                  <Text style={styles.headerText}>View Order</Text>
-                </View>
-              </>
-            )}
+            <View style={styles.lastMileCell}>
+              <Text style={styles.headerText}>Last Mile Details</Text>
+            </View>
+            <View style={styles.viewCell}>
+              <Text style={styles.headerText}>View Order</Text>
+            </View>
           </View>
 
           {/* Table Body */}
-          <View style={styles.tableBody}>
-            {paginatedOrders.length > 0 ? (
-              isDraftsTab
-                ? paginatedOrders.map((order, index) => renderDraftRow(order as typeof draftOrders[0], index))
-                : paginatedOrders.map((order, index) => renderOrderRow(order as typeof sampleOrders[0], index))
-            ) : (
-              <View style={styles.emptyState}>
-                <Ionicons name="cube-outline" size={48} color={COLORS.gray} />
-                <Text style={styles.emptyText}>{isDraftsTab ? 'No draft orders found' : 'No orders found'}</Text>
-              </View>
-            )}
-          </View>
-        </>
-      )}
+          {paginatedOrders.map(order => renderOrderRow(order))}
+        </View>
+      </ScrollView>
 
       {/* Pagination */}
-      {totalItems > 0 && (
-        <View style={styles.paginationContainer}>
-          {/* Showing X to Y of Z entries */}
-          <Text style={styles.paginationInfo}>
-            Showing {startIndex + 1} to {endIndex} of {totalItems} entries
-          </Text>
-
-          {/* Page Navigation */}
-          <View style={styles.pageNavigation}>
-            {/* First Page */}
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(1)}
-              disabled={currentPage === 1}
-            >
-              <Text style={styles.pageButtonText}>|{'<'}</Text>
-            </TouchableOpacity>
-
-            {/* Previous Page */}
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              <Text style={styles.pageButtonText}>{'<'}</Text>
-            </TouchableOpacity>
-
-            {/* Page Numbers */}
-            {getVisiblePages().map((page) => (
+      <View style={styles.paginationContainer}>
+        <View style={styles.paginationControls}>
+          <TouchableOpacity
+            style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+            onPress={() => handlePageChange(1)}
+            disabled={currentPage === 1}
+          >
+            <Text style={styles.pageButtonText}>|{'<'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
+            onPress={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            <Text style={styles.pageButtonText}>{'<'}</Text>
+          </TouchableOpacity>
+          
+          {[...Array(Math.min(5, totalPages))].map((_, i) => {
+            const page = i + 1;
+            return (
               <TouchableOpacity
                 key={page}
                 style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
@@ -996,69 +402,55 @@ export default function OrdersScreen() {
                   {page}
                 </Text>
               </TouchableOpacity>
-            ))}
-
-            {/* Next Page */}
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-            >
-              <Text style={styles.pageButtonText}>{'>'}</Text>
-            </TouchableOpacity>
-
-            {/* Last Page */}
-            <TouchableOpacity
-              style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
-              onPress={() => handlePageChange(totalPages)}
-              disabled={currentPage === totalPages}
-            >
-              <Text style={styles.pageButtonText}>{'>'}|</Text>
-            </TouchableOpacity>
-          </View>
-
-          {/* Items per page dropdown */}
-          <View style={styles.itemsPerPageContainer}>
-            <Text style={styles.itemsPerPageLabel}>Items per page</Text>
-            <TouchableOpacity
-              style={styles.itemsPerPageDropdown}
-              onPress={() => setShowItemsDropdown(!showItemsDropdown)}
-            >
-              <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
-              <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
-            </TouchableOpacity>
-            {showItemsDropdown && (
-              <View style={styles.dropdownMenu}>
-                {ITEMS_PER_PAGE_OPTIONS.map((option) => (
-                  <TouchableOpacity
-                    key={option}
-                    style={[
-                      styles.dropdownItem,
-                      itemsPerPage === option && styles.dropdownItemActive,
-                    ]}
-                    onPress={() => {
-                      setItemsPerPage(option);
-                      setShowItemsDropdown(false);
-                    }}
-                  >
-                    <Text
-                      style={[
-                        styles.dropdownItemText,
-                        itemsPerPage === option && styles.dropdownItemTextActive,
-                      ]}
-                    >
-                      {option}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
-          </View>
+            );
+          })}
+          
+          <TouchableOpacity
+            style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+            onPress={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            <Text style={styles.pageButtonText}>{'>'}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
+            onPress={() => handlePageChange(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            <Text style={styles.pageButtonText}>{'>'}|</Text>
+          </TouchableOpacity>
         </View>
-      )}
 
-      {/* Bottom spacing */}
-      <View style={{ height: 40 }} />
+        <View style={styles.itemsPerPageContainer}>
+          <Text style={styles.itemsPerPageLabel}>Items per page</Text>
+          <TouchableOpacity
+            style={styles.itemsPerPageDropdown}
+            onPress={() => setShowItemsDropdown(!showItemsDropdown)}
+          >
+            <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
+            <Ionicons name="chevron-down" size={16} color={COLORS.gray} />
+          </TouchableOpacity>
+          {showItemsDropdown && (
+            <View style={styles.dropdownMenu}>
+              {ITEMS_PER_PAGE_OPTIONS.map((option) => (
+                <TouchableOpacity
+                  key={option}
+                  style={[styles.dropdownItem, itemsPerPage === option && styles.dropdownItemActive]}
+                  onPress={() => {
+                    setItemsPerPage(option);
+                    setShowItemsDropdown(false);
+                    setCurrentPage(1);
+                  }}
+                >
+                  <Text style={[styles.dropdownItemText, itemsPerPage === option && styles.dropdownItemTextActive]}>
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -1068,7 +460,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 16,
-    backgroundColor: COLORS.bgLight,
+    backgroundColor: COLORS.bgWhite,
   },
   header: {
     flexDirection: 'row',
@@ -1077,105 +469,82 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   pageTitle: {
-    fontSize: 26,
-    fontWeight: '800',
+    fontSize: 24,
+    fontWeight: '700',
     color: COLORS.textDark,
-    letterSpacing: -0.5,
   },
   breadcrumb: {
     fontSize: 14,
-    color: COLORS.textMuted,
+    color: COLORS.gray,
     marginTop: 4,
   },
   headerButtons: {
     flexDirection: 'row',
     gap: 12,
   },
-  addButton: {
+  addOrderButton: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 10,
-    gap: 8,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 8,
-    elevation: 4,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 6,
+    gap: 6,
   },
-  addButtonText: {
+  addOrderButtonText: {
     color: COLORS.white,
     fontWeight: '600',
     fontSize: 14,
   },
-  tabsContainer: {
-    flexGrow: 0,
+  tabsScrollContainer: {
     marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
+  tabsContainer: {
+    flexDirection: 'row',
+  },
   tab: {
-    paddingVertical: 14,
-    paddingHorizontal: 18,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     marginRight: 8,
   },
   activeTab: {
     borderBottomWidth: 3,
-    borderBottomColor: COLORS.primary,
+    borderBottomColor: COLORS.textDark,
   },
   tabText: {
     fontSize: 14,
-    color: COLORS.textMuted,
-    fontWeight: '500',
+    color: COLORS.gray,
   },
   activeTabText: {
-    color: COLORS.primary,
-    fontWeight: '700',
+    color: COLORS.textDark,
+    fontWeight: '600',
   },
-  searchSection: {
+  filterSection: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    gap: 12,
     marginBottom: 20,
-    flexWrap: 'wrap',
+    gap: 16,
   },
-  searchInputContainer: {
+  searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: COLORS.white,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    minWidth: 220,
-    gap: 10,
     borderWidth: 1,
     borderColor: COLORS.border,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    flex: 1,
+    maxWidth: 300,
+    gap: 8,
   },
   searchInput: {
     flex: 1,
     fontSize: 14,
     color: COLORS.textDark,
-  },
-  filterButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 10,
-    gap: 8,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-  },
-  filterButtonText: {
-    fontSize: 14,
-    color: COLORS.textDark,
-    fontWeight: '500',
-  },
-  exportButtonWrapper: {
-    position: 'relative',
   },
   exportButton: {
     flexDirection: 'row',
@@ -1183,110 +552,51 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderWidth: 1,
     borderColor: COLORS.border,
+    borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
-    borderRadius: 6,
-    gap: 8,
+    gap: 6,
   },
   exportButtonText: {
     fontSize: 14,
     color: COLORS.darkGray,
+    fontWeight: '500',
   },
-  exportDropdown: {
-    position: 'absolute',
-    top: '100%',
-    right: 0,
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 6,
-    marginTop: 4,
-    minWidth: 150,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    zIndex: 1000,
-  },
-  exportDropdownItem: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  exportDropdownText: {
-    fontSize: 14,
-    color: COLORS.darkGray,
-  },
-  bulkLabelButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 6,
-    gap: 6,
-  },
-  bulkLabelButtonText: {
-    fontSize: 14,
-    color: COLORS.gray,
-  },
-  bulkInvoiceButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 6,
-    gap: 6,
-  },
-  bulkInvoiceButtonText: {
-    fontSize: 14,
-    color: COLORS.gray,
-  },
-  bulkPayButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.primary,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 6,
-  },
-  bulkPayButtonText: {
-    fontSize: 14,
-    color: COLORS.white,
-    fontWeight: '600',
-  },
-  // Table horizontal scroll
   tableScrollContainer: {
     flex: 1,
     marginBottom: 16,
   },
   tableWrapper: {
-    minWidth: 1000,
+    minWidth: 1200,
   },
   tableHeader: {
     flexDirection: 'row',
     backgroundColor: COLORS.lightGray,
-    paddingVertical: 12,
-    paddingHorizontal: 8,
-    borderRadius: 6,
-    marginBottom: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    paddingVertical: 14,
+  },
+  headerWithSort: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   headerText: {
     fontSize: 13,
     fontWeight: '600',
     color: COLORS.darkGray,
   },
+  tableRow: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.divider,
+    paddingVertical: 16,
+    alignItems: 'flex-start',
+  },
   checkboxCell: {
     width: 40,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingHorizontal: 8,
   },
   checkbox: {
     width: 18,
@@ -1296,253 +606,172 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   orderIdCell: {
-    flex: 1.5,
-    minWidth: 150,
+    width: 180,
     paddingHorizontal: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: 4,
-  },
-  customerCell: {
-    flex: 1.5,
-    minWidth: 180,
-    paddingHorizontal: 8,
-  },
-  dateCell: {
-    flex: 1,
-    minWidth: 100,
-    paddingHorizontal: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: 4,
-  },
-  packageCell: {
-    flex: 1,
-    minWidth: 100,
-    paddingHorizontal: 8,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: 4,
-  },
-  statusCell: {
-    flex: 0.8,
-    minWidth: 90,
-    paddingHorizontal: 8,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  lastMileCell: {
-    flex: 1.2,
-    minWidth: 140,
-    paddingHorizontal: 8,
-  },
-  viewCell: {
-    width: 60,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tableBody: {
-    minHeight: 200,
-  },
-  orderRow: {
-    flexDirection: 'row',
-    paddingVertical: 16,
-    paddingHorizontal: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-    alignItems: 'flex-start',
   },
   orderId: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '600',
     color: COLORS.primary,
+    marginBottom: 2,
   },
   orderPrefix: {
     fontSize: 12,
-    color: COLORS.gray,
-    marginTop: 2,
+    color: COLORS.textMuted,
+    marginBottom: 2,
   },
-  orderInvoice: {
+  invoiceNo: {
     fontSize: 11,
-    color: COLORS.gray,
-    marginTop: 2,
+    color: COLORS.textLight,
+  },
+  customerCell: {
+    width: 200,
+    paddingHorizontal: 8,
   },
   customerName: {
-    fontSize: 13,
-    fontWeight: '500',
-    color: COLORS.darkGray,
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.textDark,
+    marginBottom: 2,
   },
   customerEmail: {
-    fontSize: 11,
-    color: COLORS.gray,
-    marginTop: 2,
+    fontSize: 12,
+    color: COLORS.textMuted,
+    marginBottom: 2,
   },
   customerPhone: {
-    fontSize: 11,
-    color: COLORS.gray,
-    marginTop: 2,
+    fontSize: 12,
+    color: COLORS.textMuted,
+  },
+  dateCell: {
+    width: 120,
+    paddingHorizontal: 8,
   },
   orderDate: {
-    fontSize: 13,
-    color: COLORS.darkGray,
+    fontSize: 14,
+    color: COLORS.textDark,
+    marginBottom: 2,
   },
   orderTime: {
-    fontSize: 11,
-    color: COLORS.gray,
-    marginTop: 2,
+    fontSize: 12,
+    color: COLORS.textMuted,
+  },
+  packageCell: {
+    width: 120,
+    paddingHorizontal: 8,
   },
   packageWeight: {
-    fontSize: 13,
-    color: COLORS.darkGray,
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.textDark,
+    marginBottom: 2,
   },
   packagePrice: {
-    fontSize: 12,
-    color: COLORS.darkGray,
-    marginTop: 2,
+    fontSize: 13,
+    color: COLORS.textDark,
+    marginBottom: 2,
   },
   packageType: {
-    fontSize: 11,
-    color: COLORS.gray,
-    marginTop: 2,
+    fontSize: 12,
+    color: COLORS.textMuted,
+  },
+  statusCell: {
+    width: 100,
+    paddingHorizontal: 8,
+    alignItems: 'flex-start',
   },
   statusBadge: {
     paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    borderWidth: 1,
   },
   statusText: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: '600',
+  },
+  lastMileCell: {
+    width: 200,
+    paddingHorizontal: 8,
   },
   trackingId: {
-    fontSize: 12,
-    fontWeight: '500',
+    fontSize: 13,
+    fontWeight: '600',
     color: COLORS.primary,
+    marginBottom: 2,
   },
   carrier: {
-    fontSize: 11,
-    color: COLORS.gray,
-    marginTop: 2,
+    fontSize: 12,
+    color: COLORS.textMuted,
+    marginBottom: 4,
   },
-  copyRow: {
+  copyBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
     gap: 4,
   },
   copyText: {
-    fontSize: 11,
-    color: COLORS.primary,
+    fontSize: 12,
+    color: COLORS.gray,
   },
   noTracking: {
-    fontSize: 13,
-    color: COLORS.gray,
-  },
-  viewButton: {
-    padding: 8,
-  },
-  // Action icons and dropdown
-  actionIconsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  actionIcon: {
-    padding: 6,
-    borderRadius: 4,
-  },
-  actionDropdown: {
-    position: 'absolute',
-    top: '100%',
-    right: 0,
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 6,
-    marginTop: 4,
-    minWidth: 130,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
-    zIndex: 1000,
-  },
-  actionDropdownItem: {
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  actionDropdownText: {
-    fontSize: 13,
-    color: COLORS.darkGray,
-  },
-  emptyState: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 60,
-  },
-  emptyText: {
     fontSize: 14,
-    color: COLORS.gray,
-    marginTop: 12,
+    color: COLORS.textLight,
   },
-  // Pagination styles
+  viewCell: {
+    width: 80,
+    paddingHorizontal: 8,
+    alignItems: 'center',
+  },
   paginationContainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    justifyContent: 'center',
     paddingVertical: 20,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
-    marginTop: 16,
-    flexWrap: 'wrap',
-    gap: 16,
   },
-  paginationInfo: {
-    fontSize: 14,
-    color: COLORS.gray,
-  },
-  pageNavigation: {
+  paginationControls: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
   },
   pageButton: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 12,
     paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: COLORS.border,
     borderRadius: 4,
+    backgroundColor: COLORS.white,
   },
   pageButtonDisabled: {
-    opacity: 0.4,
+    opacity: 0.5,
   },
   pageButtonText: {
-    fontSize: 14,
-    color: COLORS.gray,
-    fontWeight: '500',
+    fontSize: 12,
+    color: COLORS.darkGray,
   },
   pageNumberButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 4,
+    backgroundColor: COLORS.white,
+    minWidth: 36,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 2,
   },
   pageNumberActive: {
     backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
   },
   pageNumberText: {
-    fontSize: 14,
-    color: COLORS.gray,
-    fontWeight: '500',
+    fontSize: 12,
+    color: COLORS.darkGray,
   },
   pageNumberTextActive: {
     color: COLORS.white,
+    fontWeight: '600',
   },
   itemsPerPageContainer: {
     flexDirection: 'row',
@@ -1551,28 +780,26 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   itemsPerPageLabel: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.gray,
   },
   itemsPerPageDropdown: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.white,
     borderWidth: 1,
     borderColor: COLORS.border,
-    borderRadius: 6,
+    borderRadius: 4,
     paddingHorizontal: 12,
-    paddingVertical: 8,
-    gap: 8,
+    paddingVertical: 6,
+    gap: 4,
   },
   itemsPerPageValue: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.darkGray,
-    fontWeight: '500',
   },
   dropdownMenu: {
     position: 'absolute',
-    bottom: 45,
+    top: 36,
     right: 0,
     backgroundColor: COLORS.white,
     borderWidth: 1,
@@ -1581,69 +808,24 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 4,
+    shadowRadius: 8,
     elevation: 4,
-    zIndex: 1000,
+    zIndex: 100,
   },
   dropdownItem: {
     paddingHorizontal: 16,
     paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    minWidth: 80,
   },
   dropdownItemActive: {
     backgroundColor: COLORS.lightGray,
   },
   dropdownItemText: {
-    fontSize: 14,
+    fontSize: 13,
     color: COLORS.darkGray,
   },
   dropdownItemTextActive: {
-    color: COLORS.primary,
     fontWeight: '600',
-  },
-  // Draft actions styles
-  actionsCell: {
-    flex: 1,
-    minWidth: 120,
-    paddingHorizontal: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  actionIconButton: {
-    padding: 8,
-  },
-  actionDropdownContainer: {
-    position: 'relative',
-  },
-  actionDropdownMenu: {
-    position: 'absolute',
-    top: 40,
-    right: 0,
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 6,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 4,
-    zIndex: 1000,
-    minWidth: 140,
-  },
-  actionDropdownItem: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  actionDropdownItemLast: {
-    borderBottomWidth: 0,
-  },
-  actionDropdownText: {
-    fontSize: 14,
-    color: COLORS.darkGray,
+    color: COLORS.primary,
   },
 });
