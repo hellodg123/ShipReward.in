@@ -725,7 +725,7 @@ export default function LoginScreen() {
 
             {/* Phone Prizes */}
             <View style={styles.phonePrizesRow}>
-              <View style={[styles.phonePrizeCard, { backgroundColor: '#E8F4FD' }]}>
+              <View style={[styles.phonePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#1428A0' }]}>
                 <Image 
                   source={require('../assets/images/samsung.png')} 
                   style={styles.phoneBrandLogo}
@@ -735,7 +735,7 @@ export default function LoginScreen() {
                 <Text style={styles.phonePrizeValue}>₹1.86 Lakh approx</Text>
               </View>
 
-              <View style={[styles.phonePrizeCard, { backgroundColor: '#F5F5F7' }]}>
+              <View style={[styles.phonePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#555555' }]}>
                 <Image 
                   source={require('../assets/images/apple.png')} 
                   style={styles.phoneBrandLogo}
