@@ -855,8 +855,55 @@ export default function OrdersScreen() {
     );
   };
 
+  // Payment Popup Modal
+  const PaymentPopup = () => (
+    <Modal
+      transparent
+      visible={showPayPopup}
+      animationType="fade"
+      onRequestClose={() => setShowPayPopup(false)}
+    >
+      <Pressable style={styles.modalOverlay} onPress={() => setShowPayPopup(false)}>
+        <Pressable style={styles.payPopupContainer} onPress={(e) => e.stopPropagation()}>
+          <View style={styles.payPopupContent}>
+            {/* Info Icon */}
+            <View style={styles.payPopupIconContainer}>
+              <Ionicons name="information-circle" size={48} color={COLORS.primary} />
+            </View>
+            
+            {/* Message */}
+            <Text style={styles.payPopupTitle}>Are you sure</Text>
+            <Text style={styles.payPopupMessage}>
+              You want to confirm payment for Order{'\n'}
+              <Text style={styles.payPopupOrderId}>{selectedOrderForPay?.id}</Text>
+            </Text>
+            
+            {/* Buttons */}
+            <View style={styles.payPopupButtons}>
+              <TouchableOpacity 
+                style={styles.payPopupCancelBtn}
+                onPress={() => setShowPayPopup(false)}
+              >
+                <Text style={styles.payPopupCancelBtnText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.payPopupConfirmBtn}
+                onPress={handleConfirmPayment}
+              >
+                <Text style={styles.payPopupConfirmBtnText}>Continue</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Pressable>
+      </Pressable>
+    </Modal>
+  );
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      {/* Payment Popup */}
+      <PaymentPopup />
+      
       {/* Header */}
       <View style={styles.header}>
         <View>
