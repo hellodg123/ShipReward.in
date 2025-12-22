@@ -1344,6 +1344,12 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: COLORS.dark,
   },
+  grandPrizeCashText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.darkGray,
+    marginTop: 4,
+  },
   grandPrizeLabel: {
     fontSize: 14,
     color: COLORS.darkGray,
