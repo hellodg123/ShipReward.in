@@ -274,6 +274,8 @@ export default function OrdersScreen() {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [actionMenuOrderId, setActionMenuOrderId] = useState<string | null>(null);
+  const [showPayPopup, setShowPayPopup] = useState(false);
+  const [selectedOrderForPay, setSelectedOrderForPay] = useState<any>(null);
 
   useEffect(() => {
     if (params.tab) {
