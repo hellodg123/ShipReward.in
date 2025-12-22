@@ -640,7 +640,7 @@ export default function LoginScreen() {
 
             {/* Vehicle Prizes */}
             <View style={styles.vehiclePrizesRow}>
-              <View style={styles.vehiclePrizeCard}>
+              <View style={[styles.vehiclePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#2563EB' }]}>
                 <Image 
                   source={require('../assets/images/land-rover.jpg')} 
                   style={styles.vehicleBrandLogo}
@@ -653,7 +653,7 @@ export default function LoginScreen() {
                 </View>
               </View>
 
-              <View style={styles.vehiclePrizeCard}>
+              <View style={[styles.vehiclePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#7C3AED' }]}>
                 <Image 
                   source={require('../assets/images/bmw-logo.jpg')} 
                   style={styles.vehicleBrandLogo}
@@ -666,7 +666,7 @@ export default function LoginScreen() {
                 </View>
               </View>
 
-              <View style={styles.vehiclePrizeCard}>
+              <View style={[styles.vehiclePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#F97316' }]}>
                 <Image 
                   source={require('../assets/images/audi-logo.jpg')} 
                   style={styles.vehicleBrandLogo}
