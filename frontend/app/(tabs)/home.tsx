@@ -9,23 +9,48 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
+// New Modern Color Scheme
 const COLORS = {
-  primary: '#2563EB',
+  // Primary Colors
+  primary: '#6366F1',        // Indigo
+  primaryDark: '#4F46E5',    // Darker Indigo
+  primaryLight: '#818CF8',   // Lighter Indigo
+  
+  // Secondary Colors
+  secondary: '#EC4899',      // Pink
+  accent: '#F59E0B',         // Amber/Gold
+  
+  // Background Colors
+  bgLight: '#F8FAFC',        // Very light gray
+  bgCard: '#FFFFFF',         // White
+  
+  // Text Colors
+  textDark: '#1E293B',       // Slate 800
+  textMuted: '#64748B',      // Slate 500
+  textLight: '#94A3B8',      // Slate 400
+  
+  // Status Colors
+  success: '#10B981',        // Emerald
+  warning: '#F59E0B',        // Amber
+  error: '#EF4444',          // Red
+  info: '#3B82F6',           // Blue
+  purple: '#8B5CF6',         // Violet
+  cyan: '#06B6D4',           // Cyan
+  rose: '#F43F5E',           // Rose
+  
+  // UI Colors
   white: '#FFFFFF',
-  lightGray: '#F8F9FA',
-  gray: '#6B7280',
-  darkGray: '#374151',
-  gold: '#F59E0B',
-  green: '#10B981',
-  red: '#EF4444',
-  purple: '#8B5CF6',
-  orange: '#F97316',
-  blue: '#3B82F6',
-  lightBlue: '#EFF6FF',
-  lightGreen: '#ECFDF5',
-  lightYellow: '#FFFBEB',
-  lightRed: '#FEF2F2',
-  lightPurple: '#F5F3FF',
+  border: '#E2E8F0',
+  divider: '#F1F5F9',
+  
+  // Card Background Colors
+  bgBlue: '#EEF2FF',
+  bgGreen: '#ECFDF5',
+  bgYellow: '#FFFBEB',
+  bgRed: '#FEF2F2',
+  bgPurple: '#F5F3FF',
+  bgCyan: '#ECFEFF',
+  bgRose: '#FFF1F2',
 };
 
 const orderStatusCards = [
