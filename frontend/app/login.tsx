@@ -602,14 +602,46 @@ export default function LoginScreen() {
 
           {/* Prize Showcase */}
           <View style={styles.prizeShowcase}>
-            {/* Grand Prize */}
-            <View style={styles.grandPrizeCard}>
-              <View style={styles.grandPrizeBadge}>
-                <Text style={styles.grandPrizeBadgeText}>GRAND PRIZE</Text>
+            {/* Grand Prizes - 3 Cards */}
+            <View style={[styles.grandPrizesRow, { flexDirection: isMobile ? 'column' : 'row' }]}>
+              {/* 1st Prize - Royal Enfield */}
+              <View style={styles.grandPrizeCard}>
+                <View style={styles.grandPrizeBadge}>
+                  <Text style={styles.grandPrizeBadgeText}>1ST PRIZE</Text>
+                </View>
+                <Image 
+                  source={require('../assets/images/royal-enfield.jpg')} 
+                  style={styles.grandPrizeLogo}
+                  resizeMode="contain"
+                />
+                <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
               </View>
-              <Text style={styles.grandPrizeEmoji}>💰</Text>
-              <Text style={styles.grandPrizeAmount}>₹1 Crore</Text>
-              <Text style={styles.grandPrizeLabel}>Cash Prize (1st, 2nd, 3rd Winners)</Text>
+
+              {/* 2nd Prize - BMW */}
+              <View style={styles.grandPrizeCard}>
+                <View style={[styles.grandPrizeBadge, { backgroundColor: '#C0C0C0' }]}>
+                  <Text style={styles.grandPrizeBadgeText}>2ND PRIZE</Text>
+                </View>
+                <Image 
+                  source={require('../assets/images/bmw.jpg')} 
+                  style={styles.grandPrizeLogo}
+                  resizeMode="contain"
+                />
+                <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+              </View>
+
+              {/* 3rd Prize - Audi */}
+              <View style={styles.grandPrizeCard}>
+                <View style={[styles.grandPrizeBadge, { backgroundColor: '#CD7F32' }]}>
+                  <Text style={styles.grandPrizeBadgeText}>3RD PRIZE</Text>
+                </View>
+                <Image 
+                  source={require('../assets/images/audi.jpg')} 
+                  style={styles.grandPrizeLogo}
+                  resizeMode="contain"
+                />
+                <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+              </View>
             </View>
 
             {/* Vehicle Prizes */}
@@ -617,7 +649,7 @@ export default function LoginScreen() {
               <View style={styles.vehiclePrizeCard}>
                 <CarIcon size={100} color={COLORS.primary} />
                 <Text style={styles.vehiclePrizeName}>Range Rover Velar</Text>
-                <Text style={styles.vehiclePrizeValue}>₹86.74 Lakh</Text>
+                <Text style={styles.vehiclePrizeValue}>₹86 Lakh approx</Text>
                 <View style={styles.vehiclePrizeRank}>
                   <Text style={styles.vehiclePrizeRankText}>4th Prize</Text>
                 </View>
@@ -626,7 +658,7 @@ export default function LoginScreen() {
               <View style={styles.vehiclePrizeCard}>
                 <CarIcon size={100} color={COLORS.secondary} />
                 <Text style={styles.vehiclePrizeName}>BMW iX1 xDrive30</Text>
-                <Text style={styles.vehiclePrizeValue}>₹71.24 Lakh</Text>
+                <Text style={styles.vehiclePrizeValue}>₹71 Lakh approx</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: COLORS.secondary }]}>
                   <Text style={styles.vehiclePrizeRankText}>5th Prize</Text>
                 </View>
@@ -635,7 +667,7 @@ export default function LoginScreen() {
               <View style={styles.vehiclePrizeCard}>
                 <CarIcon size={100} color={COLORS.orange} />
                 <Text style={styles.vehiclePrizeName}>Audi Q3 Premium</Text>
-                <Text style={styles.vehiclePrizeValue}>₹49.71 Lakh</Text>
+                <Text style={styles.vehiclePrizeValue}>₹49 Lakh approx</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: COLORS.orange }]}>
                   <Text style={styles.vehiclePrizeRankText}>6th Prize</Text>
                 </View>
@@ -645,21 +677,33 @@ export default function LoginScreen() {
             {/* Bike Prizes */}
             <View style={styles.bikePrizesRow}>
               <View style={styles.bikePrizeCard}>
-                <BikeIcon size={90} color={COLORS.dark} />
+                <Image 
+                  source={require('../assets/images/harley-davidson.jpg')} 
+                  style={styles.bikePrizeLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.bikePrizeName}>Harley Davidson Sportster S</Text>
-                <Text style={styles.bikePrizeValue}>₹19.95 Lakh</Text>
+                <Text style={styles.bikePrizeValue}>₹19 Lakh approx</Text>
               </View>
 
               <View style={styles.bikePrizeCard}>
-                <BikeIcon size={90} color={COLORS.green} />
+                <Image 
+                  source={require('../assets/images/kawasaki.jpg')} 
+                  style={styles.bikePrizeLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.bikePrizeName}>Kawasaki Ninja 500</Text>
-                <Text style={styles.bikePrizeValue}>₹6.26 Lakh</Text>
+                <Text style={styles.bikePrizeValue}>₹6 Lakh approx</Text>
               </View>
 
               <View style={styles.bikePrizeCard}>
-                <BikeIcon size={90} color={COLORS.primary} />
+                <Image 
+                  source={require('../assets/images/royal-enfield.jpg')} 
+                  style={styles.bikePrizeLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.bikePrizeName}>Royal Enfield Hunter 350</Text>
-                <Text style={styles.bikePrizeValue}>₹1.88 Lakh × 41</Text>
+                <Text style={styles.bikePrizeValue}>₹1 Lakh approx × 41</Text>
               </View>
             </View>
 
@@ -668,13 +712,13 @@ export default function LoginScreen() {
               <View style={styles.phonePrizeCard}>
                 <PhoneIcon size={80} color={COLORS.secondary} />
                 <Text style={styles.phonePrizeName}>Samsung Galaxy Z Fold7</Text>
-                <Text style={styles.phonePrizeValue}>25 Winners</Text>
+                <Text style={styles.phonePrizeValue}>₹1.86 Lakh approx</Text>
               </View>
 
               <View style={styles.phonePrizeCard}>
                 <PhoneIcon size={80} color={COLORS.gray} />
                 <Text style={styles.phonePrizeName}>iPhone 17 Pro Max</Text>
-                <Text style={styles.phonePrizeValue}>25 Winners</Text>
+                <Text style={styles.phonePrizeValue}>₹1.35 Lakh approx</Text>
               </View>
             </View>
           </View>
