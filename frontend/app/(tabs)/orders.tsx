@@ -1079,8 +1079,8 @@ const styles = StyleSheet.create({
   },
   // Pagination
   paginationRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: isMobile ? 'column' : 'row',
+    justifyContent: isMobile ? 'center' : 'space-between',
     alignItems: 'center',
     paddingVertical: 20,
     borderTopWidth: 1,
