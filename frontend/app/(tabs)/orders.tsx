@@ -394,6 +394,27 @@ export default function OrdersScreen() {
     alert(`Cancel order: ${orderId}`);
   };
 
+  const handlePayNow = (order: any) => {
+    setSelectedOrderForPay(order);
+    setShowPayPopup(true);
+  };
+
+  const handleConfirmPayment = () => {
+    // Handle payment confirmation
+    setShowPayPopup(false);
+    setSelectedOrderForPay(null);
+    alert('Payment successful!');
+  };
+
+  const handleBulkPay = () => {
+    // Handle bulk payment
+    if (selectedOrders.length === 0) {
+      alert('Please select orders to pay');
+      return;
+    }
+    alert(`Bulk pay for ${selectedOrders.length} orders`);
+  };
+
   const getVisiblePages = () => {
     const pages = [];
     const maxVisible = 5;
