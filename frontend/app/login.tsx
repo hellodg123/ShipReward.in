@@ -1375,6 +1375,11 @@ const styles = StyleSheet.create({
     flex: isLargeScreen ? 1 : undefined,
     maxWidth: isLargeScreen ? 260 : '100%',
   },
+  bikePrizeLogo: {
+    width: 90,
+    height: 60,
+    marginBottom: 4,
+  },
   bikePrizeName: {
     fontSize: 14,
     fontWeight: '600',
