@@ -214,6 +214,52 @@ const draftOrdersData = [
   },
 ];
 
+// Sample ready orders data
+const readyOrdersData = [
+  {
+    id: 'SG32512224555000',
+    prefix: 'US - 95991',
+    invoiceNo: 'Inv no. DP-114-1127278-4180268',
+    customerName: 'Kuljinder Kaur',
+    customerEmail: 'ASHISHSAVANI477@GMAIL.COM',
+    customerPhone: '+1 602-671-6610',
+    orderDate: '22 Dec, 2025',
+    orderTime: '07:35 PM',
+    weight: '1.1 kg',
+    price: '₹ 1506.86',
+    packageType: 'CSB-IV',
+    status: 'Ready For Packing',
+  },
+  {
+    id: 'SG32512224555001',
+    prefix: 'CA - 45678',
+    invoiceNo: 'Inv no. DP-115-2238389-5291379',
+    customerName: 'Robert Chen',
+    customerEmail: 'robert.chen@email.com',
+    customerPhone: '+1 416-789-0123',
+    orderDate: '22 Dec, 2025',
+    orderTime: '06:20 PM',
+    weight: '0.8 kg',
+    price: '₹ 1250.00',
+    packageType: 'CSB-IV',
+    status: 'Ready For Packing',
+  },
+  {
+    id: 'SG32512224555002',
+    prefix: 'UK - 78901',
+    invoiceNo: 'Inv no. DP-116-3349490-6302480',
+    customerName: 'Alice Thompson',
+    customerEmail: 'alice.thompson@email.com',
+    customerPhone: '+44 20-1234-5678',
+    orderDate: '22 Dec, 2025',
+    orderTime: '05:15 PM',
+    weight: '0.6 kg',
+    price: '₹ 980.50',
+    packageType: 'CSB-IV',
+    status: 'Ready For Packing',
+  },
+];
+
 const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 
 export default function OrdersScreen() {
