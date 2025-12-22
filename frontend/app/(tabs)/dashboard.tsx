@@ -9,7 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
-// New Modern Color Scheme
+// Color Scheme
 const COLORS = {
   // Primary Colors
   primary: '#1f46a7',        // Deep Blue
@@ -21,8 +21,7 @@ const COLORS = {
   accent: '#ffd700',         // Gold
   
   // Background Colors
-  bgLight: '#F8FAFC',        // Very light gray
-  bgCard: '#FFFFFF',         // White
+  bgWhite: '#FFFFFF',        // White background
   
   // Text Colors
   textDark: '#1E293B',       // Slate 800
@@ -37,35 +36,31 @@ const COLORS = {
   purple: '#8B5CF6',         // Violet
   cyan: '#06B6D4',           // Cyan
   rose: '#F43F5E',           // Rose
+  orange: '#F97316',         // Orange
+  indigo: '#6366F1',         // Indigo
+  teal: '#14B8A6',           // Teal
   
   // UI Colors
   white: '#FFFFFF',
   black: '#000000',
   border: '#E2E8F0',
   divider: '#F1F5F9',
-  
-  // Card Background Colors
-  bgBlue: '#EEF2FF',
-  bgGreen: '#ECFDF5',
-  bgYellow: '#FFFBEB',
-  bgRed: '#FEF2F2',
-  bgPurple: '#F5F3FF',
-  bgCyan: '#ECFEFF',
-  bgRose: '#FFF1F2',
+  transparent: 'transparent',
 };
 
+// Cards with unique icon colors
 const orderStatusCards = [
-  { title: 'All Orders', count: '00', icon: 'layers-outline', route: '/(tabs)/orders', tab: 'all' },
-  { title: 'Drafted Orders', count: '00', icon: 'create-outline', route: '/(tabs)/orders', tab: 'drafts' },
-  { title: 'Pending for Label', count: '00', icon: 'pricetag-outline', route: '/(tabs)/orders', tab: 'ready' },
-  { title: 'Packed Orders', count: '00', icon: 'cube-outline', route: '/(tabs)/orders', tab: 'packed' },
-  { title: 'Dispatched Orders', count: '00', icon: 'send-outline', route: '/(tabs)/orders', tab: 'dispatched' },
+  { title: 'All Orders', count: '00', icon: 'layers-outline', iconColor: COLORS.primary, route: '/(tabs)/orders', tab: 'all' },
+  { title: 'Drafted Orders', count: '00', icon: 'create-outline', iconColor: COLORS.warning, route: '/(tabs)/orders', tab: 'drafts' },
+  { title: 'Pending for Label', count: '00', icon: 'pricetag-outline', iconColor: COLORS.success, route: '/(tabs)/orders', tab: 'ready' },
+  { title: 'Packed Orders', count: '00', icon: 'cube-outline', iconColor: COLORS.cyan, route: '/(tabs)/orders', tab: 'packed' },
+  { title: 'Dispatched Orders', count: '00', icon: 'send-outline', iconColor: COLORS.purple, route: '/(tabs)/orders', tab: 'dispatched' },
 ];
 
 const actionCards = [
-  { title: 'Pickups In Progress', count: '00', icon: 'checkmark-done-outline', route: '/(tabs)/pickup', tab: '' },
-  { title: 'Open Manifests', count: '00', icon: 'mail-outline', route: '/(tabs)/manifest', tab: '' },
-  { title: 'Disputed Orders', count: '00', icon: 'close-circle-outline', route: '/(tabs)/orders', tab: 'disputed' },
+  { title: 'Pickups In Progress', count: '00', icon: 'checkmark-done-outline', iconColor: COLORS.teal, route: '/(tabs)/pickup', tab: '' },
+  { title: 'Open Manifests', count: '00', icon: 'mail-outline', iconColor: COLORS.indigo, route: '/(tabs)/manifest', tab: '' },
+  { title: 'Disputed Orders', count: '00', icon: 'close-circle-outline', iconColor: COLORS.rose, route: '/(tabs)/orders', tab: 'disputed' },
 ];
 
 const walletActivity = [
@@ -89,7 +84,7 @@ export default function DashboardScreen() {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.dashboardTitle}>Dashboard</Text>
 
-      {/* Order Status Cards Row - White background with black icons */}
+      {/* Order Status Cards Row - Transparent background with colored icons */}
       <View style={styles.orderStatusRow}>
         {orderStatusCards.map((card, index) => (
           <TouchableOpacity
@@ -97,10 +92,10 @@ export default function DashboardScreen() {
             style={styles.orderStatusCard}
             onPress={() => handleCardPress(card.route, card.tab)}
           >
-            <View style={styles.orderStatusIcon}>
-              <Ionicons name={card.icon as any} size={22} color={COLORS.black} />
+            <View style={[styles.orderStatusIcon, { backgroundColor: `${card.iconColor}15` }]}>
+              <Ionicons name={card.icon as any} size={22} color={card.iconColor} />
             </View>
-            <Text style={styles.orderStatusTitle}>{card.title}</Text>
+            <Text style={[styles.orderStatusTitle, { color: card.iconColor }]}>{card.title}</Text>
             <Text style={styles.orderStatusCount}>{card.count}</Text>
           </TouchableOpacity>
         ))}
@@ -118,8 +113,8 @@ export default function DashboardScreen() {
                 style={styles.actionCard}
                 onPress={() => handleCardPress(card.route, card.tab)}
               >
-                <View style={styles.actionIcon}>
-                  <Ionicons name={card.icon as any} size={28} color={COLORS.black} />
+                <View style={[styles.actionIcon, { backgroundColor: `${card.iconColor}15` }]}>
+                  <Ionicons name={card.icon as any} size={28} color={card.iconColor} />
                 </View>
                 <Text style={styles.actionCount}>{card.count}</Text>
                 <Text style={styles.actionTitle}>{card.title}</Text>
@@ -156,7 +151,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: COLORS.bgLight,
+    backgroundColor: COLORS.bgWhite,
   },
   dashboardTitle: {
     fontSize: 28,
@@ -177,14 +172,9 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 16,
     alignItems: 'flex-start',
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.transparent,
     borderWidth: 1,
     borderColor: COLORS.border,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
   },
   orderStatusIcon: {
     width: 44,
@@ -193,13 +183,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
-    backgroundColor: COLORS.divider,
   },
   orderStatusTitle: {
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 6,
-    color: COLORS.textMuted,
   },
   orderStatusCount: {
     fontSize: 32,
@@ -230,15 +218,10 @@ const styles = StyleSheet.create({
   actionCard: {
     flex: 1,
     minWidth: 150,
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.transparent,
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -249,7 +232,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 14,
-    backgroundColor: COLORS.divider,
   },
   actionCount: {
     fontSize: 28,
@@ -269,14 +251,9 @@ const styles = StyleSheet.create({
     minWidth: 300,
   },
   walletActivityList: {
-    backgroundColor: COLORS.white,
+    backgroundColor: COLORS.transparent,
     borderRadius: 16,
     padding: 20,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
