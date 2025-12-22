@@ -1272,13 +1272,20 @@ const styles = StyleSheet.create({
   prizeShowcase: {
     alignItems: 'center',
   },
+  grandPrizesRow: {
+    gap: 20,
+    marginBottom: 32,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   grandPrizeCard: {
     backgroundColor: '#FEF3C7',
     borderRadius: 20,
     padding: 32,
     alignItems: 'center',
-    marginBottom: 32,
-    width: isLargeScreen ? 360 : '100%',
+    width: isLargeScreen ? 280 : '100%',
+    maxWidth: 320,
     borderWidth: 3,
     borderColor: COLORS.gold,
   },
@@ -1294,12 +1301,17 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 11,
   },
+  grandPrizeLogo: {
+    width: 100,
+    height: 80,
+    marginBottom: 12,
+  },
   grandPrizeEmoji: {
     fontSize: 56,
     marginBottom: 12,
   },
   grandPrizeAmount: {
-    fontSize: 40,
+    fontSize: 28,
     fontWeight: '800',
     color: COLORS.dark,
   },
