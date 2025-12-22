@@ -1079,13 +1079,22 @@ const styles = StyleSheet.create({
   },
   // Pagination
   paginationRow: {
-    flexDirection: isMobile ? 'column' : 'row',
-    justifyContent: isMobile ? 'center' : 'space-between',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 20,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
     flexWrap: 'wrap',
+    gap: 16,
+  },
+  paginationRowMobile: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 20,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
     gap: 16,
   },
   showingText: {
