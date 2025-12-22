@@ -700,14 +700,22 @@ export default function LoginScreen() {
 
             {/* Phone Prizes */}
             <View style={styles.phonePrizesRow}>
-              <View style={styles.phonePrizeCard}>
-                <PhoneIcon size={80} color={COLORS.secondary} />
+              <View style={[styles.phonePrizeCard, { backgroundColor: '#E8F4FD' }]}>
+                <Image 
+                  source={require('../assets/images/samsung.png')} 
+                  style={styles.phoneBrandLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.phonePrizeName}>Samsung Galaxy Z Fold7</Text>
                 <Text style={styles.phonePrizeValue}>₹1.86 Lakh approx</Text>
               </View>
 
-              <View style={styles.phonePrizeCard}>
-                <PhoneIcon size={80} color={COLORS.gray} />
+              <View style={[styles.phonePrizeCard, { backgroundColor: '#F5F5F7' }]}>
+                <Image 
+                  source={require('../assets/images/apple.png')} 
+                  style={styles.phoneBrandLogo}
+                  resizeMode="contain"
+                />
                 <Text style={styles.phonePrizeName}>iPhone 17 Pro Max</Text>
                 <Text style={styles.phonePrizeValue}>₹1.35 Lakh approx</Text>
               </View>
