@@ -745,7 +745,9 @@ export default function OrdersScreen() {
       </View>
 
       {/* Table */}
-      {activeTab === 'drafts' ? renderDraftsTable() : renderAllOrdersTable()}
+      {activeTab === 'drafts' ? renderDraftsTable() : 
+       activeTab === 'ready' ? renderReadyTable() : 
+       renderAllOrdersTable()}
 
       {/* Pagination */}
       <View style={isMobile ? styles.paginationRowMobile : styles.paginationRow}>
