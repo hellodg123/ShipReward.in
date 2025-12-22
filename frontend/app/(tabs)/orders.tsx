@@ -1062,6 +1062,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
     gap: 16,
+    zIndex: 1000,
+    position: 'relative',
   },
   searchBox: {
     flexDirection: 'row',
@@ -1083,6 +1085,7 @@ const styles = StyleSheet.create({
   },
   exportContainer: {
     position: 'relative',
+    zIndex: 1001,
   },
   exportBtn: {
     flexDirection: 'row',
