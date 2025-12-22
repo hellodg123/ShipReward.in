@@ -161,33 +161,75 @@ export default function ViewOrderScreen() {
               <Text style={styles.billedTitle}>Billed Details</Text>
             </View>
 
-            {/* Table Header */}
-            <View style={styles.billedTableHeader}>
-              <Text style={[styles.billedHeaderCell, { width: 50 }]}>Sr No.</Text>
-              <Text style={[styles.billedHeaderCell, { flex: 1 }]}>Product Name</Text>
-              <Text style={[styles.billedHeaderCell, { width: 80 }]}>SKU</Text>
-              <Text style={[styles.billedHeaderCell, { width: 80 }]}>HSN</Text>
-              <Text style={[styles.billedHeaderCell, { width: 50 }]}>Qty</Text>
-              <Text style={[styles.billedHeaderCell, { width: 100 }]}>Unit Price</Text>
-              <Text style={[styles.billedHeaderCell, { width: 100 }]}>Total</Text>
-            </View>
+            {/* Table with horizontal scroll on mobile */}
+            {isMobile ? (
+              <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+                <View style={styles.billedTableWrapper}>
+                  {/* Table Header */}
+                  <View style={styles.billedTableHeader}>
+                    <Text style={[styles.billedHeaderCell, { width: 50 }]}>Sr No.</Text>
+                    <Text style={[styles.billedHeaderCell, { width: 200 }]}>Product Name</Text>
+                    <Text style={[styles.billedHeaderCell, { width: 80 }]}>SKU</Text>
+                    <Text style={[styles.billedHeaderCell, { width: 80 }]}>HSN</Text>
+                    <Text style={[styles.billedHeaderCell, { width: 50 }]}>Qty</Text>
+                    <Text style={[styles.billedHeaderCell, { width: 100 }]}>Unit Price</Text>
+                    <Text style={[styles.billedHeaderCell, { width: 100 }]}>Total</Text>
+                  </View>
 
-            {/* Table Rows */}
-            {order.billedDetails.map((item, index) => (
-              <View key={index} style={styles.billedTableRow}>
-                <Text style={[styles.billedCell, { width: 50 }]}>{item.srNo}</Text>
-                <Text style={[styles.billedCell, { flex: 1 }]}>{item.productName}</Text>
-                <Text style={[styles.billedCell, { width: 80 }]}>{item.sku || '-'}</Text>
-                <Text style={[styles.billedCell, { width: 80 }]}>{item.hsn}</Text>
-                <Text style={[styles.billedCell, { width: 50 }]}>{item.qty}</Text>
-                <Text style={[styles.billedCell, { width: 100 }]}>{item.unitPrice}</Text>
-                <Text style={[styles.billedCell, { width: 100 }]}>{item.total}</Text>
-              </View>
-            ))}
+                  {/* Table Rows */}
+                  {order.billedDetails.map((item, index) => (
+                    <View key={index} style={styles.billedTableRow}>
+                      <Text style={[styles.billedCell, { width: 50 }]}>{item.srNo}</Text>
+                      <Text style={[styles.billedCell, { width: 200 }]}>{item.productName}</Text>
+                      <Text style={[styles.billedCell, { width: 80 }]}>{item.sku || '-'}</Text>
+                      <Text style={[styles.billedCell, { width: 80 }]}>{item.hsn}</Text>
+                      <Text style={[styles.billedCell, { width: 50 }]}>{item.qty}</Text>
+                      <Text style={[styles.billedCell, { width: 100 }]}>{item.unitPrice}</Text>
+                      <Text style={[styles.billedCell, { width: 100 }]}>{item.total}</Text>
+                    </View>
+                  ))}
 
-            {/* Total */}
-            <View style={styles.productTotalRow}>
-              <Text style={styles.productTotalLabel}>Total</Text>
+                  {/* Total */}
+                  <View style={styles.productTotalRow}>
+                    <Text style={styles.productTotalLabel}>Total</Text>
+                    <Text style={styles.productTotalValue}>{order.productTotal}</Text>
+                  </View>
+                </View>
+              </ScrollView>
+            ) : (
+              <>
+                {/* Table Header */}
+                <View style={styles.billedTableHeader}>
+                  <Text style={[styles.billedHeaderCell, { width: 50 }]}>Sr No.</Text>
+                  <Text style={[styles.billedHeaderCell, { flex: 1 }]}>Product Name</Text>
+                  <Text style={[styles.billedHeaderCell, { width: 80 }]}>SKU</Text>
+                  <Text style={[styles.billedHeaderCell, { width: 80 }]}>HSN</Text>
+                  <Text style={[styles.billedHeaderCell, { width: 50 }]}>Qty</Text>
+                  <Text style={[styles.billedHeaderCell, { width: 100 }]}>Unit Price</Text>
+                  <Text style={[styles.billedHeaderCell, { width: 100 }]}>Total</Text>
+                </View>
+
+                {/* Table Rows */}
+                {order.billedDetails.map((item, index) => (
+                  <View key={index} style={styles.billedTableRow}>
+                    <Text style={[styles.billedCell, { width: 50 }]}>{item.srNo}</Text>
+                    <Text style={[styles.billedCell, { flex: 1 }]}>{item.productName}</Text>
+                    <Text style={[styles.billedCell, { width: 80 }]}>{item.sku || '-'}</Text>
+                    <Text style={[styles.billedCell, { width: 80 }]}>{item.hsn}</Text>
+                    <Text style={[styles.billedCell, { width: 50 }]}>{item.qty}</Text>
+                    <Text style={[styles.billedCell, { width: 100 }]}>{item.unitPrice}</Text>
+                    <Text style={[styles.billedCell, { width: 100 }]}>{item.total}</Text>
+                  </View>
+                ))}
+
+                {/* Total */}
+                <View style={styles.productTotalRow}>
+                  <Text style={styles.productTotalLabel}>Total</Text>
+                  <Text style={styles.productTotalValue}>{order.productTotal}</Text>
+                </View>
+              </>
+            )}
+          </View>
               <Text style={styles.productTotalValue}>{order.productTotal}</Text>
             </View>
           </View>
