@@ -40,6 +40,7 @@ const COLORS = {
   
   // UI Colors
   white: '#FFFFFF',
+  black: '#000000',
   border: '#E2E8F0',
   divider: '#F1F5F9',
   
@@ -54,17 +55,17 @@ const COLORS = {
 };
 
 const orderStatusCards = [
-  { title: 'All Orders', count: '00', color: COLORS.primary, bgColor: COLORS.bgBlue, icon: 'layers-outline', route: '/(tabs)/orders', tab: 'all' },
-  { title: 'Drafted Orders', count: '00', color: COLORS.warning, bgColor: COLORS.bgYellow, icon: 'create-outline', route: '/(tabs)/orders', tab: 'drafts' },
-  { title: 'Pending for Label', count: '00', color: COLORS.success, bgColor: COLORS.bgGreen, icon: 'pricetag-outline', route: '/(tabs)/orders', tab: 'ready' },
-  { title: 'Packed Orders', count: '00', color: COLORS.cyan, bgColor: COLORS.bgCyan, icon: 'cube-outline', route: '/(tabs)/orders', tab: 'packed' },
-  { title: 'Dispatched Orders', count: '00', color: COLORS.purple, bgColor: COLORS.bgPurple, icon: 'send-outline', route: '/(tabs)/orders', tab: 'dispatched' },
+  { title: 'All Orders', count: '00', icon: 'layers-outline', route: '/(tabs)/orders', tab: 'all' },
+  { title: 'Drafted Orders', count: '00', icon: 'create-outline', route: '/(tabs)/orders', tab: 'drafts' },
+  { title: 'Pending for Label', count: '00', icon: 'pricetag-outline', route: '/(tabs)/orders', tab: 'ready' },
+  { title: 'Packed Orders', count: '00', icon: 'cube-outline', route: '/(tabs)/orders', tab: 'packed' },
+  { title: 'Dispatched Orders', count: '00', icon: 'send-outline', route: '/(tabs)/orders', tab: 'dispatched' },
 ];
 
 const actionCards = [
-  { title: 'Pickups In Progress', count: '00', color: COLORS.secondary, icon: 'checkmark-done-outline', route: '/(tabs)/pickup', tab: '' },
-  { title: 'Open Manifests', count: '00', color: COLORS.primary, icon: 'mail-outline', route: '/(tabs)/manifest', tab: '' },
-  { title: 'Disputed Orders', count: '00', color: COLORS.rose, icon: 'close-circle-outline', route: '/(tabs)/orders', tab: 'disputed' },
+  { title: 'Pickups In Progress', count: '00', icon: 'checkmark-done-outline', route: '/(tabs)/pickup', tab: '' },
+  { title: 'Open Manifests', count: '00', icon: 'mail-outline', route: '/(tabs)/manifest', tab: '' },
+  { title: 'Disputed Orders', count: '00', icon: 'close-circle-outline', route: '/(tabs)/orders', tab: 'disputed' },
 ];
 
 const walletActivity = [
@@ -73,7 +74,7 @@ const walletActivity = [
   { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283G7 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.accent },
 ];
 
-export default function HomeScreen() {
+export default function DashboardScreen() {
   const router = useRouter();
 
   const handleCardPress = (route: string, tab: string) => {
@@ -88,18 +89,18 @@ export default function HomeScreen() {
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.dashboardTitle}>Dashboard</Text>
 
-      {/* Order Status Cards Row */}
+      {/* Order Status Cards Row - White background with black icons */}
       <View style={styles.orderStatusRow}>
         {orderStatusCards.map((card, index) => (
           <TouchableOpacity
             key={index}
-            style={[styles.orderStatusCard, { backgroundColor: card.bgColor }]}
+            style={styles.orderStatusCard}
             onPress={() => handleCardPress(card.route, card.tab)}
           >
-            <View style={[styles.orderStatusIcon, { backgroundColor: card.color }]}>
-              <Ionicons name={card.icon as any} size={18} color={COLORS.white} />
+            <View style={styles.orderStatusIcon}>
+              <Ionicons name={card.icon as any} size={22} color={COLORS.black} />
             </View>
-            <Text style={[styles.orderStatusTitle, { color: card.color }]}>{card.title}</Text>
+            <Text style={styles.orderStatusTitle}>{card.title}</Text>
             <Text style={styles.orderStatusCount}>{card.count}</Text>
           </TouchableOpacity>
         ))}
@@ -117,8 +118,8 @@ export default function HomeScreen() {
                 style={styles.actionCard}
                 onPress={() => handleCardPress(card.route, card.tab)}
               >
-                <View style={[styles.actionIcon, { backgroundColor: `${card.color}20` }]}>
-                  <Ionicons name={card.icon as any} size={28} color={card.color} />
+                <View style={styles.actionIcon}>
+                  <Ionicons name={card.icon as any} size={28} color={COLORS.black} />
                 </View>
                 <Text style={styles.actionCount}>{card.count}</Text>
                 <Text style={styles.actionTitle}>{card.title}</Text>
@@ -176,21 +177,29 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 16,
     alignItems: 'flex-start',
+    backgroundColor: COLORS.white,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: COLORS.border,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
   },
   orderStatusIcon: {
-    width: 40,
-    height: 40,
+    width: 44,
+    height: 44,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
+    backgroundColor: COLORS.divider,
   },
   orderStatusTitle: {
     fontSize: 14,
     fontWeight: '600',
     marginBottom: 6,
+    color: COLORS.textMuted,
   },
   orderStatusCount: {
     fontSize: 32,
@@ -225,11 +234,11 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 24,
     alignItems: 'center',
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
@@ -240,6 +249,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 14,
+    backgroundColor: COLORS.divider,
   },
   actionCount: {
     fontSize: 28,
@@ -262,11 +272,11 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 16,
     padding: 20,
-    shadowColor: COLORS.primary,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 4,
+    shadowColor: COLORS.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
     borderWidth: 1,
     borderColor: COLORS.border,
   },
