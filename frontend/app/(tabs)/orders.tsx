@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -16,7 +17,7 @@ const isMobile = width < 768;
 
 // Color Scheme
 const COLORS = {
-  primary: '#2563EB',         // Blue (matches wallet recharge button)
+  primary: '#2563EB',
   primaryDark: '#1E40AF',
   white: '#FFFFFF',
   bgWhite: '#FFFFFF',
@@ -132,7 +133,7 @@ const sampleOrders = [
   },
 ];
 
-const ITEMS_PER_PAGE_OPTIONS = [10, 25, 50, 100];
+const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 
 export default function OrdersScreen() {
   const router = useRouter();
@@ -140,8 +141,11 @@ export default function OrdersScreen() {
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   useEffect(() => {
     if (params.tab) {
@@ -172,13 +176,37 @@ export default function OrdersScreen() {
     return true;
   });
 
-  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+  const totalEntries = filteredOrders.length;
+  const totalPages = Math.ceil(totalEntries / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedOrders = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
+  const endIndex = Math.min(startIndex + itemsPerPage, totalEntries);
+  const paginatedOrders = filteredOrders.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+    }
+  };
+
+  const handleSelectAll = () => {
+    if (selectAll) {
+      setSelectedOrders([]);
+    } else {
+      setSelectedOrders(paginatedOrders.map(o => o.id));
+    }
+    setSelectAll(!selectAll);
+  };
+
+  const handleSelectOrder = (orderId: string) => {
+    if (selectedOrders.includes(orderId)) {
+      setSelectedOrders(selectedOrders.filter(id => id !== orderId));
+      setSelectAll(false);
+    } else {
+      const newSelected = [...selectedOrders, orderId];
+      setSelectedOrders(newSelected);
+      if (newSelected.length === paginatedOrders.length) {
+        setSelectAll(true);
+      }
     }
   };
 
@@ -203,14 +231,36 @@ export default function OrdersScreen() {
     router.push(`/(tabs)/view-order?id=${orderId}`);
   };
 
+  const getVisiblePages = () => {
+    const pages = [];
+    const maxVisible = 5;
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
+    
+    if (end - start + 1 < maxVisible) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  };
+
   const renderOrderRow = (order: typeof sampleOrders[0]) => {
     const statusStyle = getStatusStyle(order.status);
+    const isSelected = selectedOrders.includes(order.id);
     
     return (
       <View key={order.id} style={styles.tableRow}>
         {/* Checkbox */}
         <View style={styles.checkboxCell}>
-          <View style={styles.checkbox} />
+          <TouchableOpacity 
+            style={[styles.checkbox, isSelected && styles.checkboxSelected]}
+            onPress={() => handleSelectOrder(order.id)}
+          >
+            {isSelected && <Ionicons name="checkmark" size={14} color={COLORS.white} />}
+          </TouchableOpacity>
         </View>
         
         {/* Order ID */}
@@ -309,7 +359,7 @@ export default function OrdersScreen() {
         </View>
       </ScrollView>
 
-      {/* Search and Export */}
+      {/* Search and Export - No gap */}
       <View style={styles.filterSection}>
         <View style={styles.searchContainer}>
           <Ionicons name="search-outline" size={18} color={COLORS.gray} />
@@ -321,66 +371,211 @@ export default function OrdersScreen() {
             placeholderTextColor={COLORS.textLight}
           />
         </View>
-        <TouchableOpacity style={styles.exportButton}>
-          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.exportButtonText}>Export</Text>
-        </TouchableOpacity>
+        
+        {/* Export Button with Dropdown */}
+        <View style={styles.exportWrapper}>
+          <TouchableOpacity 
+            style={styles.exportButton}
+            onPress={() => setShowExportDropdown(!showExportDropdown)}
+          >
+            <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
+            <Text style={styles.exportButtonText}>Export</Text>
+          </TouchableOpacity>
+          
+          {showExportDropdown && (
+            <View style={styles.exportDropdown}>
+              <TouchableOpacity 
+                style={styles.exportOption}
+                onPress={() => setShowExportDropdown(false)}
+              >
+                <Text style={styles.exportOptionText}>Export as XLSX</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.exportOption}
+                onPress={() => setShowExportDropdown(false)}
+              >
+                <Text style={styles.exportOptionText}>Export as PDF</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </View>
 
-      {/* Table */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.tableScrollContainer}>
-        <View style={styles.tableWrapper}>
-          {/* Table Header */}
-          <View style={styles.tableHeader}>
-            <View style={styles.checkboxCell}>
-              <View style={styles.checkbox} />
+      {/* Table - No horizontal scroll on desktop */}
+      <View style={isMobile ? styles.tableScrollContainer : styles.tableContainer}>
+        {isMobile ? (
+          <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+            <View style={styles.tableWrapper}>
+              {/* Table Header */}
+              <View style={styles.tableHeader}>
+                <View style={styles.checkboxCell}>
+                  <TouchableOpacity 
+                    style={[styles.checkbox, selectAll && styles.checkboxSelected]}
+                    onPress={handleSelectAll}
+                  >
+                    {selectAll && <Ionicons name="checkmark" size={14} color={COLORS.white} />}
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.orderIdCell}>
+                  <View style={styles.headerWithSort}>
+                    <Text style={styles.headerText}>Order ID</Text>
+                    <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+                  </View>
+                </View>
+                <View style={styles.customerCell}>
+                  <Text style={styles.headerText}>Customer Details</Text>
+                </View>
+                <View style={styles.dateCell}>
+                  <View style={styles.headerWithSort}>
+                    <Text style={styles.headerText}>Order Date</Text>
+                    <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+                  </View>
+                </View>
+                <View style={styles.packageCell}>
+                  <View style={styles.headerWithSort}>
+                    <Text style={styles.headerText}>Package Details</Text>
+                    <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+                  </View>
+                </View>
+                <View style={styles.statusCell}>
+                  <Text style={styles.headerText}>Status</Text>
+                </View>
+                <View style={styles.lastMileCell}>
+                  <Text style={styles.headerText}>Last Mile Details</Text>
+                </View>
+                <View style={styles.viewCell}>
+                  <Text style={styles.headerText}>View Order</Text>
+                </View>
+              </View>
+
+              {/* Table Body */}
+              {paginatedOrders.map(order => renderOrderRow(order))}
             </View>
-            <View style={styles.orderIdCell}>
-              <View style={styles.headerWithSort}>
-                <Text style={styles.headerText}>Order ID</Text>
-                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+          </ScrollView>
+        ) : (
+          <View style={styles.tableWrapperDesktop}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={styles.checkboxCell}>
+                <TouchableOpacity 
+                  style={[styles.checkbox, selectAll && styles.checkboxSelected]}
+                  onPress={handleSelectAll}
+                >
+                  {selectAll && <Ionicons name="checkmark" size={14} color={COLORS.white} />}
+                </TouchableOpacity>
+              </View>
+              <View style={styles.orderIdCellDesktop}>
+                <View style={styles.headerWithSort}>
+                  <Text style={styles.headerText}>Order ID</Text>
+                  <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+                </View>
+              </View>
+              <View style={styles.customerCellDesktop}>
+                <Text style={styles.headerText}>Customer Details</Text>
+              </View>
+              <View style={styles.dateCellDesktop}>
+                <View style={styles.headerWithSort}>
+                  <Text style={styles.headerText}>Order Date</Text>
+                  <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+                </View>
+              </View>
+              <View style={styles.packageCellDesktop}>
+                <View style={styles.headerWithSort}>
+                  <Text style={styles.headerText}>Package Details</Text>
+                  <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+                </View>
+              </View>
+              <View style={styles.statusCellDesktop}>
+                <Text style={styles.headerText}>Status</Text>
+              </View>
+              <View style={styles.lastMileCellDesktop}>
+                <Text style={styles.headerText}>Last Mile Details</Text>
+              </View>
+              <View style={styles.viewCellDesktop}>
+                <Text style={styles.headerText}>View Order</Text>
               </View>
             </View>
-            <View style={styles.customerCell}>
-              <Text style={styles.headerText}>Customer Details</Text>
-            </View>
-            <View style={styles.dateCell}>
-              <View style={styles.headerWithSort}>
-                <Text style={styles.headerText}>Order Date</Text>
-                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-              </View>
-            </View>
-            <View style={styles.packageCell}>
-              <View style={styles.headerWithSort}>
-                <Text style={styles.headerText}>Package Details</Text>
-                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-              </View>
-            </View>
-            <View style={styles.statusCell}>
-              <Text style={styles.headerText}>Status</Text>
-            </View>
-            <View style={styles.lastMileCell}>
-              <Text style={styles.headerText}>Last Mile Details</Text>
-            </View>
-            <View style={styles.viewCell}>
-              <Text style={styles.headerText}>View Order</Text>
-            </View>
+
+            {/* Table Body Desktop */}
+            {paginatedOrders.map(order => {
+              const statusStyle = getStatusStyle(order.status);
+              const isSelected = selectedOrders.includes(order.id);
+              
+              return (
+                <View key={order.id} style={styles.tableRow}>
+                  <View style={styles.checkboxCell}>
+                    <TouchableOpacity 
+                      style={[styles.checkbox, isSelected && styles.checkboxSelected]}
+                      onPress={() => handleSelectOrder(order.id)}
+                    >
+                      {isSelected && <Ionicons name="checkmark" size={14} color={COLORS.white} />}
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.orderIdCellDesktop}>
+                    <Text style={styles.orderId}>{order.id}</Text>
+                    <Text style={styles.orderPrefix}>{order.prefix}</Text>
+                    <Text style={styles.invoiceNo}>{order.invoiceNo}</Text>
+                  </View>
+                  <View style={styles.customerCellDesktop}>
+                    <Text style={styles.customerName}>{order.customerName}</Text>
+                    <Text style={styles.customerEmail}>{order.customerEmail}</Text>
+                    <Text style={styles.customerPhone}>{order.customerPhone}</Text>
+                  </View>
+                  <View style={styles.dateCellDesktop}>
+                    <Text style={styles.orderDate}>{order.orderDate}</Text>
+                    <Text style={styles.orderTime}>{order.orderTime}</Text>
+                  </View>
+                  <View style={styles.packageCellDesktop}>
+                    <Text style={styles.packageWeight}>{order.weight}</Text>
+                    <Text style={styles.packagePrice}>{order.price}</Text>
+                    <Text style={styles.packageType}>{order.packageType}</Text>
+                  </View>
+                  <View style={styles.statusCellDesktop}>
+                    <View style={[styles.statusBadge, { backgroundColor: statusStyle.backgroundColor, borderColor: statusStyle.borderColor }]}>
+                      <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.lastMileCellDesktop}>
+                    {order.trackingId ? (
+                      <>
+                        <Text style={styles.trackingId}>{order.trackingId}</Text>
+                        <Text style={styles.carrier}>{order.carrier}</Text>
+                        <TouchableOpacity style={styles.copyBtn}>
+                          <Ionicons name="copy-outline" size={14} color={COLORS.gray} />
+                          <Text style={styles.copyText}>Copy</Text>
+                        </TouchableOpacity>
+                      </>
+                    ) : (
+                      <Text style={styles.noTracking}>-</Text>
+                    )}
+                  </View>
+                  <View style={styles.viewCellDesktop}>
+                    <TouchableOpacity onPress={() => handleViewOrder(order.id)}>
+                      <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              );
+            })}
           </View>
+        )}
+      </View>
 
-          {/* Table Body */}
-          {paginatedOrders.map(order => renderOrderRow(order))}
-        </View>
-      </ScrollView>
-
-      {/* Pagination */}
+      {/* Pagination - Centered */}
       <View style={styles.paginationContainer}>
+        {/* Showing X to Y of Z entries */}
+        <Text style={styles.showingText}>
+          Showing {startIndex + 1} to {endIndex} of {totalEntries} entries
+        </Text>
+
+        {/* Page Navigation - Centered */}
         <View style={styles.paginationControls}>
           <TouchableOpacity
             style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
             onPress={() => handlePageChange(1)}
             disabled={currentPage === 1}
           >
-            <Text style={styles.pageButtonText}>|{'<'}</Text>
+            <Text style={styles.pageButtonText}>{'<<'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.pageButton, currentPage === 1 && styles.pageButtonDisabled]}
@@ -390,37 +585,35 @@ export default function OrdersScreen() {
             <Text style={styles.pageButtonText}>{'<'}</Text>
           </TouchableOpacity>
           
-          {[...Array(Math.min(5, totalPages))].map((_, i) => {
-            const page = i + 1;
-            return (
-              <TouchableOpacity
-                key={page}
-                style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
-                onPress={() => handlePageChange(page)}
-              >
-                <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
-                  {page}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
+          {getVisiblePages().map((page) => (
+            <TouchableOpacity
+              key={page}
+              style={[styles.pageNumberButton, currentPage === page && styles.pageNumberActive]}
+              onPress={() => handlePageChange(page)}
+            >
+              <Text style={[styles.pageNumberText, currentPage === page && styles.pageNumberTextActive]}>
+                {page}
+              </Text>
+            </TouchableOpacity>
+          ))}
           
           <TouchableOpacity
             style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
             onPress={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
+            disabled={currentPage === totalPages || totalPages === 0}
           >
             <Text style={styles.pageButtonText}>{'>'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.pageButton, currentPage === totalPages && styles.pageButtonDisabled]}
             onPress={() => handlePageChange(totalPages)}
-            disabled={currentPage === totalPages}
+            disabled={currentPage === totalPages || totalPages === 0}
           >
-            <Text style={styles.pageButtonText}>{'>'}|</Text>
+            <Text style={styles.pageButtonText}>{'>>'}</Text>
           </TouchableOpacity>
         </View>
 
+        {/* Items per page */}
         <View style={styles.itemsPerPageContainer}>
           <Text style={styles.itemsPerPageLabel}>Items per page</Text>
           <TouchableOpacity
@@ -497,7 +690,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   tabsScrollContainer: {
-    marginBottom: 20,
+    marginBottom: 16,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
   },
@@ -525,7 +718,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 16,
     gap: 16,
   },
   searchContainer: {
@@ -546,6 +739,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textDark,
   },
+  exportWrapper: {
+    position: 'relative',
+  },
   exportButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -555,19 +751,52 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 10,
-    gap: 6,
+    gap: 8,
   },
   exportButtonText: {
     fontSize: 14,
     color: COLORS.darkGray,
     fontWeight: '500',
   },
+  exportDropdown: {
+    position: 'absolute',
+    top: 46,
+    right: 0,
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 8,
+    zIndex: 100,
+    minWidth: 160,
+  },
+  exportOption: {
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.divider,
+  },
+  exportOptionText: {
+    fontSize: 14,
+    color: COLORS.textDark,
+  },
   tableScrollContainer: {
+    flex: 1,
+    marginBottom: 16,
+  },
+  tableContainer: {
     flex: 1,
     marginBottom: 16,
   },
   tableWrapper: {
     minWidth: 1200,
+  },
+  tableWrapperDesktop: {
+    width: '100%',
   },
   tableHeader: {
     flexDirection: 'row',
@@ -604,11 +833,29 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  orderIdCell: {
-    width: 180,
-    paddingHorizontal: 8,
+  checkboxSelected: {
+    backgroundColor: COLORS.primary,
+    borderColor: COLORS.primary,
   },
+  // Mobile cells
+  orderIdCell: { width: 180, paddingHorizontal: 8 },
+  customerCell: { width: 200, paddingHorizontal: 8 },
+  dateCell: { width: 120, paddingHorizontal: 8 },
+  packageCell: { width: 120, paddingHorizontal: 8 },
+  statusCell: { width: 100, paddingHorizontal: 8, alignItems: 'flex-start' },
+  lastMileCell: { width: 200, paddingHorizontal: 8 },
+  viewCell: { width: 80, paddingHorizontal: 8, alignItems: 'center' },
+  // Desktop cells - flex based
+  orderIdCellDesktop: { flex: 2, paddingHorizontal: 8, minWidth: 150 },
+  customerCellDesktop: { flex: 2.5, paddingHorizontal: 8, minWidth: 180 },
+  dateCellDesktop: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
+  packageCellDesktop: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
+  statusCellDesktop: { flex: 1, paddingHorizontal: 8, alignItems: 'flex-start', minWidth: 90 },
+  lastMileCellDesktop: { flex: 2, paddingHorizontal: 8, minWidth: 160 },
+  viewCellDesktop: { flex: 0.8, paddingHorizontal: 8, alignItems: 'center', minWidth: 70 },
   orderId: {
     fontSize: 14,
     fontWeight: '600',
@@ -623,10 +870,6 @@ const styles = StyleSheet.create({
   invoiceNo: {
     fontSize: 11,
     color: COLORS.textLight,
-  },
-  customerCell: {
-    width: 200,
-    paddingHorizontal: 8,
   },
   customerName: {
     fontSize: 14,
@@ -643,10 +886,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.textMuted,
   },
-  dateCell: {
-    width: 120,
-    paddingHorizontal: 8,
-  },
   orderDate: {
     fontSize: 14,
     color: COLORS.textDark,
@@ -655,10 +894,6 @@ const styles = StyleSheet.create({
   orderTime: {
     fontSize: 12,
     color: COLORS.textMuted,
-  },
-  packageCell: {
-    width: 120,
-    paddingHorizontal: 8,
   },
   packageWeight: {
     fontSize: 14,
@@ -675,11 +910,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: COLORS.textMuted,
   },
-  statusCell: {
-    width: 100,
-    paddingHorizontal: 8,
-    alignItems: 'flex-start',
-  },
   statusBadge: {
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -689,10 +919,6 @@ const styles = StyleSheet.create({
   statusText: {
     fontSize: 12,
     fontWeight: '600',
-  },
-  lastMileCell: {
-    width: 200,
-    paddingHorizontal: 8,
   },
   trackingId: {
     fontSize: 13,
@@ -718,11 +944,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textLight,
   },
-  viewCell: {
-    width: 80,
-    paddingHorizontal: 8,
-    alignItems: 'center',
-  },
+  // Pagination
   paginationContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -730,6 +952,12 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
+    flexWrap: 'wrap',
+    gap: 16,
+  },
+  showingText: {
+    fontSize: 13,
+    color: COLORS.textLight,
   },
   paginationControls: {
     flexDirection: 'row',
@@ -737,37 +965,29 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   pageButton: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 4,
-    backgroundColor: COLORS.white,
   },
   pageButtonDisabled: {
-    opacity: 0.5,
+    opacity: 0.4,
   },
   pageButtonText: {
-    fontSize: 12,
-    color: COLORS.darkGray,
+    fontSize: 14,
+    color: COLORS.textLight,
   },
   pageNumberButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 4,
-    backgroundColor: COLORS.white,
-    minWidth: 36,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   pageNumberActive: {
     backgroundColor: COLORS.primary,
-    borderColor: COLORS.primary,
   },
   pageNumberText: {
-    fontSize: 12,
-    color: COLORS.darkGray,
+    fontSize: 14,
+    color: COLORS.textLight,
   },
   pageNumberTextActive: {
     color: COLORS.white,
@@ -781,7 +1001,7 @@ const styles = StyleSheet.create({
   },
   itemsPerPageLabel: {
     fontSize: 13,
-    color: COLORS.gray,
+    color: COLORS.textLight,
   },
   itemsPerPageDropdown: {
     flexDirection: 'row',
@@ -792,6 +1012,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     gap: 4,
+    backgroundColor: COLORS.white,
   },
   itemsPerPageValue: {
     fontSize: 13,
