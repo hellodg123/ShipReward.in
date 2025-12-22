@@ -647,7 +647,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.vehiclePrizeName}>Range Rover Velar</Text>
-                <Text style={styles.vehiclePrizeValue}>₹86 Lakh approx</Text>
+                <Text style={styles.vehiclePrizeValue}>₹86.74 Lakh approx</Text>
                 <View style={styles.vehiclePrizeRank}>
                   <Text style={styles.vehiclePrizeRankText}>4th Prize</Text>
                 </View>
@@ -660,7 +660,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.vehiclePrizeName}>BMW iX1 xDrive30</Text>
-                <Text style={styles.vehiclePrizeValue}>₹71 Lakh approx</Text>
+                <Text style={styles.vehiclePrizeValue}>₹71.24 Lakh approx</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: COLORS.secondary }]}>
                   <Text style={styles.vehiclePrizeRankText}>5th Prize</Text>
                 </View>
@@ -673,7 +673,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.vehiclePrizeName}>Audi Q3 Premium</Text>
-                <Text style={styles.vehiclePrizeValue}>₹49 Lakh approx</Text>
+                <Text style={styles.vehiclePrizeValue}>₹49.71 Lakh approx</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: COLORS.orange }]}>
                   <Text style={styles.vehiclePrizeRankText}>6th Prize</Text>
                 </View>
