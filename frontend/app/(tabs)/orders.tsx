@@ -286,10 +286,12 @@ export default function OrdersScreen() {
     if (activeTab === 'drafts') {
       return draftOrdersData;
     }
+    if (activeTab === 'ready') {
+      return readyOrdersData;
+    }
     return allOrdersData.filter(order => {
       if (activeTab === 'all') return true;
       const statusMap: { [key: string]: string[] } = {
-        ready: ['ready'],
         packed: ['packed'],
         manifested: ['manifested'],
         dispatched: ['dispatched', 'Picked Up'],
