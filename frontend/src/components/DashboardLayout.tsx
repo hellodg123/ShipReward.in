@@ -500,9 +500,11 @@ const styles = StyleSheet.create({
   },
   sidebar: {
     width: 220,
-    backgroundColor: COLORS.bgDark,
+    backgroundColor: COLORS.white,
     paddingVertical: 20,
     paddingHorizontal: 14,
+    borderRightWidth: 1,
+    borderRightColor: COLORS.border,
   },
   sidebarCollapsed: {
     width: 70,
@@ -512,7 +514,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     padding: 8,
     marginBottom: 12,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: COLORS.divider,
     borderRadius: 8,
   },
   menuItem: {
@@ -528,7 +530,7 @@ const styles = StyleSheet.create({
   },
   menuLabel: {
     fontSize: 15,
-    color: 'rgba(255,255,255,0.7)',
+    color: COLORS.textMuted,
     fontWeight: '500',
   },
   menuLabelActive: {
