@@ -628,7 +628,7 @@ export default function OrdersScreen() {
           <Text style={styles.pageTitle}>{getPageTitle()}</Text>
           <Text style={styles.breadcrumb}>Orders {'>'} {activeTab === 'all' ? 'All' : getPageTitle()}</Text>
         </View>
-        <TouchableOpacity style={styles.addOrderBtn}>
+        <TouchableOpacity style={styles.addOrderBtn} onPress={() => router.push('/(tabs)/add-order')}>
           <Ionicons name="add" size={18} color={COLORS.white} />
           <Text style={styles.addOrderBtnText}>Add Order</Text>
         </TouchableOpacity>
