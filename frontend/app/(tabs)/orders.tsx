@@ -370,6 +370,9 @@ export default function OrdersScreen() {
     if (statusLower.includes('draft')) {
       return { bg: COLORS.warningLight, color: COLORS.warning };
     }
+    if (statusLower.includes('ready')) {
+      return { bg: COLORS.successLight, color: COLORS.success };
+    }
     return { bg: COLORS.lightGray, color: COLORS.gray };
   };
 
