@@ -1281,12 +1281,17 @@ const styles = StyleSheet.create({
   grandPrizeCard: {
     backgroundColor: '#FEF3C7',
     borderRadius: 20,
-    padding: 32,
+    padding: 24,
     alignItems: 'center',
     width: isLargeScreen ? 280 : '100%',
     maxWidth: 320,
     borderWidth: 3,
     borderColor: COLORS.gold,
+  },
+  prizeRankIcon: {
+    width: 120,
+    height: 100,
+    marginBottom: 12,
   },
   grandPrizeBadge: {
     backgroundColor: COLORS.gold,
