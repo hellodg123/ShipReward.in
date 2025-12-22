@@ -21,16 +21,16 @@ const isLargeScreen = width > 768;
 // New Modern Color Scheme
 const COLORS = {
   // Primary Colors
-  primary: '#6366F1',        // Indigo
-  primaryDark: '#4F46E5',    // Darker Indigo
-  primaryLight: '#818CF8',   // Lighter Indigo
+  primary: '#1f46a7',        // Deep Blue
+  primaryDark: '#183a8c',    // Darker Blue
+  primaryLight: '#3d5fb8',   // Lighter Blue
   
   // Secondary Colors
-  secondary: '#EC4899',      // Pink
-  accent: '#F59E0B',         // Amber/Gold
+  secondary: '#ffd700',      // Gold
+  accent: '#ffd700',         // Gold
   
   // Background Colors
-  bgDark: '#1E1B4B',         // Dark Indigo for sidebar
+  bgDark: '#1E1B4B',         // Dark Indigo (for special use)
   bgLight: '#F8FAFC',        // Very light gray
   bgCard: '#FFFFFF',         // White
   
@@ -51,8 +51,8 @@ const COLORS = {
   divider: '#F1F5F9',        // Slate 100
   
   // Gradient accents
-  gradientStart: '#6366F1',
-  gradientEnd: '#EC4899',
+  gradientStart: '#1f46a7',
+  gradientEnd: '#ffd700',
 };
 
 const menuItems = [
