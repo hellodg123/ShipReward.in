@@ -1655,48 +1655,90 @@ export default function OrdersScreen() {
       </ScrollView>
 
       {/* Search, Filters and Export */}
-      <View style={styles.filterRow}>
-        <View style={styles.filterLeft}>
-          <View style={styles.searchBox}>
-            <Ionicons name="search-outline" size={18} color={COLORS.gray} />
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Enter Tracking Id..."
-              value={searchQuery}
-              onChangeText={setSearchQuery}
-              placeholderTextColor={COLORS.textLight}
-            />
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true} style={styles.filterScrollMobile}>
+          <View style={styles.filterRowMobile}>
+            <View style={styles.searchBoxMobile}>
+              <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Enter Tracking Id..."
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                placeholderTextColor={COLORS.textLight}
+              />
+            </View>
+            {showBulkLabelInvoice && (
+              <>
+                <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkLabel}>
+                  <Ionicons name="print-outline" size={16} color={COLORS.darkGray} />
+                  <Text style={styles.bulkActionBtnText}>Bulk Label</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkInvoice}>
+                  <Ionicons name="document-text-outline" size={16} color={COLORS.darkGray} />
+                  <Text style={styles.bulkActionBtnText}>Bulk Invoice</Text>
+                </TouchableOpacity>
+              </>
+            )}
+            {activeTab === 'drafts' && (
+              <TouchableOpacity style={styles.bulkPayBtn} onPress={handleBulkPay}>
+                <Ionicons name="wallet-outline" size={18} color={COLORS.primary} />
+                <Text style={styles.bulkPayBtnText}>Bulk Pay</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity 
+              style={styles.exportBtn}
+              onPress={() => setShowExportDropdown(true)}
+            >
+              <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
+              <Text style={styles.exportBtnText}>Export</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.filterRow}>
+          <View style={styles.filterLeft}>
+            <View style={styles.searchBox}>
+              <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Enter Tracking Id..."
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+                placeholderTextColor={COLORS.textLight}
+              />
+            </View>
+          </View>
+          
+          <View style={styles.filterRight}>
+            {showBulkLabelInvoice && (
+              <>
+                <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkLabel}>
+                  <Ionicons name="print-outline" size={16} color={COLORS.darkGray} />
+                  <Text style={styles.bulkActionBtnText}>Bulk Label</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkInvoice}>
+                  <Ionicons name="document-text-outline" size={16} color={COLORS.darkGray} />
+                  <Text style={styles.bulkActionBtnText}>Bulk Invoice</Text>
+                </TouchableOpacity>
+              </>
+            )}
+            {activeTab === 'drafts' && (
+              <TouchableOpacity style={styles.bulkPayBtn} onPress={handleBulkPay}>
+                <Ionicons name="wallet-outline" size={18} color={COLORS.primary} />
+                <Text style={styles.bulkPayBtnText}>Bulk Pay</Text>
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity 
+              style={styles.exportBtn}
+              onPress={() => setShowExportDropdown(true)}
+            >
+              <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
+              <Text style={styles.exportBtnText}>Export</Text>
+            </TouchableOpacity>
           </View>
         </View>
-        
-        <View style={styles.filterRight}>
-          {showBulkLabelInvoice && (
-            <>
-              <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkLabel}>
-                <Ionicons name="print-outline" size={16} color={COLORS.darkGray} />
-                <Text style={styles.bulkActionBtnText}>Bulk Label</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkInvoice}>
-                <Ionicons name="document-text-outline" size={16} color={COLORS.darkGray} />
-                <Text style={styles.bulkActionBtnText}>Bulk Invoice</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          {activeTab === 'drafts' && (
-            <TouchableOpacity style={styles.bulkPayBtn} onPress={handleBulkPay}>
-              <Ionicons name="wallet-outline" size={18} color={COLORS.primary} />
-              <Text style={styles.bulkPayBtnText}>Bulk Pay</Text>
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity 
-            style={styles.exportBtn}
-            onPress={() => setShowExportDropdown(true)}
-          >
-            <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
-            <Text style={styles.exportBtnText}>Export</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      )}
 
       {/* Table */}
       {renderTable()}
