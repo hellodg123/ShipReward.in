@@ -687,18 +687,15 @@ export default function OrdersScreen() {
 
   // Handle opening the action menu with position tracking
   const handleOpenActionMenu = (orderId: string, event: any) => {
-    console.log('handleOpenActionMenu called', orderId, event);
     // Get the position from the click event for web
     if (event?.nativeEvent) {
       const { pageX, pageY } = event.nativeEvent;
-      console.log('Position:', pageX, pageY);
       setActionMenuPosition({ 
         top: pageY + 10, // Position below the click
         right: width - pageX - 80 // Position aligned with the click
       });
     } else {
       // Fallback position
-      console.log('Using fallback position');
       setActionMenuPosition({ top: 200, right: 24 });
     }
     setActionMenuOrderId(orderId);
