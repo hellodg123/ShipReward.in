@@ -517,6 +517,7 @@ export default function OrdersScreen() {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [selectAll, setSelectAll] = useState(false);
   const [actionMenuOrderId, setActionMenuOrderId] = useState<string | null>(null);
+  const [actionMenuPosition, setActionMenuPosition] = useState({ top: 0, right: 0 });
   const [showPayPopup, setShowPayPopup] = useState(false);
   const [selectedOrderForPay, setSelectedOrderForPay] = useState<any>(null);
 
