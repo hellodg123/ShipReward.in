@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Dimensions,
   Modal,
   Pressable,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -277,6 +278,13 @@ export default function OrdersScreen() {
   const [showPayPopup, setShowPayPopup] = useState(false);
   const [selectedOrderForPay, setSelectedOrderForPay] = useState<any>(null);
 
+  // Close all dropdowns when clicking outside
+  const closeAllDropdowns = () => {
+    setShowExportDropdown(false);
+    setShowItemsDropdown(false);
+    setActionMenuOrderId(null);
+  };
+
   useEffect(() => {
     if (params.tab) {
       setActiveTab(params.tab as string);
@@ -373,7 +381,7 @@ export default function OrdersScreen() {
       return { bg: COLORS.warningLight, color: COLORS.warning };
     }
     if (statusLower.includes('ready')) {
-      return { bg: COLORS.successLight, color: COLORS.success };
+      return { bg: '#DCFCE7', color: '#16A34A' }; // Green for Ready for Packing
     }
     return { bg: COLORS.lightGray, color: COLORS.gray };
   };
@@ -384,13 +392,11 @@ export default function OrdersScreen() {
 
   const handleEditOrder = (orderId: string) => {
     setActionMenuOrderId(null);
-    // Navigate to edit order page
     router.push(`/(tabs)/view-order?id=${orderId}&edit=true`);
   };
 
   const handleCancelOrder = (orderId: string) => {
     setActionMenuOrderId(null);
-    // Handle cancel order logic
     alert(`Cancel order: ${orderId}`);
   };
 
@@ -400,19 +406,33 @@ export default function OrdersScreen() {
   };
 
   const handleConfirmPayment = () => {
-    // Handle payment confirmation
     setShowPayPopup(false);
     setSelectedOrderForPay(null);
     alert('Payment successful!');
   };
 
   const handleBulkPay = () => {
-    // Handle bulk payment
     if (selectedOrders.length === 0) {
       alert('Please select orders to pay');
       return;
     }
     alert(`Bulk pay for ${selectedOrders.length} orders`);
+  };
+
+  const handleBulkLabel = () => {
+    if (selectedOrders.length === 0) {
+      alert('Please select orders to print labels');
+      return;
+    }
+    alert(`Print labels for ${selectedOrders.length} orders`);
+  };
+
+  const handleBulkInvoice = () => {
+    if (selectedOrders.length === 0) {
+      alert('Please select orders to print invoices');
+      return;
+    }
+    alert(`Print invoices for ${selectedOrders.length} orders`);
   };
 
   const getVisiblePages = () => {
@@ -661,36 +681,18 @@ export default function OrdersScreen() {
         </View>
         <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
           <View style={styles.actionsRow}>
-            <TouchableOpacity onPress={() => handlePayNow(order)} style={styles.payNowBtn}>
-              <Text style={styles.payNowBtnText}>Pay Now</Text>
+            <TouchableOpacity onPress={() => handlePayNow(order)} style={styles.payNowIconBtn}>
+              <Ionicons name="wallet-outline" size={18} color={COLORS.white} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleViewOrder(order.id)} style={styles.actionIcon}>
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
-            <View style={styles.actionMenuContainer}>
-              <TouchableOpacity 
-                onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
-                style={styles.actionIcon}
-              >
-                <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
-              </TouchableOpacity>
-              {showMenu && (
-                <View style={styles.actionMenu}>
-                  <TouchableOpacity 
-                    style={styles.actionMenuItem}
-                    onPress={() => handleEditOrder(order.id)}
-                  >
-                    <Text style={styles.actionMenuText}>Edit Order</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={styles.actionMenuItem}
-                    onPress={() => handleCancelOrder(order.id)}
-                  >
-                    <Text style={styles.actionMenuText}>Cancel Order</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
+            <TouchableOpacity 
+              onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
+              style={styles.actionIcon}
+            >
+              <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -807,8 +809,8 @@ export default function OrdersScreen() {
           <Text style={styles.subText}>{order.packageType}</Text>
         </View>
         <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
-          <View style={[styles.statusBadge, { backgroundColor: statusStyle.bg }]}>
-            <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
+          <View style={[styles.statusBadgeReadyWrap]}>
+            <Text style={styles.statusTextReady}>{order.status}</Text>
           </View>
         </View>
         <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
@@ -819,36 +821,12 @@ export default function OrdersScreen() {
             <TouchableOpacity onPress={() => handleViewOrder(order.id)} style={styles.actionIcon}>
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
-            <View style={styles.actionMenuContainer}>
-              <TouchableOpacity 
-                onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
-                style={styles.actionIcon}
-              >
-                <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
-              </TouchableOpacity>
-              {showMenu && (
-                <View style={styles.actionMenu}>
-                  <TouchableOpacity 
-                    style={styles.actionMenuItem}
-                    onPress={() => handlePrintInvoice(order.id)}
-                  >
-                    <Text style={styles.actionMenuText}>Print Invoice</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={styles.actionMenuItem}
-                    onPress={() => handleCloneOrder(order.id)}
-                  >
-                    <Text style={styles.actionMenuText}>Clone Order</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={[styles.actionMenuItem, { borderBottomWidth: 0 }]}
-                    onPress={() => handleCancelReadyOrder(order.id)}
-                  >
-                    <Text style={styles.actionMenuText}>Cancel Order</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
+            <TouchableOpacity 
+              onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
+              style={styles.actionIcon}
+            >
+              <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -899,10 +877,147 @@ export default function OrdersScreen() {
     </Modal>
   );
 
+  // Action Menu Modal
+  const ActionMenuModal = () => (
+    <Modal
+      transparent
+      visible={actionMenuOrderId !== null}
+      animationType="fade"
+      onRequestClose={() => setActionMenuOrderId(null)}
+    >
+      <TouchableWithoutFeedback onPress={() => setActionMenuOrderId(null)}>
+        <View style={styles.actionModalOverlay}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={styles.actionModalContent}>
+              {activeTab === 'drafts' ? (
+                <>
+                  <TouchableOpacity 
+                    style={styles.actionModalItem}
+                    onPress={() => handleEditOrder(actionMenuOrderId!)}
+                  >
+                    <Ionicons name="create-outline" size={18} color={COLORS.textDark} />
+                    <Text style={styles.actionModalText}>Edit Order</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={[styles.actionModalItem, { borderBottomWidth: 0 }]}
+                    onPress={() => handleCancelOrder(actionMenuOrderId!)}
+                  >
+                    <Ionicons name="close-circle-outline" size={18} color={COLORS.error} />
+                    <Text style={[styles.actionModalText, { color: COLORS.error }]}>Cancel Order</Text>
+                  </TouchableOpacity>
+                </>
+              ) : (
+                <>
+                  <TouchableOpacity 
+                    style={styles.actionModalItem}
+                    onPress={() => handlePrintInvoice(actionMenuOrderId!)}
+                  >
+                    <Ionicons name="print-outline" size={18} color={COLORS.textDark} />
+                    <Text style={styles.actionModalText}>Print Invoice</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={styles.actionModalItem}
+                    onPress={() => handleCloneOrder(actionMenuOrderId!)}
+                  >
+                    <Ionicons name="copy-outline" size={18} color={COLORS.textDark} />
+                    <Text style={styles.actionModalText}>Clone Order</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity 
+                    style={[styles.actionModalItem, { borderBottomWidth: 0 }]}
+                    onPress={() => handleCancelReadyOrder(actionMenuOrderId!)}
+                  >
+                    <Ionicons name="close-circle-outline" size={18} color={COLORS.error} />
+                    <Text style={[styles.actionModalText, { color: COLORS.error }]}>Cancel Order</Text>
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
+  );
+
+  // Export Dropdown Modal
+  const ExportDropdownModal = () => (
+    <Modal
+      transparent
+      visible={showExportDropdown}
+      animationType="fade"
+      onRequestClose={() => setShowExportDropdown(false)}
+    >
+      <TouchableWithoutFeedback onPress={() => setShowExportDropdown(false)}>
+        <View style={styles.dropdownModalOverlay}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={[styles.dropdownModalContent, { top: 180, right: 24 }]}>
+              <TouchableOpacity 
+                style={styles.dropdownModalItem}
+                onPress={() => {
+                  setShowExportDropdown(false);
+                  alert('Exporting as XLSX...');
+                }}
+              >
+                <Ionicons name="document-outline" size={16} color={COLORS.textDark} />
+                <Text style={styles.dropdownModalText}>Export as XLSX</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={[styles.dropdownModalItem, { borderBottomWidth: 0 }]}
+                onPress={() => {
+                  setShowExportDropdown(false);
+                  alert('Exporting as PDF...');
+                }}
+              >
+                <Ionicons name="document-text-outline" size={16} color={COLORS.textDark} />
+                <Text style={styles.dropdownModalText}>Export as PDF</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
+  );
+
+  // Items Per Page Dropdown Modal
+  const ItemsDropdownModal = () => (
+    <Modal
+      transparent
+      visible={showItemsDropdown}
+      animationType="fade"
+      onRequestClose={() => setShowItemsDropdown(false)}
+    >
+      <TouchableWithoutFeedback onPress={() => setShowItemsDropdown(false)}>
+        <View style={styles.dropdownModalOverlay}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={[styles.dropdownModalContent, { bottom: 80, right: 24 }]}>
+              {ITEMS_PER_PAGE_OPTIONS.map((option) => (
+                <TouchableOpacity
+                  key={option}
+                  style={[styles.dropdownModalItem, itemsPerPage === option && styles.dropdownModalItemActive]}
+                  onPress={() => {
+                    setItemsPerPage(option);
+                    setShowItemsDropdown(false);
+                    setCurrentPage(1);
+                  }}
+                >
+                  <Text style={[styles.dropdownModalText, itemsPerPage === option && styles.dropdownModalTextActive]}>
+                    {option}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </TouchableWithoutFeedback>
+        </View>
+      </TouchableWithoutFeedback>
+    </Modal>
+  );
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {/* Payment Popup */}
+      {/* Modals */}
       <PaymentPopup />
+      <ActionMenuModal />
+      <ExportDropdownModal />
+      <ItemsDropdownModal />
       
       {/* Header */}
       <View style={styles.header}>
@@ -946,43 +1061,47 @@ export default function OrdersScreen() {
         </View>
       </ScrollView>
 
-      {/* Search and Export */}
+      {/* Search, Filters and Export */}
       <View style={styles.filterRow}>
-        <View style={styles.searchBox}>
-          <Ionicons name="search-outline" size={18} color={COLORS.gray} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Enter Tracking Id..."
-            value={searchQuery}
-            onChangeText={setSearchQuery}
-            placeholderTextColor={COLORS.textLight}
-          />
+        <View style={styles.filterLeft}>
+          <View style={styles.searchBox}>
+            <Ionicons name="search-outline" size={18} color={COLORS.gray} />
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Enter Tracking Id..."
+              value={searchQuery}
+              onChangeText={setSearchQuery}
+              placeholderTextColor={COLORS.textLight}
+            />
+          </View>
+          {activeTab === 'ready' && (
+            <TouchableOpacity style={styles.moreFiltersBtn}>
+              <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
+              <Text style={styles.moreFiltersBtnText}>More Filters</Text>
+            </TouchableOpacity>
+          )}
         </View>
         
-        <View style={styles.exportContainer}>
+        <View style={styles.filterRight}>
+          {activeTab === 'ready' && (
+            <>
+              <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkLabel}>
+                <Ionicons name="print-outline" size={16} color={COLORS.darkGray} />
+                <Text style={styles.bulkActionBtnText}>Bulk Label</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkInvoice}>
+                <Ionicons name="document-text-outline" size={16} color={COLORS.darkGray} />
+                <Text style={styles.bulkActionBtnText}>Bulk Invoice</Text>
+              </TouchableOpacity>
+            </>
+          )}
           <TouchableOpacity 
             style={styles.exportBtn}
-            onPress={() => setShowExportDropdown(!showExportDropdown)}
+            onPress={() => setShowExportDropdown(true)}
           >
             <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
             <Text style={styles.exportBtnText}>Export</Text>
           </TouchableOpacity>
-          {showExportDropdown && (
-            <View style={styles.exportDropdown}>
-              <TouchableOpacity 
-                style={styles.exportOption}
-                onPress={() => setShowExportDropdown(false)}
-              >
-                <Text style={styles.exportOptionText}>Export as XLSX</Text>
-              </TouchableOpacity>
-              <TouchableOpacity 
-                style={[styles.exportOption, { borderBottomWidth: 0 }]}
-                onPress={() => setShowExportDropdown(false)}
-              >
-                <Text style={styles.exportOptionText}>Export as PDF</Text>
-              </TouchableOpacity>
-            </View>
-          )}
         </View>
       </View>
 
@@ -1045,30 +1164,11 @@ export default function OrdersScreen() {
           <Text style={styles.itemsPerPageLabel}>Items per page</Text>
           <TouchableOpacity
             style={styles.itemsPerPageBtn}
-            onPress={() => setShowItemsDropdown(!showItemsDropdown)}
+            onPress={() => setShowItemsDropdown(true)}
           >
             <Text style={styles.itemsPerPageValue}>{itemsPerPage}</Text>
             <Ionicons name="chevron-down" size={14} color={COLORS.gray} />
           </TouchableOpacity>
-          {showItemsDropdown && (
-            <View style={styles.itemsDropdown}>
-              {ITEMS_PER_PAGE_OPTIONS.map((option) => (
-                <TouchableOpacity
-                  key={option}
-                  style={[styles.itemsOption, itemsPerPage === option && styles.itemsOptionActive]}
-                  onPress={() => {
-                    setItemsPerPage(option);
-                    setShowItemsDropdown(false);
-                    setCurrentPage(1);
-                  }}
-                >
-                  <Text style={[styles.itemsOptionText, itemsPerPage === option && styles.itemsOptionTextActive]}>
-                    {option}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
         </View>
       </View>
     </ScrollView>
@@ -1133,16 +1233,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
-  payNowBtn: {
+  payNowIconBtn: {
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    padding: 6,
     borderRadius: 4,
-  },
-  payNowBtnText: {
-    color: COLORS.white,
-    fontSize: 12,
-    fontWeight: '600',
   },
   // Payment Popup Styles
   modalOverlay: {
@@ -1210,6 +1304,74 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
+  // Action Menu Modal
+  actionModalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  actionModalContent: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
+    minWidth: 200,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 10,
+  },
+  actionModalItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.divider,
+    gap: 12,
+  },
+  actionModalText: {
+    fontSize: 14,
+    color: COLORS.textDark,
+  },
+  // Dropdown Modal Styles
+  dropdownModalOverlay: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
+  dropdownModalContent: {
+    position: 'absolute',
+    backgroundColor: COLORS.white,
+    borderRadius: 8,
+    minWidth: 160,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 10,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  dropdownModalItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.divider,
+    gap: 10,
+  },
+  dropdownModalItemActive: {
+    backgroundColor: COLORS.lightGray,
+  },
+  dropdownModalText: {
+    fontSize: 14,
+    color: COLORS.textDark,
+  },
+  dropdownModalTextActive: {
+    fontWeight: '600',
+    color: COLORS.primary,
+  },
   tabsScroll: {
     borderBottomWidth: 1,
     borderBottomColor: COLORS.border,
@@ -1241,8 +1403,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
     gap: 16,
-    zIndex: 1000,
-    position: 'relative',
+    flexWrap: 'wrap',
+  },
+  filterLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    flex: 1,
+  },
+  filterRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
   searchBox: {
     flexDirection: 'row',
@@ -1262,9 +1434,35 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.textDark,
   },
-  exportContainer: {
-    position: 'relative',
-    zIndex: 1001,
+  moreFiltersBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    gap: 8,
+  },
+  moreFiltersBtnText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    fontWeight: '500',
+  },
+  bulkActionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.lightGray,
+    borderRadius: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    gap: 6,
+  },
+  bulkActionBtnText: {
+    fontSize: 14,
+    color: COLORS.darkGray,
+    fontWeight: '500',
   },
   exportBtn: {
     flexDirection: 'row',
@@ -1281,32 +1479,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: COLORS.darkGray,
     fontWeight: '500',
-  },
-  exportDropdown: {
-    position: 'absolute',
-    top: 46,
-    right: 0,
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 20,
-    zIndex: 9999,
-    minWidth: 160,
-  },
-  exportOption: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.divider,
-  },
-  exportOptionText: {
-    fontSize: 14,
-    color: COLORS.textDark,
   },
   // Table styles
   tableContainerDesktop: {
@@ -1362,19 +1534,19 @@ const styles = StyleSheet.create({
   cellCustomerMobile: { width: 200, paddingHorizontal: 8, flexDirection: 'column', gap: 2 },
   cellDateMobile: { width: 110, paddingHorizontal: 8, flexDirection: 'column', gap: 2 },
   cellPackageMobile: { width: 110, paddingHorizontal: 8, flexDirection: 'column', gap: 2 },
-  cellStatusMobile: { width: 100, paddingHorizontal: 8 },
+  cellStatusMobile: { width: 130, paddingHorizontal: 8 },
   cellLastMileMobile: { width: 180, paddingHorizontal: 8 },
   cellViewMobile: { width: 80, paddingHorizontal: 8, alignItems: 'center' },
-  cellActionsMobile: { width: 100, paddingHorizontal: 8 },
+  cellActionsMobile: { width: 120, paddingHorizontal: 8 },
   // Cell styles - Desktop (flex-based) - for data rows
   cellOrderId: { flex: 2, paddingHorizontal: 8, minWidth: 150 },
   cellCustomer: { flex: 2.5, paddingHorizontal: 8, minWidth: 180 },
   cellDate: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
   cellPackage: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
-  cellStatus: { flex: 1, paddingHorizontal: 8, minWidth: 90 },
+  cellStatus: { flex: 1.2, paddingHorizontal: 8, minWidth: 120 },
   cellLastMile: { flex: 2, paddingHorizontal: 8, minWidth: 160 },
   cellView: { flex: 0.8, paddingHorizontal: 8, alignItems: 'center', minWidth: 70 },
-  cellActions: { flex: 1, paddingHorizontal: 8, minWidth: 90 },
+  cellActions: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
   // Header cell with sort icon
   headerCellWithSort: {
     flexDirection: 'row',
@@ -1433,9 +1605,21 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignSelf: 'flex-start',
   },
+  statusBadgeReadyWrap: {
+    backgroundColor: '#DCFCE7',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 16,
+    alignSelf: 'flex-start',
+  },
   statusText: {
     fontSize: 12,
     fontWeight: '600',
+  },
+  statusTextReady: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: '#16A34A',
   },
   trackingActions: {
     flexDirection: 'row',
@@ -1458,36 +1642,6 @@ const styles = StyleSheet.create({
   },
   actionIcon: {
     padding: 4,
-  },
-  actionMenuContainer: {
-    position: 'relative',
-    zIndex: 9999,
-  },
-  actionMenu: {
-    position: 'absolute',
-    bottom: 28,
-    right: 0,
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 16,
-    elevation: 50,
-    zIndex: 99999,
-    minWidth: 150,
-  },
-  actionMenuItem: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.divider,
-  },
-  actionMenuText: {
-    fontSize: 14,
-    color: COLORS.textDark,
   },
   // Pagination
   paginationRow: {
@@ -1551,7 +1705,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    position: 'relative',
   },
   itemsPerPageLabel: {
     fontSize: 13,
@@ -1571,36 +1724,5 @@ const styles = StyleSheet.create({
   itemsPerPageValue: {
     fontSize: 13,
     color: COLORS.darkGray,
-  },
-  itemsDropdown: {
-    position: 'absolute',
-    bottom: 36,
-    right: 0,
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 6,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 20,
-    zIndex: 9999,
-  },
-  itemsOption: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    minWidth: 80,
-  },
-  itemsOptionActive: {
-    backgroundColor: COLORS.lightGray,
-  },
-  itemsOptionText: {
-    fontSize: 13,
-    color: COLORS.darkGray,
-  },
-  itemsOptionTextActive: {
-    fontWeight: '600',
-    color: COLORS.primary,
   },
 });

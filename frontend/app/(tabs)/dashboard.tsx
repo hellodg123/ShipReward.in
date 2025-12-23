@@ -64,9 +64,11 @@ const actionCards = [
 ];
 
 const walletActivity = [
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.warning },
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Restricted', date: '09 Oct 25 - 04:35 PM', color: COLORS.primary },
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283G7 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', color: COLORS.accent },
+  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', amount: '-Rs. 250.00', color: COLORS.error },
+  { description: 'Wallet Recharge:', orderId: 'TXN-20251209-001234', date: '09 Oct 25 - 04:35 PM', amount: '+Rs. 5,000.00', color: COLORS.success },
+  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283G7 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', amount: '-Rs. 180.00', color: COLORS.error },
+  { description: 'Order Payment:', orderId: 'SG32512224553178', date: '08 Oct 25 - 02:15 PM', amount: '-Rs. 476.72', color: COLORS.warning },
+  { description: 'Wallet Recharge:', orderId: 'TXN-20251008-005678', date: '08 Oct 25 - 10:00 AM', amount: '+Rs. 2,000.00', color: COLORS.success },
 ];
 
 export default function DashboardScreen() {
@@ -123,20 +125,28 @@ export default function DashboardScreen() {
           </View>
         </View>
 
-        {/* Wallet Activity Section */}
+        {/* Wallet Activity Section - Now as a Table with vertical scroll */}
         <View style={styles.walletActivitySection}>
           <Text style={styles.sectionTitle}>Wallet Activity</Text>
-          <View style={styles.walletActivityList}>
-            {walletActivity.map((item, index) => (
-              <View key={index} style={styles.walletActivityItem}>
-                <View style={[styles.walletActivityIndicator, { backgroundColor: item.color }]} />
-                <View style={styles.walletActivityContent}>
-                  <Text style={styles.walletActivityDesc}>{item.description}</Text>
-                  <Text style={styles.walletActivityOrderId}>{item.orderId}</Text>
-                  <Text style={styles.walletActivityDate}>{item.date}</Text>
+          <View style={styles.walletActivityContainer}>
+            {/* Table Header */}
+            <View style={styles.walletTableHeader}>
+              <Text style={[styles.walletHeaderCell, { flex: 2 }]}>Description</Text>
+              <Text style={[styles.walletHeaderCell, { flex: 2 }]}>Reference</Text>
+              <Text style={[styles.walletHeaderCell, { flex: 1.5 }]}>Date</Text>
+              <Text style={[styles.walletHeaderCell, { flex: 1, textAlign: 'right' }]}>Amount</Text>
+            </View>
+            {/* Table Body with scroll */}
+            <ScrollView style={styles.walletTableBody} nestedScrollEnabled={true}>
+              {walletActivity.map((item, index) => (
+                <View key={index} style={styles.walletTableRow}>
+                  <Text style={[styles.walletCell, { flex: 2 }]} numberOfLines={1}>{item.description}</Text>
+                  <Text style={[styles.walletCell, styles.walletCellRef, { flex: 2 }]} numberOfLines={1}>{item.orderId}</Text>
+                  <Text style={[styles.walletCell, styles.walletCellDate, { flex: 1.5 }]} numberOfLines={1}>{item.date}</Text>
+                  <Text style={[styles.walletCell, { flex: 1, textAlign: 'right', color: item.color, fontWeight: '600' }]}>{item.amount}</Text>
                 </View>
-              </View>
-            ))}
+              ))}
+            </ScrollView>
           </View>
         </View>
       </View>
@@ -247,45 +257,52 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   walletActivitySection: {
-    flex: 1,
+    flex: 1.5,
     minWidth: 300,
   },
-  walletActivityList: {
-    backgroundColor: COLORS.transparent,
-    borderRadius: 16,
-    padding: 20,
+  walletActivityContainer: {
+    backgroundColor: COLORS.white,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
+    overflow: 'hidden',
   },
-  walletActivityItem: {
+  walletTableHeader: {
     flexDirection: 'row',
-    paddingVertical: 14,
+    backgroundColor: COLORS.divider,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  walletHeaderCell: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: COLORS.textMuted,
+    textTransform: 'uppercase',
+  },
+  walletTableBody: {
+    maxHeight: 200,
+  },
+  walletTableRow: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.divider,
+    alignItems: 'center',
   },
-  walletActivityIndicator: {
-    width: 4,
-    borderRadius: 2,
-    marginRight: 14,
-  },
-  walletActivityContent: {
-    flex: 1,
-  },
-  walletActivityDesc: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: COLORS.textDark,
-    marginBottom: 4,
-  },
-  walletActivityOrderId: {
+  walletCell: {
     fontSize: 13,
-    color: COLORS.textMuted,
-    marginBottom: 4,
+    color: COLORS.textDark,
   },
-  walletActivityDate: {
-    fontSize: 12,
-    color: COLORS.textLight,
+  walletCellRef: {
+    color: COLORS.primary,
     fontWeight: '500',
+  },
+  walletCellDate: {
+    color: COLORS.textMuted,
+    fontSize: 12,
   },
   footerText: {
     fontSize: 13,
