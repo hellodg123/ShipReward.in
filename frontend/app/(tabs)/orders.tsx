@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -451,6 +451,58 @@ const cancelledOrdersData = [
   },
 ];
 
+// Sample disputed orders data
+const disputedOrdersData = [
+  {
+    id: 'SG32512224561000',
+    prefix: 'US - 11122',
+    invoiceNo: 'Inv no. DP-180-1234567-8901234',
+    customerName: 'Michael Scott',
+    customerEmail: 'michael.scott@email.com',
+    customerPhone: '+1 555-333-4444',
+    orderDate: '12 Dec, 2025',
+    orderTime: '10:30 AM',
+    weight: '0.4 kg',
+    price: '₹ 650.00',
+    packageType: 'CSB-IV',
+    status: 'Disputed',
+    trackingId: 'DIS000222333',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32512224561001',
+    prefix: 'CA - 22233',
+    invoiceNo: 'Inv no. DP-181-2345678-9012345',
+    customerName: 'Dwight Schrute',
+    customerEmail: 'dwight.schrute@email.com',
+    customerPhone: '+1 416-555-6666',
+    orderDate: '11 Dec, 2025',
+    orderTime: '02:15 PM',
+    weight: '0.8 kg',
+    price: '₹ 1150.00',
+    packageType: 'CSB-IV',
+    status: 'Disputed',
+    trackingId: 'DIS000222334',
+    carrier: 'DHL',
+  },
+  {
+    id: 'SG32512224561002',
+    prefix: 'UK - 33344',
+    invoiceNo: 'Inv no. DP-182-3456789-0123456',
+    customerName: 'Jim Halpert',
+    customerEmail: 'jim.halpert@email.com',
+    customerPhone: '+44 20-7777-8888',
+    orderDate: '10 Dec, 2025',
+    orderTime: '04:45 PM',
+    weight: '0.5 kg',
+    price: '₹ 890.00',
+    packageType: 'CSB-IV',
+    status: 'Disputed',
+    trackingId: 'DIS000222335',
+    carrier: 'UPS',
+  },
+];
+
 const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 
 export default function OrdersScreen() {
@@ -491,6 +543,8 @@ export default function OrdersScreen() {
         return receivedOrdersData;
       case 'cancelled':
         return cancelledOrdersData;
+      case 'disputed':
+        return disputedOrdersData;
       case 'all':
       default:
         return allOrdersData;
@@ -564,6 +618,9 @@ export default function OrdersScreen() {
     }
     if (statusLower.includes('ready')) {
       return { bg: '#DCFCE7', color: '#16A34A' };
+    }
+    if (statusLower.includes('disputed')) {
+      return { bg: COLORS.warningLight, color: COLORS.warning };
     }
     return { bg: COLORS.lightGray, color: COLORS.gray };
   };
@@ -650,11 +707,6 @@ export default function OrdersScreen() {
 
   // Check if tab should show Bulk Label and Bulk Invoice
   const showBulkLabelInvoice = ['ready', 'packed', 'manifested', 'dispatched', 'received'].includes(activeTab);
-
-  // Get Actions header title based on tab
-  const getActionsHeaderTitle = () => {
-    return 'Actions';
-  };
 
   // Render table for All Orders
   const renderAllOrdersTable = () => (
@@ -1015,7 +1067,246 @@ export default function OrdersScreen() {
     );
   };
 
-  // Generic table for Packed, Manifested, Dispatched, Received, Cancelled tabs
+  // Render table for Cancelled tab (no print icon)
+  const renderCancelledTable = () => (
+    <View style={isMobile ? undefined : styles.tableContainerDesktop}>
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          <View style={styles.tableMobile}>
+            {renderCancelledHeader()}
+            {paginatedOrders.map(order => renderCancelledRow(order))}
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.tableDesktop}>
+          {renderCancelledHeader()}
+          {paginatedOrders.map(order => renderCancelledRow(order))}
+        </View>
+      )}
+    </View>
+  );
+
+  const renderCancelledHeader = () => (
+    <View style={[styles.tableHeader, isMobile ? styles.tableHeaderMobile : styles.tableHeaderDesktop]}>
+      <View style={styles.cellCheckbox}>
+        <TouchableOpacity 
+          style={[styles.checkbox, selectAll && styles.checkboxSelected]}
+          onPress={handleSelectAll}
+        >
+          {selectAll && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+        </TouchableOpacity>
+      </View>
+      <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order ID</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+        <Text style={styles.headerText}>Customer Details</Text>
+      </View>
+      <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order Date</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Package Details</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+        <Text style={styles.headerText}>Status</Text>
+      </View>
+      <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
+        <Text style={styles.headerText}>Actions</Text>
+      </View>
+    </View>
+  );
+
+  const renderCancelledRow = (order: any) => {
+    const statusStyle = getStatusStyle(order.status);
+    const isSelected = selectedOrders.includes(order.id);
+    
+    return (
+      <View key={order.id} style={[styles.tableRow, isMobile ? styles.tableRowMobile : styles.tableRowDesktop]}>
+        <View style={styles.cellCheckbox}>
+          <TouchableOpacity 
+            style={[styles.checkbox, isSelected && styles.checkboxSelected]}
+            onPress={() => handleSelectOrder(order.id)}
+          >
+            {isSelected && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+          </TouchableOpacity>
+        </View>
+        <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+          <Text style={styles.orderIdText}>{order.id}</Text>
+          <Text style={styles.subText}>{order.prefix}</Text>
+          <Text style={styles.subTextLight}>{order.invoiceNo}</Text>
+        </View>
+        <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+          <Text style={styles.customerName}>{order.customerName}</Text>
+          <Text style={styles.subText}>{order.customerEmail}</Text>
+          <Text style={styles.subText}>{order.customerPhone}</Text>
+        </View>
+        <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+          <Text style={styles.dateText}>{order.orderDate}</Text>
+          <Text style={styles.subText}>{order.orderTime}</Text>
+        </View>
+        <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+          <Text style={styles.weightText}>{order.weight}</Text>
+          <Text style={styles.priceText}>{order.price}</Text>
+          <Text style={styles.subText}>{order.packageType}</Text>
+        </View>
+        <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+          <View style={[styles.statusBadge, { backgroundColor: statusStyle.bg }]}>
+            <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
+          </View>
+        </View>
+        <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
+          <View style={styles.actionsRow}>
+            <TouchableOpacity onPress={() => handleViewOrder(order.id)} style={styles.actionIcon}>
+              <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => setActionMenuOrderId(order.id)}
+              style={styles.actionIcon}
+            >
+              <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  // Render table for Disputed tab (with Last Mile Details and View Orders column)
+  const renderDisputedTable = () => (
+    <View style={isMobile ? undefined : styles.tableContainerDesktop}>
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          <View style={styles.tableMobile}>
+            {renderDisputedHeader()}
+            {paginatedOrders.map(order => renderDisputedRow(order))}
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.tableDesktop}>
+          {renderDisputedHeader()}
+          {paginatedOrders.map(order => renderDisputedRow(order))}
+        </View>
+      )}
+    </View>
+  );
+
+  const renderDisputedHeader = () => (
+    <View style={[styles.tableHeader, isMobile ? styles.tableHeaderMobile : styles.tableHeaderDesktop]}>
+      <View style={styles.cellCheckbox}>
+        <TouchableOpacity 
+          style={[styles.checkbox, selectAll && styles.checkboxSelected]}
+          onPress={handleSelectAll}
+        >
+          {selectAll && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+        </TouchableOpacity>
+      </View>
+      <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order ID</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+        <Text style={styles.headerText}>Customer Details</Text>
+      </View>
+      <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order Date</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Package Details</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+        <Text style={styles.headerText}>Status</Text>
+      </View>
+      <View style={isMobile ? styles.cellLastMileMobile : styles.cellLastMile}>
+        <Text style={styles.headerText}>Last Mile Details</Text>
+      </View>
+      <View style={isMobile ? styles.cellViewMobile : styles.cellView}>
+        <Text style={styles.headerText}>View Orders</Text>
+      </View>
+    </View>
+  );
+
+  const renderDisputedRow = (order: any) => {
+    const statusStyle = getStatusStyle(order.status);
+    const isSelected = selectedOrders.includes(order.id);
+    
+    return (
+      <View key={order.id} style={[styles.tableRow, isMobile ? styles.tableRowMobile : styles.tableRowDesktop]}>
+        <View style={styles.cellCheckbox}>
+          <TouchableOpacity 
+            style={[styles.checkbox, isSelected && styles.checkboxSelected]}
+            onPress={() => handleSelectOrder(order.id)}
+          >
+            {isSelected && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+          </TouchableOpacity>
+        </View>
+        <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+          <Text style={styles.orderIdText}>{order.id}</Text>
+          <Text style={styles.subText}>{order.prefix}</Text>
+          <Text style={styles.subTextLight}>{order.invoiceNo}</Text>
+        </View>
+        <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+          <Text style={styles.customerName}>{order.customerName}</Text>
+          <Text style={styles.subText}>{order.customerEmail}</Text>
+          <Text style={styles.subText}>{order.customerPhone}</Text>
+        </View>
+        <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+          <Text style={styles.dateText}>{order.orderDate}</Text>
+          <Text style={styles.subText}>{order.orderTime}</Text>
+        </View>
+        <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+          <Text style={styles.weightText}>{order.weight}</Text>
+          <Text style={styles.priceText}>{order.price}</Text>
+          <Text style={styles.subText}>{order.packageType}</Text>
+        </View>
+        <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+          <View style={[styles.statusBadge, { backgroundColor: statusStyle.bg }]}>
+            <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
+          </View>
+        </View>
+        <View style={isMobile ? styles.cellLastMileMobile : styles.cellLastMile}>
+          {order.trackingId ? (
+            <>
+              <Text style={styles.trackingText}>{order.trackingId}</Text>
+              <Text style={styles.subText}>{order.carrier}</Text>
+              <View style={styles.trackingActions}>
+                <TouchableOpacity style={styles.copyBtn}>
+                  <Ionicons name="copy-outline" size={14} color={COLORS.gray} />
+                  <Text style={styles.copyText}>Copy</Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            <Text style={styles.noDataText}>-</Text>
+          )}
+        </View>
+        <View style={isMobile ? styles.cellViewMobile : styles.cellView}>
+          <TouchableOpacity onPress={() => handleViewOrder(order.id)}>
+            <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  // Generic table for Packed, Manifested, Dispatched, Received tabs
   const renderGenericTable = () => (
     <View style={isMobile ? undefined : styles.tableContainerDesktop}>
       {isMobile ? (
@@ -1069,7 +1360,7 @@ export default function OrdersScreen() {
         <Text style={styles.headerText}>Status</Text>
       </View>
       <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
-        <Text style={styles.headerText}>{getActionsHeaderTitle()}</Text>
+        <Text style={styles.headerText}>Actions</Text>
       </View>
     </View>
   );
@@ -1139,6 +1430,10 @@ export default function OrdersScreen() {
         return renderDraftsTable();
       case 'ready':
         return renderReadyTable();
+      case 'cancelled':
+        return renderCancelledTable();
+      case 'disputed':
+        return renderDisputedTable();
       case 'all':
         return renderAllOrdersTable();
       default:
@@ -1205,7 +1500,7 @@ export default function OrdersScreen() {
     ];
   };
 
-  // Action Menu Modal (centered)
+  // Action Menu Modal (dropdown style like export)
   const ActionMenuModal = () => (
     <Modal
       transparent
@@ -1214,17 +1509,17 @@ export default function OrdersScreen() {
       onRequestClose={() => setActionMenuOrderId(null)}
     >
       <TouchableWithoutFeedback onPress={() => setActionMenuOrderId(null)}>
-        <View style={styles.actionModalOverlay}>
+        <View style={styles.dropdownModalOverlay}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View style={styles.actionModalContent}>
+            <View style={[styles.dropdownModalContent, { top: 200, right: 40 }]}>
               {getMenuOptions().map((option, index) => (
                 <TouchableOpacity 
                   key={option.label}
-                  style={[styles.actionModalItem, index === getMenuOptions().length - 1 && { borderBottomWidth: 0 }]}
+                  style={[styles.dropdownModalItem, index === getMenuOptions().length - 1 && { borderBottomWidth: 0 }]}
                   onPress={() => option.action(actionMenuOrderId!)}
                 >
-                  <Ionicons name={option.icon as any} size={18} color={option.color} />
-                  <Text style={[styles.actionModalText, { color: option.color }]}>{option.label}</Text>
+                  <Ionicons name={option.icon as any} size={16} color={option.color} />
+                  <Text style={[styles.dropdownModalText, { color: option.color }]}>{option.label}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -1364,12 +1659,6 @@ export default function OrdersScreen() {
               placeholderTextColor={COLORS.textLight}
             />
           </View>
-          {(activeTab === 'ready' || showBulkLabelInvoice) && (
-            <TouchableOpacity style={styles.moreFiltersBtn}>
-              <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-              <Text style={styles.moreFiltersBtnText}>More Filters</Text>
-            </TouchableOpacity>
-          )}
         </View>
         
         <View style={styles.filterRight}>
@@ -1598,36 +1887,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
-  // Action Menu Modal (centered)
-  actionModalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  actionModalContent: {
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-    minWidth: 200,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 10,
-  },
-  actionModalItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.divider,
-    gap: 12,
-  },
-  actionModalText: {
-    fontSize: 14,
-    color: COLORS.textDark,
-  },
   // Dropdown Modal Styles
   dropdownModalOverlay: {
     flex: 1,
@@ -1727,22 +1986,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     color: COLORS.textDark,
-  },
-  moreFiltersBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    gap: 8,
-  },
-  moreFiltersBtnText: {
-    fontSize: 14,
-    color: COLORS.darkGray,
-    fontWeight: '500',
   },
   bulkActionBtn: {
     flexDirection: 'row',
