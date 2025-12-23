@@ -129,10 +129,16 @@ export default function SettingsScreen() {
         <Text style={styles.breadcrumb}>Settings {'>'} KYC</Text>
       </View>
 
-      <TouchableOpacity style={styles.upgradeButton}>
-        <Ionicons name="arrow-up" size={16} color={COLORS.white} />
-        <Text style={styles.upgradeButtonText}>Upgrade To Business</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.pickupAddressButton}>
+          <Ionicons name="location-outline" size={16} color={COLORS.primary} />
+          <Text style={styles.pickupAddressButtonText}>Pickup Address</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.upgradeButton}>
+          <Ionicons name="arrow-up" size={16} color={COLORS.white} />
+          <Text style={styles.upgradeButtonText}>Upgrade To Business</Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Individual KYC */}
       <View style={styles.card}>
