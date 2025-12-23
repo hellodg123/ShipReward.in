@@ -956,7 +956,7 @@ export default function OrdersScreen() {
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={() => setActionMenuOrderId(order.id)}
+              onPress={(e) => handleOpenActionMenu(order.id, e)}
               style={styles.actionIcon}
             >
               <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
@@ -1073,7 +1073,7 @@ export default function OrdersScreen() {
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={() => setActionMenuOrderId(order.id)}
+              onPress={(e) => handleOpenActionMenu(order.id, e)}
               style={styles.actionIcon}
             >
               <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
@@ -1187,7 +1187,7 @@ export default function OrdersScreen() {
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={() => setActionMenuOrderId(order.id)}
+              onPress={(e) => handleOpenActionMenu(order.id, e)}
               style={styles.actionIcon}
             >
               <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
@@ -1429,7 +1429,7 @@ export default function OrdersScreen() {
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={() => setActionMenuOrderId(order.id)}
+              onPress={(e) => handleOpenActionMenu(order.id, e)}
               style={styles.actionIcon}
             >
               <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
