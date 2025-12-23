@@ -2041,6 +2041,15 @@ const styles = StyleSheet.create({
     gap: 16,
     flexWrap: 'wrap',
   },
+  filterScrollMobile: {
+    marginBottom: 16,
+  },
+  filterRowMobile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingRight: 12,
+  },
   filterLeft: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -2063,6 +2072,18 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     flex: 1,
     maxWidth: 300,
+    gap: 8,
+  },
+  searchBoxMobile: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    width: 200,
     gap: 8,
   },
   searchInput: {
