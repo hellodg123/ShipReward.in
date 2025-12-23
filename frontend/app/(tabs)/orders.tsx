@@ -1812,7 +1812,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.bgWhite,
-    paddingHorizontal: 24,
+    paddingHorizontal: isMobile ? 12 : 24,
     paddingTop: 16,
   },
   header: {
