@@ -2188,6 +2188,9 @@ const styles = StyleSheet.create({
   cellLastMile: { flex: 2, paddingHorizontal: 8, minWidth: 160 },
   cellView: { flex: 0.8, paddingHorizontal: 8, alignItems: 'center', minWidth: 70 },
   cellActions: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },
+  // Centered cell styles for disputed tab
+  cellViewCentered: { flex: 1, paddingHorizontal: 8, alignItems: 'center', justifyContent: 'center', minWidth: 100 },
+  cellViewMobileCentered: { width: 100, paddingHorizontal: 8, alignItems: 'center', justifyContent: 'center' },
   // Header cell with sort icon
   headerCellWithSort: {
     flexDirection: 'row',
