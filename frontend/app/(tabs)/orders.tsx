@@ -1517,17 +1517,17 @@ export default function OrdersScreen() {
       onRequestClose={() => setActionMenuOrderId(null)}
     >
       <TouchableWithoutFeedback onPress={() => setActionMenuOrderId(null)}>
-        <View style={styles.dropdownModalOverlay}>
+        <View style={styles.actionDropdownOverlay}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View style={[styles.dropdownModalContent, { top: 200, right: 40 }]}>
+            <View style={styles.actionDropdownContent}>
               {getMenuOptions().map((option, index) => (
                 <TouchableOpacity 
                   key={option.label}
-                  style={[styles.dropdownModalItem, index === getMenuOptions().length - 1 && { borderBottomWidth: 0 }]}
+                  style={[styles.actionDropdownItem, index === getMenuOptions().length - 1 && { borderBottomWidth: 0 }]}
                   onPress={() => option.action(actionMenuOrderId!)}
                 >
                   <Ionicons name={option.icon as any} size={16} color={option.color} />
-                  <Text style={[styles.dropdownModalText, { color: option.color }]}>{option.label}</Text>
+                  <Text style={[styles.actionDropdownText, { color: option.color }]}>{option.label}</Text>
                 </TouchableOpacity>
               ))}
             </View>
