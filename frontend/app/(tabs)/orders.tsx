@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -261,6 +261,196 @@ const readyOrdersData = [
   },
 ];
 
+// Sample packed orders data
+const packedOrdersData = [
+  {
+    id: 'SG32512224556000',
+    prefix: 'US - 12345',
+    invoiceNo: 'Inv no. DP-130-1234567-8901234',
+    customerName: 'James Wilson',
+    customerEmail: 'james.wilson@email.com',
+    customerPhone: '+1 555-987-6543',
+    orderDate: '22 Dec, 2025',
+    orderTime: '10:30 AM',
+    weight: '0.8 kg',
+    price: '₹ 1200.00',
+    packageType: 'CSB-IV',
+    status: 'Packed',
+    trackingId: 'PKD000123456',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32512224556001',
+    prefix: 'CA - 67890',
+    invoiceNo: 'Inv no. DP-131-2345678-9012345',
+    customerName: 'Emily Davis',
+    customerEmail: 'emily.davis@email.com',
+    customerPhone: '+1 416-123-4567',
+    orderDate: '21 Dec, 2025',
+    orderTime: '04:15 PM',
+    weight: '0.5 kg',
+    price: '₹ 850.00',
+    packageType: 'CSB-IV',
+    status: 'Packed',
+    trackingId: 'PKD000123457',
+    carrier: 'DHL',
+  },
+];
+
+// Sample manifested orders data
+const manifestedOrdersData = [
+  {
+    id: 'SG32512224557000',
+    prefix: 'UK - 11111',
+    invoiceNo: 'Inv no. DP-140-1234567-8901234',
+    customerName: 'Oliver Brown',
+    customerEmail: 'oliver.brown@email.com',
+    customerPhone: '+44 20-5555-1234',
+    orderDate: '21 Dec, 2025',
+    orderTime: '09:00 AM',
+    weight: '1.2 kg',
+    price: '₹ 1800.00',
+    packageType: 'CSB-IV',
+    status: 'Manifested',
+    trackingId: 'MNF000789012',
+    carrier: 'UPS',
+  },
+  {
+    id: 'SG32512224557001',
+    prefix: 'AU - 22222',
+    invoiceNo: 'Inv no. DP-141-2345678-9012345',
+    customerName: 'Charlotte Miller',
+    customerEmail: 'charlotte.miller@email.com',
+    customerPhone: '+61 2-1234-5678',
+    orderDate: '20 Dec, 2025',
+    orderTime: '02:30 PM',
+    weight: '0.9 kg',
+    price: '₹ 1450.00',
+    packageType: 'CSB-IV',
+    status: 'Manifested',
+    trackingId: 'MNF000789013',
+    carrier: 'FedEx',
+  },
+];
+
+// Sample dispatched orders data
+const dispatchedOrdersData = [
+  {
+    id: 'SG32512224558000',
+    prefix: 'US - 33333',
+    invoiceNo: 'Inv no. DP-150-1234567-8901234',
+    customerName: 'William Johnson',
+    customerEmail: 'william.johnson@email.com',
+    customerPhone: '+1 555-111-2222',
+    orderDate: '20 Dec, 2025',
+    orderTime: '11:30 AM',
+    weight: '0.6 kg',
+    price: '₹ 950.00',
+    packageType: 'CSB-IV',
+    status: 'Dispatched',
+    trackingId: 'DSP000456789',
+    carrier: 'DHL',
+  },
+  {
+    id: 'SG32512224558001',
+    prefix: 'CA - 44444',
+    invoiceNo: 'Inv no. DP-151-2345678-9012345',
+    customerName: 'Sophia Garcia',
+    customerEmail: 'sophia.garcia@email.com',
+    customerPhone: '+1 416-333-4444',
+    orderDate: '19 Dec, 2025',
+    orderTime: '03:45 PM',
+    weight: '1.0 kg',
+    price: '₹ 1600.00',
+    packageType: 'CSB-IV',
+    status: 'Dispatched',
+    trackingId: 'DSP000456790',
+    carrier: 'UPS',
+  },
+];
+
+// Sample received orders data
+const receivedOrdersData = [
+  {
+    id: 'SG32512224559000',
+    prefix: 'UK - 55555',
+    invoiceNo: 'Inv no. DP-160-1234567-8901234',
+    customerName: 'Benjamin Taylor',
+    customerEmail: 'benjamin.taylor@email.com',
+    customerPhone: '+44 20-6666-7777',
+    orderDate: '18 Dec, 2025',
+    orderTime: '10:00 AM',
+    weight: '0.4 kg',
+    price: '₹ 680.00',
+    packageType: 'CSB-IV',
+    status: 'Delivered',
+    trackingId: 'RCV000111222',
+    carrier: 'FedEx',
+  },
+  {
+    id: 'SG32512224559001',
+    prefix: 'AU - 66666',
+    invoiceNo: 'Inv no. DP-161-2345678-9012345',
+    customerName: 'Mia Anderson',
+    customerEmail: 'mia.anderson@email.com',
+    customerPhone: '+61 2-8888-9999',
+    orderDate: '17 Dec, 2025',
+    orderTime: '01:15 PM',
+    weight: '0.7 kg',
+    price: '₹ 1100.00',
+    packageType: 'CSB-IV',
+    status: 'Delivered',
+    trackingId: 'RCV000111223',
+    carrier: 'DHL',
+  },
+];
+
+// Sample cancelled orders data
+const cancelledOrdersData = [
+  {
+    id: 'SG32512224560000',
+    prefix: 'US - 77777',
+    invoiceNo: 'Inv no. DP-170-1234567-8901234',
+    customerName: 'Alexander White',
+    customerEmail: 'alexander.white@email.com',
+    customerPhone: '+1 555-222-3333',
+    orderDate: '15 Dec, 2025',
+    orderTime: '09:30 AM',
+    weight: '0.3 kg',
+    price: '₹ 520.00',
+    packageType: 'CSB-IV',
+    status: 'Cancelled',
+  },
+  {
+    id: 'SG32512224560001',
+    prefix: 'CA - 88888',
+    invoiceNo: 'Inv no. DP-171-2345678-9012345',
+    customerName: 'Isabella Martinez',
+    customerEmail: 'isabella.martinez@email.com',
+    customerPhone: '+1 416-444-5555',
+    orderDate: '14 Dec, 2025',
+    orderTime: '04:00 PM',
+    weight: '0.5 kg',
+    price: '₹ 780.00',
+    packageType: 'CSB-IV',
+    status: 'Cancelled',
+  },
+  {
+    id: 'SG32512224560002',
+    prefix: 'UK - 99999',
+    invoiceNo: 'Inv no. DP-172-3456789-0123456',
+    customerName: 'Ethan Thomas',
+    customerEmail: 'ethan.thomas@email.com',
+    customerPhone: '+44 20-1111-2222',
+    orderDate: '13 Dec, 2025',
+    orderTime: '11:45 AM',
+    weight: '0.6 kg',
+    price: '₹ 920.00',
+    packageType: 'CSB-IV',
+    status: 'Cancelled',
+  },
+];
+
 const ITEMS_PER_PAGE_OPTIONS = [10, 20, 50, 100];
 
 export default function OrdersScreen() {
@@ -278,13 +468,6 @@ export default function OrdersScreen() {
   const [showPayPopup, setShowPayPopup] = useState(false);
   const [selectedOrderForPay, setSelectedOrderForPay] = useState<any>(null);
 
-  // Close all dropdowns when clicking outside
-  const closeAllDropdowns = () => {
-    setShowExportDropdown(false);
-    setShowItemsDropdown(false);
-    setActionMenuOrderId(null);
-  };
-
   useEffect(() => {
     if (params.tab) {
       setActiveTab(params.tab as string);
@@ -293,26 +476,25 @@ export default function OrdersScreen() {
 
   // Get data based on active tab
   const getCurrentData = () => {
-    if (activeTab === 'drafts') {
-      return draftOrdersData;
+    switch (activeTab) {
+      case 'drafts':
+        return draftOrdersData;
+      case 'ready':
+        return readyOrdersData;
+      case 'packed':
+        return packedOrdersData;
+      case 'manifested':
+        return manifestedOrdersData;
+      case 'dispatched':
+        return dispatchedOrdersData;
+      case 'received':
+        return receivedOrdersData;
+      case 'cancelled':
+        return cancelledOrdersData;
+      case 'all':
+      default:
+        return allOrdersData;
     }
-    if (activeTab === 'ready') {
-      return readyOrdersData;
-    }
-    return allOrdersData.filter(order => {
-      if (activeTab === 'all') return true;
-      const statusMap: { [key: string]: string[] } = {
-        packed: ['packed'],
-        manifested: ['manifested'],
-        dispatched: ['dispatched', 'Picked Up'],
-        received: ['received', 'Delivered'],
-        cancelled: ['cancelled'],
-        disputed: ['disputed'],
-      };
-      return statusMap[activeTab]?.some(s => 
-        order.status.toLowerCase().includes(s.toLowerCase())
-      );
-    });
   };
 
   const currentData = getCurrentData();
@@ -381,7 +563,7 @@ export default function OrdersScreen() {
       return { bg: COLORS.warningLight, color: COLORS.warning };
     }
     if (statusLower.includes('ready')) {
-      return { bg: '#DCFCE7', color: '#16A34A' }; // Green for Ready for Packing
+      return { bg: '#DCFCE7', color: '#16A34A' };
     }
     return { bg: COLORS.lightGray, color: COLORS.gray };
   };
@@ -435,6 +617,16 @@ export default function OrdersScreen() {
     alert(`Print invoices for ${selectedOrders.length} orders`);
   };
 
+  const handlePrintInvoice = (orderId: string) => {
+    setActionMenuOrderId(null);
+    alert(`Print Invoice: ${orderId}`);
+  };
+
+  const handleCloneOrder = (orderId: string) => {
+    setActionMenuOrderId(null);
+    alert(`Clone Order: ${orderId}`);
+  };
+
   const getVisiblePages = () => {
     const pages = [];
     const maxVisible = 5;
@@ -456,7 +648,15 @@ export default function OrdersScreen() {
     return tab ? tab.label : 'All Orders';
   };
 
-  // Render table for All Orders (and other non-draft tabs)
+  // Check if tab should show Bulk Label and Bulk Invoice
+  const showBulkLabelInvoice = ['ready', 'packed', 'manifested', 'dispatched', 'received'].includes(activeTab);
+
+  // Get Actions header title based on tab
+  const getActionsHeaderTitle = () => {
+    return 'Actions';
+  };
+
+  // Render table for All Orders
   const renderAllOrdersTable = () => (
     <View style={isMobile ? undefined : styles.tableContainerDesktop}>
       {isMobile ? (
@@ -643,7 +843,6 @@ export default function OrdersScreen() {
   const renderDraftsRow = (order: any) => {
     const statusStyle = getStatusStyle(order.status);
     const isSelected = selectedOrders.includes(order.id);
-    const showMenu = actionMenuOrderId === order.id;
     
     return (
       <View key={order.id} style={[styles.tableRow, isMobile ? styles.tableRowMobile : styles.tableRowDesktop]}>
@@ -688,7 +887,7 @@ export default function OrdersScreen() {
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
+              onPress={() => setActionMenuOrderId(order.id)}
               style={styles.actionIcon}
             >
               <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
@@ -697,22 +896,6 @@ export default function OrdersScreen() {
         </View>
       </View>
     );
-  };
-
-  // Handle Ready tab actions
-  const handlePrintInvoice = (orderId: string) => {
-    setActionMenuOrderId(null);
-    alert(`Print Invoice: ${orderId}`);
-  };
-
-  const handleCloneOrder = (orderId: string) => {
-    setActionMenuOrderId(null);
-    alert(`Clone Order: ${orderId}`);
-  };
-
-  const handleCancelReadyOrder = (orderId: string) => {
-    setActionMenuOrderId(null);
-    alert(`Cancel Order: ${orderId}`);
   };
 
   // Render table for Ready tab
@@ -777,7 +960,6 @@ export default function OrdersScreen() {
   const renderReadyRow = (order: any) => {
     const statusStyle = getStatusStyle(order.status);
     const isSelected = selectedOrders.includes(order.id);
-    const showMenu = actionMenuOrderId === order.id;
     
     return (
       <View key={order.id} style={[styles.tableRow, isMobile ? styles.tableRowMobile : styles.tableRowDesktop]}>
@@ -822,7 +1004,7 @@ export default function OrdersScreen() {
               <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
             </TouchableOpacity>
             <TouchableOpacity 
-              onPress={() => setActionMenuOrderId(showMenu ? null : order.id)}
+              onPress={() => setActionMenuOrderId(order.id)}
               style={styles.actionIcon}
             >
               <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
@@ -831,6 +1013,137 @@ export default function OrdersScreen() {
         </View>
       </View>
     );
+  };
+
+  // Generic table for Packed, Manifested, Dispatched, Received, Cancelled tabs
+  const renderGenericTable = () => (
+    <View style={isMobile ? undefined : styles.tableContainerDesktop}>
+      {isMobile ? (
+        <ScrollView horizontal showsHorizontalScrollIndicator={true}>
+          <View style={styles.tableMobile}>
+            {renderGenericHeader()}
+            {paginatedOrders.map(order => renderGenericRow(order))}
+          </View>
+        </ScrollView>
+      ) : (
+        <View style={styles.tableDesktop}>
+          {renderGenericHeader()}
+          {paginatedOrders.map(order => renderGenericRow(order))}
+        </View>
+      )}
+    </View>
+  );
+
+  const renderGenericHeader = () => (
+    <View style={[styles.tableHeader, isMobile ? styles.tableHeaderMobile : styles.tableHeaderDesktop]}>
+      <View style={styles.cellCheckbox}>
+        <TouchableOpacity 
+          style={[styles.checkbox, selectAll && styles.checkboxSelected]}
+          onPress={handleSelectAll}
+        >
+          {selectAll && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+        </TouchableOpacity>
+      </View>
+      <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order ID</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+        <Text style={styles.headerText}>Customer Details</Text>
+      </View>
+      <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Order Date</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+        <View style={styles.headerCellWithSort}>
+          <Text style={styles.headerText}>Package Details</Text>
+          <Ionicons name="swap-vertical-outline" size={12} color={COLORS.gray} />
+        </View>
+      </View>
+      <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+        <Text style={styles.headerText}>Status</Text>
+      </View>
+      <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
+        <Text style={styles.headerText}>{getActionsHeaderTitle()}</Text>
+      </View>
+    </View>
+  );
+
+  const renderGenericRow = (order: any) => {
+    const statusStyle = getStatusStyle(order.status);
+    const isSelected = selectedOrders.includes(order.id);
+    
+    return (
+      <View key={order.id} style={[styles.tableRow, isMobile ? styles.tableRowMobile : styles.tableRowDesktop]}>
+        <View style={styles.cellCheckbox}>
+          <TouchableOpacity 
+            style={[styles.checkbox, isSelected && styles.checkboxSelected]}
+            onPress={() => handleSelectOrder(order.id)}
+          >
+            {isSelected && <Ionicons name="checkmark" size={12} color={COLORS.white} />}
+          </TouchableOpacity>
+        </View>
+        <View style={isMobile ? styles.cellOrderIdMobile : styles.cellOrderId}>
+          <Text style={styles.orderIdText}>{order.id}</Text>
+          <Text style={styles.subText}>{order.prefix}</Text>
+          <Text style={styles.subTextLight}>{order.invoiceNo}</Text>
+        </View>
+        <View style={isMobile ? styles.cellCustomerMobile : styles.cellCustomer}>
+          <Text style={styles.customerName}>{order.customerName}</Text>
+          <Text style={styles.subText}>{order.customerEmail}</Text>
+          <Text style={styles.subText}>{order.customerPhone}</Text>
+        </View>
+        <View style={isMobile ? styles.cellDateMobile : styles.cellDate}>
+          <Text style={styles.dateText}>{order.orderDate}</Text>
+          <Text style={styles.subText}>{order.orderTime}</Text>
+        </View>
+        <View style={isMobile ? styles.cellPackageMobile : styles.cellPackage}>
+          <Text style={styles.weightText}>{order.weight}</Text>
+          <Text style={styles.priceText}>{order.price}</Text>
+          <Text style={styles.subText}>{order.packageType}</Text>
+        </View>
+        <View style={isMobile ? styles.cellStatusMobile : styles.cellStatus}>
+          <View style={[styles.statusBadge, { backgroundColor: statusStyle.bg }]}>
+            <Text style={[styles.statusText, { color: statusStyle.color }]}>{order.status}</Text>
+          </View>
+        </View>
+        <View style={isMobile ? styles.cellActionsMobile : styles.cellActions}>
+          <View style={styles.actionsRow}>
+            <TouchableOpacity onPress={() => handlePrintInvoice(order.id)} style={styles.actionIcon}>
+              <Ionicons name="print-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleViewOrder(order.id)} style={styles.actionIcon}>
+              <Ionicons name="eye-outline" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => setActionMenuOrderId(order.id)}
+              style={styles.actionIcon}
+            >
+              <Ionicons name="ellipsis-vertical" size={18} color={COLORS.gray} />
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  // Get correct table based on tab
+  const renderTable = () => {
+    switch (activeTab) {
+      case 'drafts':
+        return renderDraftsTable();
+      case 'ready':
+        return renderReadyTable();
+      case 'all':
+        return renderAllOrdersTable();
+      default:
+        return renderGenericTable();
+    }
   };
 
   // Payment Popup Modal
@@ -844,19 +1157,14 @@ export default function OrdersScreen() {
       <Pressable style={styles.modalOverlay} onPress={() => setShowPayPopup(false)}>
         <Pressable style={styles.payPopupContainer} onPress={(e) => e.stopPropagation()}>
           <View style={styles.payPopupContent}>
-            {/* Info Icon */}
             <View style={styles.payPopupIconContainer}>
               <Ionicons name="information-circle" size={48} color={COLORS.primary} />
             </View>
-            
-            {/* Message */}
             <Text style={styles.payPopupTitle}>Are you sure</Text>
             <Text style={styles.payPopupMessage}>
               You want to confirm payment for Order{'\n'}
               <Text style={styles.payPopupOrderId}>{selectedOrderForPay?.id}</Text>
             </Text>
-            
-            {/* Buttons */}
             <View style={styles.payPopupButtons}>
               <TouchableOpacity 
                 style={styles.payPopupCancelBtn}
@@ -877,7 +1185,27 @@ export default function OrdersScreen() {
     </Modal>
   );
 
-  // Action Menu Modal
+  // Get menu options based on active tab
+  const getMenuOptions = () => {
+    if (activeTab === 'drafts') {
+      return [
+        { label: 'Edit Order', icon: 'create-outline', action: handleEditOrder, color: COLORS.textDark },
+        { label: 'Cancel Order', icon: 'close-circle-outline', action: handleCancelOrder, color: COLORS.error },
+      ];
+    }
+    if (activeTab === 'cancelled') {
+      return [
+        { label: 'Clone Order', icon: 'copy-outline', action: handleCloneOrder, color: COLORS.textDark },
+      ];
+    }
+    // For ready, packed, manifested, dispatched, received
+    return [
+      { label: 'Print Invoice', icon: 'print-outline', action: handlePrintInvoice, color: COLORS.textDark },
+      { label: 'Clone Order', icon: 'copy-outline', action: handleCloneOrder, color: COLORS.textDark },
+    ];
+  };
+
+  // Action Menu Modal (centered)
   const ActionMenuModal = () => (
     <Modal
       transparent
@@ -889,48 +1217,16 @@ export default function OrdersScreen() {
         <View style={styles.actionModalOverlay}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
             <View style={styles.actionModalContent}>
-              {activeTab === 'drafts' ? (
-                <>
-                  <TouchableOpacity 
-                    style={styles.actionModalItem}
-                    onPress={() => handleEditOrder(actionMenuOrderId!)}
-                  >
-                    <Ionicons name="create-outline" size={18} color={COLORS.textDark} />
-                    <Text style={styles.actionModalText}>Edit Order</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={[styles.actionModalItem, { borderBottomWidth: 0 }]}
-                    onPress={() => handleCancelOrder(actionMenuOrderId!)}
-                  >
-                    <Ionicons name="close-circle-outline" size={18} color={COLORS.error} />
-                    <Text style={[styles.actionModalText, { color: COLORS.error }]}>Cancel Order</Text>
-                  </TouchableOpacity>
-                </>
-              ) : (
-                <>
-                  <TouchableOpacity 
-                    style={styles.actionModalItem}
-                    onPress={() => handlePrintInvoice(actionMenuOrderId!)}
-                  >
-                    <Ionicons name="print-outline" size={18} color={COLORS.textDark} />
-                    <Text style={styles.actionModalText}>Print Invoice</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={styles.actionModalItem}
-                    onPress={() => handleCloneOrder(actionMenuOrderId!)}
-                  >
-                    <Ionicons name="copy-outline" size={18} color={COLORS.textDark} />
-                    <Text style={styles.actionModalText}>Clone Order</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity 
-                    style={[styles.actionModalItem, { borderBottomWidth: 0 }]}
-                    onPress={() => handleCancelReadyOrder(actionMenuOrderId!)}
-                  >
-                    <Ionicons name="close-circle-outline" size={18} color={COLORS.error} />
-                    <Text style={[styles.actionModalText, { color: COLORS.error }]}>Cancel Order</Text>
-                  </TouchableOpacity>
-                </>
-              )}
+              {getMenuOptions().map((option, index) => (
+                <TouchableOpacity 
+                  key={option.label}
+                  style={[styles.actionModalItem, index === getMenuOptions().length - 1 && { borderBottomWidth: 0 }]}
+                  onPress={() => option.action(actionMenuOrderId!)}
+                >
+                  <Ionicons name={option.icon as any} size={18} color={option.color} />
+                  <Text style={[styles.actionModalText, { color: option.color }]}>{option.label}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -1026,12 +1322,6 @@ export default function OrdersScreen() {
           <Text style={styles.breadcrumb}>Orders {'>'} {activeTab === 'all' ? 'All' : getPageTitle()}</Text>
         </View>
         <View style={styles.headerButtons}>
-          {activeTab === 'drafts' && (
-            <TouchableOpacity style={styles.bulkPayBtn} onPress={handleBulkPay}>
-              <Ionicons name="wallet-outline" size={18} color={COLORS.primary} />
-              <Text style={styles.bulkPayBtnText}>Bulk Pay</Text>
-            </TouchableOpacity>
-          )}
           <TouchableOpacity style={styles.addOrderBtn} onPress={() => router.push('/(tabs)/add-order')}>
             <Ionicons name="add" size={18} color={COLORS.white} />
             <Text style={styles.addOrderBtnText}>Add Order</Text>
@@ -1074,7 +1364,7 @@ export default function OrdersScreen() {
               placeholderTextColor={COLORS.textLight}
             />
           </View>
-          {activeTab === 'ready' && (
+          {(activeTab === 'ready' || showBulkLabelInvoice) && (
             <TouchableOpacity style={styles.moreFiltersBtn}>
               <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
               <Text style={styles.moreFiltersBtnText}>More Filters</Text>
@@ -1083,7 +1373,7 @@ export default function OrdersScreen() {
         </View>
         
         <View style={styles.filterRight}>
-          {activeTab === 'ready' && (
+          {showBulkLabelInvoice && (
             <>
               <TouchableOpacity style={styles.bulkActionBtn} onPress={handleBulkLabel}>
                 <Ionicons name="print-outline" size={16} color={COLORS.darkGray} />
@@ -1094,6 +1384,12 @@ export default function OrdersScreen() {
                 <Text style={styles.bulkActionBtnText}>Bulk Invoice</Text>
               </TouchableOpacity>
             </>
+          )}
+          {activeTab === 'drafts' && (
+            <TouchableOpacity style={styles.bulkPayBtn} onPress={handleBulkPay}>
+              <Ionicons name="wallet-outline" size={18} color={COLORS.primary} />
+              <Text style={styles.bulkPayBtnText}>Bulk Pay</Text>
+            </TouchableOpacity>
           )}
           <TouchableOpacity 
             style={styles.exportBtn}
@@ -1106,9 +1402,7 @@ export default function OrdersScreen() {
       </View>
 
       {/* Table */}
-      {activeTab === 'drafts' ? renderDraftsTable() : 
-       activeTab === 'ready' ? renderReadyTable() : 
-       renderAllOrdersTable()}
+      {renderTable()}
 
       {/* Pagination */}
       <View style={isMobile ? styles.paginationRowMobile : styles.paginationRow}>
@@ -1304,7 +1598,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontSize: 14,
   },
-  // Action Menu Modal
+  // Action Menu Modal (centered)
   actionModalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -1538,7 +1832,7 @@ const styles = StyleSheet.create({
   cellLastMileMobile: { width: 180, paddingHorizontal: 8 },
   cellViewMobile: { width: 80, paddingHorizontal: 8, alignItems: 'center' },
   cellActionsMobile: { width: 120, paddingHorizontal: 8 },
-  // Cell styles - Desktop (flex-based) - for data rows
+  // Cell styles - Desktop
   cellOrderId: { flex: 2, paddingHorizontal: 8, minWidth: 150 },
   cellCustomer: { flex: 2.5, paddingHorizontal: 8, minWidth: 180 },
   cellDate: { flex: 1.2, paddingHorizontal: 8, minWidth: 100 },

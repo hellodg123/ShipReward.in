@@ -63,14 +63,6 @@ const actionCards = [
   { title: 'Disputed Orders', count: '00', icon: 'close-circle-outline', iconColor: COLORS.rose, route: '/(tabs)/orders', tab: 'disputed' },
 ];
 
-const walletActivity = [
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283O4 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', amount: '-Rs. 250.00', color: COLORS.error },
-  { description: 'Wallet Recharge:', orderId: 'TXN-20251209-001234', date: '09 Oct 25 - 04:35 PM', amount: '+Rs. 5,000.00', color: COLORS.success },
-  { description: 'Wallet Deduction for Dispute Order:', orderId: 'SG325100639283G7 - Dispute-Other', date: '09 Oct 25 - 04:35 PM', amount: '-Rs. 180.00', color: COLORS.error },
-  { description: 'Order Payment:', orderId: 'SG32512224553178', date: '08 Oct 25 - 02:15 PM', amount: '-Rs. 476.72', color: COLORS.warning },
-  { description: 'Wallet Recharge:', orderId: 'TXN-20251008-005678', date: '08 Oct 25 - 10:00 AM', amount: '+Rs. 2,000.00', color: COLORS.success },
-];
-
 export default function DashboardScreen() {
   const router = useRouter();
 
@@ -103,51 +95,23 @@ export default function DashboardScreen() {
         ))}
       </View>
 
-      {/* Actions and Wallet Row */}
-      <View style={styles.actionsWalletRow}>
-        {/* Actions Section */}
-        <View style={styles.actionsSection}>
-          <Text style={styles.sectionTitle}>Actions</Text>
-          <View style={styles.actionsRow}>
-            {actionCards.map((card, index) => (
-              <TouchableOpacity
-                key={index}
-                style={styles.actionCard}
-                onPress={() => handleCardPress(card.route, card.tab)}
-              >
-                <View style={[styles.actionIcon, { backgroundColor: `${card.iconColor}15` }]}>
-                  <Ionicons name={card.icon as any} size={28} color={card.iconColor} />
-                </View>
-                <Text style={styles.actionCount}>{card.count}</Text>
-                <Text style={styles.actionTitle}>{card.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-
-        {/* Wallet Activity Section - Now as a Table with vertical scroll */}
-        <View style={styles.walletActivitySection}>
-          <Text style={styles.sectionTitle}>Wallet Activity</Text>
-          <View style={styles.walletActivityContainer}>
-            {/* Table Header */}
-            <View style={styles.walletTableHeader}>
-              <Text style={[styles.walletHeaderCell, { flex: 2 }]}>Description</Text>
-              <Text style={[styles.walletHeaderCell, { flex: 2 }]}>Reference</Text>
-              <Text style={[styles.walletHeaderCell, { flex: 1.5 }]}>Date</Text>
-              <Text style={[styles.walletHeaderCell, { flex: 1, textAlign: 'right' }]}>Amount</Text>
-            </View>
-            {/* Table Body with scroll */}
-            <ScrollView style={styles.walletTableBody} nestedScrollEnabled={true}>
-              {walletActivity.map((item, index) => (
-                <View key={index} style={styles.walletTableRow}>
-                  <Text style={[styles.walletCell, { flex: 2 }]} numberOfLines={1}>{item.description}</Text>
-                  <Text style={[styles.walletCell, styles.walletCellRef, { flex: 2 }]} numberOfLines={1}>{item.orderId}</Text>
-                  <Text style={[styles.walletCell, styles.walletCellDate, { flex: 1.5 }]} numberOfLines={1}>{item.date}</Text>
-                  <Text style={[styles.walletCell, { flex: 1, textAlign: 'right', color: item.color, fontWeight: '600' }]}>{item.amount}</Text>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
+      {/* Actions Section */}
+      <View style={styles.actionsSection}>
+        <Text style={styles.sectionTitle}>Actions</Text>
+        <View style={styles.actionsRow}>
+          {actionCards.map((card, index) => (
+            <TouchableOpacity
+              key={index}
+              style={styles.actionCard}
+              onPress={() => handleCardPress(card.route, card.tab)}
+            >
+              <View style={[styles.actionIcon, { backgroundColor: `${card.iconColor}15` }]}>
+                <Ionicons name={card.icon as any} size={28} color={card.iconColor} />
+              </View>
+              <Text style={styles.actionCount}>{card.count}</Text>
+              <Text style={styles.actionTitle}>{card.title}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
 
@@ -205,14 +169,8 @@ const styles = StyleSheet.create({
     color: COLORS.textDark,
     letterSpacing: -0.5,
   },
-  actionsWalletRow: {
-    flexDirection: 'row',
-    gap: 24,
-    flexWrap: 'wrap',
-  },
   actionsSection: {
-    flex: 2,
-    minWidth: 300,
+    marginBottom: 24,
   },
   sectionTitle: {
     fontSize: 20,
@@ -255,54 +213,6 @@ const styles = StyleSheet.create({
     color: COLORS.textMuted,
     textAlign: 'center',
     fontWeight: '500',
-  },
-  walletActivitySection: {
-    flex: 1.5,
-    minWidth: 300,
-  },
-  walletActivityContainer: {
-    backgroundColor: COLORS.white,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    overflow: 'hidden',
-  },
-  walletTableHeader: {
-    flexDirection: 'row',
-    backgroundColor: COLORS.divider,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
-  },
-  walletHeaderCell: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: COLORS.textMuted,
-    textTransform: 'uppercase',
-  },
-  walletTableBody: {
-    maxHeight: 200,
-  },
-  walletTableRow: {
-    flexDirection: 'row',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.divider,
-    alignItems: 'center',
-  },
-  walletCell: {
-    fontSize: 13,
-    color: COLORS.textDark,
-  },
-  walletCellRef: {
-    color: COLORS.primary,
-    fontWeight: '500',
-  },
-  walletCellDate: {
-    color: COLORS.textMuted,
-    fontSize: 12,
   },
   footerText: {
     fontSize: 13,
