@@ -692,11 +692,11 @@ export default function OrdersScreen() {
       const { pageX, pageY } = event.nativeEvent;
       setActionMenuPosition({ 
         top: pageY + 10, // Position below the click
-        right: width - pageX - 80 // Position aligned with the click
+        left: pageX - 130 // Position dropdown to the left of click (dropdown width ~150px)
       });
     } else {
       // Fallback position
-      setActionMenuPosition({ top: 200, right: 24 });
+      setActionMenuPosition({ top: 200, left: width - 180 });
     }
     setActionMenuOrderId(orderId);
   };
