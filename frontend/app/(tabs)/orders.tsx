@@ -1933,18 +1933,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: COLORS.primary,
   },
-  // Action Dropdown Styles (appears below three-dot button)
+  // Action Dropdown Styles (centered on screen)
   actionDropdownOverlay: {
     flex: 1,
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   actionDropdownContent: {
-    position: 'absolute',
-    top: '30%',
-    right: 60,
     backgroundColor: COLORS.white,
     borderRadius: 8,
-    minWidth: 160,
+    minWidth: 180,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
@@ -1957,10 +1956,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingVertical: 14,
     borderBottomWidth: 1,
     borderBottomColor: COLORS.divider,
-    gap: 10,
+    gap: 12,
   },
   actionDropdownText: {
     fontSize: 14,
