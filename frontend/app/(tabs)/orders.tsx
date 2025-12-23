@@ -2126,7 +2126,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   tableMobile: {
-    minWidth: 1100,
+    minWidth: 1000,
   },
   tableDesktop: {
     width: '100%',
