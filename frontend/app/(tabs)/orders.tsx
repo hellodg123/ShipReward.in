@@ -1237,7 +1237,7 @@ export default function OrdersScreen() {
       <View style={isMobile ? styles.cellLastMileMobile : styles.cellLastMile}>
         <Text style={styles.headerText}>Last Mile Details</Text>
       </View>
-      <View style={isMobile ? styles.cellViewMobile : styles.cellView}>
+      <View style={isMobile ? styles.cellViewMobileCentered : styles.cellViewCentered}>
         <Text style={styles.headerText}>View Orders</Text>
       </View>
     </View>
@@ -1297,7 +1297,7 @@ export default function OrdersScreen() {
             <Text style={styles.noDataText}>-</Text>
           )}
         </View>
-        <View style={isMobile ? styles.cellViewMobile : styles.cellView}>
+        <View style={isMobile ? styles.cellViewMobileCentered : styles.cellViewCentered}>
           <TouchableOpacity onPress={() => handleViewOrder(order.id)}>
             <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
           </TouchableOpacity>
