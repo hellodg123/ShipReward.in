@@ -1536,7 +1536,7 @@ export default function OrdersScreen() {
       <TouchableWithoutFeedback onPress={() => setActionMenuOrderId(null)}>
         <View style={styles.actionDropdownOverlay}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View style={styles.actionDropdownContent}>
+            <View style={[styles.actionDropdownContent, { top: actionMenuPosition.top, right: actionMenuPosition.right }]}>
               {getMenuOptions().map((option, index) => (
                 <TouchableOpacity 
                   key={option.label}
