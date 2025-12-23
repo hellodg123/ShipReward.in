@@ -1975,14 +1975,15 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: COLORS.primary,
   },
-  // Action Dropdown Styles (centered on screen)
+  // Action Dropdown Styles (positioned at right side)
   actionDropdownOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   actionDropdownContent: {
+    position: 'absolute',
+    top: 200,
+    right: 24,
     backgroundColor: COLORS.white,
     borderRadius: 8,
     minWidth: 180,
