@@ -1493,7 +1493,15 @@ export default function OrdersScreen() {
         { label: 'Clone Order', icon: 'copy-outline', action: handleCloneOrder, color: COLORS.textDark },
       ];
     }
-    // For ready, packed, manifested, dispatched, received
+    if (activeTab === 'ready' || activeTab === 'packed') {
+      // Ready and Packed tabs: Print Invoice, Clone Order, Cancel Order
+      return [
+        { label: 'Print Invoice', icon: 'print-outline', action: handlePrintInvoice, color: COLORS.textDark },
+        { label: 'Clone Order', icon: 'copy-outline', action: handleCloneOrder, color: COLORS.textDark },
+        { label: 'Cancel Order', icon: 'close-circle-outline', action: handleCancelOrder, color: COLORS.error },
+      ];
+    }
+    // For manifested, dispatched, received
     return [
       { label: 'Print Invoice', icon: 'print-outline', action: handlePrintInvoice, color: COLORS.textDark },
       { label: 'Clone Order', icon: 'copy-outline', action: handleCloneOrder, color: COLORS.textDark },
