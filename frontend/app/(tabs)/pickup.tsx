@@ -300,12 +300,18 @@ export default function PickupScreen() {
             </Text>
           </View>
         </View>
-        <View style={styles.viewCell}>
+        <View style={styles.actionsCell}>
           <TouchableOpacity 
             style={styles.viewButton}
             onPress={() => router.push(`/(tabs)/view-pickup?code=${item.pickupCode}`)}
           >
             <Ionicons name="eye-outline" size={20} color={COLORS.gray} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={styles.cancelButton}
+            onPress={() => alert(`Cancel pickup: ${item.pickupCode}`)}
+          >
+            <Ionicons name="close-circle-outline" size={20} color={COLORS.red} />
           </TouchableOpacity>
         </View>
       </View>
@@ -340,10 +346,6 @@ export default function PickupScreen() {
               onChangeText={setSearchQuery}
             />
           </View>
-          <TouchableOpacity style={styles.filterButton}>
-            <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-            <Text style={styles.filterButtonText}>More Filters</Text>
-          </TouchableOpacity>
         </View>
 
         {/* Table Header and Body - Conditional Horizontal Scroll for Mobile */}
@@ -789,6 +791,16 @@ const styles = StyleSheet.create({
     width: 70,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  actionsCell: {
+    width: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  cancelButton: {
+    padding: 8,
   },
   tableBody: {
     minHeight: 200,

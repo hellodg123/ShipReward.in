@@ -343,13 +343,9 @@ export default function InvoiceScreen() {
             onChangeText={setSearchQuery}
           />
         </View>
-        <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.filterButtonText}>More Filters</Text>
-        </TouchableOpacity>
         <View style={{ flex: 1 }} />
         <TouchableOpacity style={styles.exportButton}>
-          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
+          <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
           <Text style={styles.exportButtonText}>Export</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.bulkInvoiceButton}>
