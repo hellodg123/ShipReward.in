@@ -375,7 +375,7 @@ export default function PickupScreen() {
                 <View style={styles.statusCell}>
                   <Text style={styles.headerText}>Status</Text>
                 </View>
-                <View style={styles.viewCell}>
+                <View style={styles.actionsCell}>
                   <Text style={styles.headerText}>Actions</Text>
                 </View>
               </View>
