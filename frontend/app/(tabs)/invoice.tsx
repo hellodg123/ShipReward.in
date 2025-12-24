@@ -235,6 +235,7 @@ export default function InvoiceScreen() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
 
   // Filter invoices based on search query
   const filteredInvoices = invoiceData.filter(invoice =>
