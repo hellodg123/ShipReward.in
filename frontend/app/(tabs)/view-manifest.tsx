@@ -244,11 +244,90 @@ const sameAddressOrders = [
   },
 ];
 
-// Sample other address orders (empty for now to match screenshot)
-const otherAddressOrders: any[] = [];
+// Sample other address orders (with dummy data)
+const otherAddressOrders = [
+  {
+    id: 'SG32512224554890',
+    customerName: 'Robert Chen',
+    customerPhone: '+1 555-444-3333',
+    orderDate: '23 Dec, 2025',
+    orderTime: '10:30 AM',
+    weight: '0.6 kg',
+    packageType: 'CSB-IV',
+    address: '123, Main Street, Los Angeles, 90001',
+    lastMileAWB: 'UUS5CN4987718181001',
+  },
+  {
+    id: 'SG32512224554891',
+    customerName: 'Jessica Martinez',
+    customerPhone: '+1 555-222-1111',
+    orderDate: '23 Dec, 2025',
+    orderTime: '11:45 AM',
+    weight: '0.35 kg',
+    packageType: 'CSB-IV',
+    address: '456, Oak Avenue, Chicago, 60601',
+    lastMileAWB: 'UUS5CN4987718181002',
+  },
+  {
+    id: 'SG32512224554892',
+    customerName: 'Michael Thompson',
+    customerPhone: '+44 20-7654-3210',
+    orderDate: '22 Dec, 2025',
+    orderTime: '02:15 PM',
+    weight: '0.8 kg',
+    packageType: 'CSB-IV',
+    address: '789, Park Lane, London, SW1A 1AA',
+    lastMileAWB: 'UUS5CN4987718181003',
+  },
+];
 
-// Sample manifested orders (empty for now to match screenshot)
-const manifestedOrders: any[] = [];
+// Sample manifested orders (with dummy data)
+const manifestedOrders = [
+  {
+    id: 'SG32512224554900',
+    customerName: 'Andrew Wilson',
+    customerPhone: '+1 555-888-7777',
+    orderDate: '20 Dec, 2025',
+    orderTime: '09:00 AM',
+    weight: '0.5 kg',
+    packageType: 'CSB-IV',
+    address: '321, Broadway St, New York, 10001',
+    lastMileAWB: 'MNF5CN4987718182001',
+  },
+  {
+    id: 'SG32512224554901',
+    customerName: 'Linda Brown',
+    customerPhone: '+1 555-666-5555',
+    orderDate: '19 Dec, 2025',
+    orderTime: '03:30 PM',
+    weight: '1.2 kg',
+    packageType: 'CSB-IV',
+    address: '654, Market St, San Francisco, 94102',
+    lastMileAWB: 'MNF5CN4987718182002',
+  },
+  {
+    id: 'SG32512224554902',
+    customerName: 'Daniel Garcia',
+    customerPhone: '+61 2-9999-8888',
+    orderDate: '18 Dec, 2025',
+    orderTime: '11:00 AM',
+    weight: '0.75 kg',
+    packageType: 'CSB-IV',
+    address: '987, George St, Sydney, 2000',
+    lastMileAWB: 'MNF5CN4987718182003',
+  },
+  {
+    id: 'SG32512224554903',
+    customerName: 'Emma Davis',
+    customerPhone: '+44 20-1234-5678',
+    orderDate: '17 Dec, 2025',
+    orderTime: '04:45 PM',
+    weight: '0.4 kg',
+    packageType: 'CSB-IV',
+    address: '159, Oxford St, Manchester, M1 1AA',
+    lastMileAWB: 'MNF5CN4987718182004',
+  },
+];
 
 const ITEMS_PER_PAGE = 10;
 
