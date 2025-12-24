@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 12,
     padding: 24,
-    flex: 1,
+    marginBottom: 24,
   },
   cardHeader: {
     marginBottom: 24,
