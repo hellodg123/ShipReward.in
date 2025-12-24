@@ -446,13 +446,12 @@ export default function WalletScreen() {
 
       {/* Filter and Export */}
       <View style={styles.filterSection}>
-        <TouchableOpacity style={styles.filterButton}>
-          <Ionicons name="options-outline" size={18} color={COLORS.darkGray} />
-          <Text style={styles.filterButtonText}>More Filters</Text>
-        </TouchableOpacity>
         <View style={{ flex: 1 }} />
-        <TouchableOpacity style={styles.exportButton}>
-          <Ionicons name="download-outline" size={18} color={COLORS.darkGray} />
+        <TouchableOpacity 
+          style={styles.exportButton}
+          onPress={() => setShowExportDropdown(true)}
+        >
+          <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
           <Text style={styles.exportButtonText}>Export</Text>
         </TouchableOpacity>
       </View>
