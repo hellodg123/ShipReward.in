@@ -346,7 +346,10 @@ export default function InvoiceScreen() {
           />
         </View>
         <View style={{ flex: 1 }} />
-        <TouchableOpacity style={styles.exportButton}>
+        <TouchableOpacity 
+          style={styles.exportButton}
+          onPress={() => setShowExportDropdown(true)}
+        >
           <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
           <Text style={styles.exportButtonText}>Export</Text>
         </TouchableOpacity>
