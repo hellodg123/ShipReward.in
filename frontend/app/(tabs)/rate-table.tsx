@@ -98,7 +98,7 @@ export default function RateTableScreen() {
   const currentCountry = countryTabs.find(tab => tab.id === activeTab);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {/* Header */}
       <View style={styles.header}>
         <View>
