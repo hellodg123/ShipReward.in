@@ -48,81 +48,166 @@ export default function PrivacyPolicyScreen() {
         <View style={styles.content}>
           <View style={styles.card}>
             <Text style={styles.mainTitle}>Privacy Policy</Text>
-            <Text style={styles.lastUpdated}>Last Updated: December 24, 2025</Text>
+            <Text style={styles.lastUpdated}>Version 1.0</Text>
+
+            <Text style={styles.introText}>
+              This Privacy Policy outlines ShipReward.in's approach to Data Protection and Privacy to fulfil its obligations under the applicable laws and regulations. This Privacy Policy applies to your Personal Data which is processed by us, whether in physical or electronic mode.
+            </Text>
+
+            <Text style={styles.introText}>
+              In this Privacy Policy, the expressions 'Personal Data', 'Data Subject', 'Controller', 'Processor' and 'Processing' shall have the meanings given to them in the applicable privacy laws.
+            </Text>
+
+            <Text style={styles.introText}>
+              We are committed to treating data privacy seriously. It is important that you know exactly what we do with your Personal Data.
+            </Text>
+
+            <Text style={styles.introText}>
+              Throughout this document, "we", "us", "our", "ours" refer to ShipReward.in. Wherever we have said 'you' or 'your', this means YOU.
+            </Text>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>1. Introduction</Text>
+              <Text style={styles.sectionTitle}>WHO WE ARE</Text>
               <Text style={styles.paragraph}>
-                Welcome to ShipReward.in. We are committed to protecting your personal information and your right to privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+                ShipReward.in (Ship Reward Logistics Private Limited) is a company incorporated and registered in India. ShipReward.in is engaged in the business of facilitating selling, marketing and retailing products ("Business") through the e-commerce websites and mobile applications ("App") both developed and owned by ShipReward.in and/or its parent company, and/or its affiliates (Website and App collectively referred to as "Platform") or offline stores / events to conduct its Business.
               </Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>2. Information We Collect</Text>
+              <Text style={styles.sectionTitle}>ROLES WE PLAY</Text>
               <Text style={styles.paragraph}>
-                We collect personal information that you voluntarily provide to us when you register on the website, express an interest in obtaining information about us or our products and services, or otherwise contact us.
+                We play the role of a Data Controller when we collect and process Personal Data about you.
               </Text>
-              <Text style={styles.bulletPoint}>• Personal Data: Name, email address, phone number, shipping address</Text>
-              <Text style={styles.bulletPoint}>• Payment Information: Credit card details, billing address (processed securely through our payment partners)</Text>
-              <Text style={styles.bulletPoint}>• Shipping Information: Sender and recipient details, package contents, weight, and dimensions</Text>
-              <Text style={styles.bulletPoint}>• Usage Data: Browser type, IP address, pages visited, time spent on pages</Text>
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>3. How We Use Your Information</Text>
-              <Text style={styles.paragraph}>We use the information we collect for the following purposes:</Text>
-              <Text style={styles.bulletPoint}>• To process and fulfill your shipping orders</Text>
-              <Text style={styles.bulletPoint}>• To communicate with you about your orders and our services</Text>
-              <Text style={styles.bulletPoint}>• To manage your account and provide customer support</Text>
-              <Text style={styles.bulletPoint}>• To administer our rewards and loyalty programs</Text>
-              <Text style={styles.bulletPoint}>• To send you marketing communications (with your consent)</Text>
-              <Text style={styles.bulletPoint}>• To improve our website and services</Text>
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>4. Information Sharing</Text>
               <Text style={styles.paragraph}>
-                We may share your information with third parties only in the following situations:
-              </Text>
-              <Text style={styles.bulletPoint}>• With shipping carriers to fulfill your orders</Text>
-              <Text style={styles.bulletPoint}>• With payment processors to complete transactions</Text>
-              <Text style={styles.bulletPoint}>• With customs authorities as required by law</Text>
-              <Text style={styles.bulletPoint}>• With service providers who assist in our operations</Text>
-              <Text style={styles.bulletPoint}>• When required by law or to protect our rights</Text>
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>5. Data Security</Text>
-              <Text style={styles.paragraph}>
-                We implement appropriate technical and organizational security measures to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.
+                We play the role of a Data Processor when we collect and process Personal Data on behalf of another Data Controller.
               </Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>6. Your Rights</Text>
-              <Text style={styles.paragraph}>You have the right to:</Text>
-              <Text style={styles.bulletPoint}>• Access your personal information</Text>
-              <Text style={styles.bulletPoint}>• Correct inaccurate or incomplete information</Text>
-              <Text style={styles.bulletPoint}>• Request deletion of your personal information</Text>
-              <Text style={styles.bulletPoint}>• Opt-out of marketing communications</Text>
-              <Text style={styles.bulletPoint}>• Withdraw consent at any time</Text>
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>7. Cookies</Text>
+              <Text style={styles.sectionTitle}>OUR COMMITMENT</Text>
               <Text style={styles.paragraph}>
-                We use cookies and similar tracking technologies to track activity on our website and store certain information. You can instruct your browser to refuse all cookies or indicate when a cookie is being sent.
+                We commit to protecting your privacy and hence our Personal Data handling practices are continually reviewed to ensure compliance with the applicable Privacy laws and regulations.
               </Text>
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>8. Contact Us</Text>
+              <Text style={styles.sectionTitle}>PERSONAL INFORMATION GATHERED BY ShipReward.in</Text>
               <Text style={styles.paragraph}>
-                If you have any questions about this Privacy Policy, please contact us at:
+                The information we learn and gather from you, personal or otherwise, is used to register you, verify your identity to permit you to use the app, undertake transactions (including to facilitate and process payments), communicate with you, convey any promotional offers, services or updates associated with SHIPREWARD.IN, and generally maintain your accounts with us. We also use this information to customize your experience and improve SHIPREWARD.IN.
               </Text>
-              <Text style={styles.contactInfo}>Email: support@shipreward.in</Text>
-              <Text style={styles.contactInfo}>Phone: +91 7096826135</Text>
-              <Text style={styles.contactInfo}>Address: 477, AR Mall, Near Vip Circle, Mota Varachha, Surat, Gujarat 394101, India</Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>INFORMATION YOU GIVE US</Text>
+              <Text style={styles.paragraph}>
+                We receive and store any information you provide while using SHIPREWARD.IN or give us in any other way. You can choose not to provide certain information, but then you might not be able to use SHIPREWARD.IN. We use the information that you provide for such purposes as opening your account, processing your transactions, responding to your requests, and communicating with you.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>INFORMATION WE COLLECT ABOUT YOU</Text>
+              <Text style={styles.paragraph}>
+                We receive and store certain types of information whenever you interact with us. For example, like many websites, we use "cookies," and we obtain certain types of information when your web browser accesses our Services. We may also receive/store information about your location and your mobile device, including a unique identifier for your device. We may use this information for internal analysis and to provide you with location-based services, such as advertising, search results, and other personalized content.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>INFORMATION FROM OTHER SOURCES</Text>
+              <Text style={styles.paragraph}>
+                We might receive information about you from other sources, such as updated delivery and address information from our carriers, which we use to correct our records and deliver your next purchase more easily.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>CATEGORIES OF PERSONAL DATA</Text>
+              <Text style={styles.paragraph}>
+                Categories of Personal Data collected and processed by us are as follows:
+              </Text>
+              <Text style={styles.bulletPoint}>• Demographic & Identity data: Contact details such as Name, email address, contact number, shipping address, country, date of birth, profile picture. Open data and public records such as information about YOU that is openly available on the internet.</Text>
+              <Text style={styles.bulletPoint}>• Details such as Transaction amount, Bank Name, Card Type, Card number.</Text>
+              <Text style={styles.bulletPoint}>• Online Identifiers and other Technical Data</Text>
+              <Text style={styles.bulletPoint}>• Location details such as data we get about your location, IP address, logs, or from where you connect a computer to the internet.</Text>
+              <Text style={styles.bulletPoint}>• Technical details such as device information, location, and network carrier when you use our mobile applications.</Text>
+              <Text style={styles.bulletPoint}>• Communications details such as the Metadata and other Personal Data we get from communications done through e-mails, SMS, instant messages, and calls.</Text>
+              <Text style={styles.bulletPoint}>• Usage data details such as data about how you use our website or web-based properties, pages viewed, etc.</Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Aadhaar and Document Alternatives</Text>
+              <Text style={styles.paragraph}>
+                We may collect Aadhaar information for identity verification purposes. However, users may choose to upload alternate government-issued documents such as PAN or Passport instead.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>CONSENT</Text>
+              <Text style={styles.paragraph}>
+                By using the Website and/ or by providing your information, you consent to the collection and use of the information you disclose on the Website in accordance with this Privacy Policy, including but not limited to your consent for sharing your information as per this privacy policy.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Purpose of Data Collection</Text>
+              <Text style={styles.paragraph}>
+                We use your data to process orders, deliver products, enhance functionality, provide personalized recommendations, communicate service updates, and ensure compliance with legal obligations.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Cookies and Trackers</Text>
+              <Text style={styles.paragraph}>
+                Our website uses cookies and trackers (e.g., Google Analytics, Hot Jar) to improve performance and user experience. You may disable certain cookies via browser settings; however, this may affect site functionality.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Personal Data Disclosure</Text>
+              <Text style={styles.paragraph}>
+                We may share data with third-party SDK providers for service integration, as well as with legal or regulatory authorities if required by law.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Data Security</Text>
+              <Text style={styles.paragraph}>
+                We implement strong physical, technical, and administrative safeguards to protect your data, including encryption and secure infrastructure practices.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Data Retention</Text>
+              <Text style={styles.paragraph}>
+                Your data is retained only as long as necessary for the purposes outlined in this policy and to meet legal requirements. We take reasonable steps to delete or de-identify data when no longer needed.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Children's Privacy</Text>
+              <Text style={styles.paragraph}>
+                Our services are intended for adult users. We do not knowingly collect information from minors.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Your Rights</Text>
+              <Text style={styles.paragraph}>
+                You have the right to access, correct, and manage your personal data. If you have unresolved concerns, please contact us at support@ShipReward.in.
+              </Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>CONTACT US</Text>
+              <Text style={styles.paragraph}>
+                For any further queries and complaints related to privacy under applicable laws and regulations, you could reach us at:
+              </Text>
+              <Text style={styles.contactInfo}>Contact Email Address: Support@ShipReward.in</Text>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>Notification of Changes</Text>
+              <Text style={styles.paragraph}>
+                We regularly review and update our Privacy Policy. Any changes will be published on this page. We recommend revisiting this page periodically.
+              </Text>
             </View>
           </View>
 
@@ -190,13 +275,19 @@ const styles = StyleSheet.create({
   lastUpdated: {
     fontSize: 14,
     color: COLORS.gray,
-    marginBottom: 32,
+    marginBottom: 24,
+  },
+  introText: {
+    fontSize: 15,
+    color: COLORS.darkGray,
+    lineHeight: 24,
+    marginBottom: 16,
   },
   section: {
-    marginBottom: 28,
+    marginBottom: 24,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
     color: COLORS.textDark,
     marginBottom: 12,
@@ -212,6 +303,7 @@ const styles = StyleSheet.create({
     color: COLORS.darkGray,
     lineHeight: 26,
     paddingLeft: 8,
+    marginBottom: 8,
   },
   contactInfo: {
     fontSize: 15,
