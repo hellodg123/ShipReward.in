@@ -1,106 +1,123 @@
-diff --git a/frontend/src/components/DashboardLayout.tsx b/frontend/src/components/DashboardLayout.tsx
-index 32643b9..3819aa8 100644
---- a/frontend/src/components/DashboardLayout.tsx
-+++ b/frontend/src/components/DashboardLayout.tsx
-@@ -154,33 +154,39 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
-           </View>
-         </View>
+diff --git a/frontend/app/(tabs)/invoice.tsx b/frontend/app/(tabs)/invoice.tsx
+index 29a7497..5779eda 100644
+--- a/frontend/app/(tabs)/invoice.tsx
++++ b/frontend/app/(tabs)/invoice.tsx
+@@ -7,6 +7,7 @@ import {
+   TouchableOpacity,
+   TextInput,
+   Dimensions,
++  TouchableWithoutFeedback,
+ } from 'react-native';
+ import { Ionicons } from '@expo/vector-icons';
  
-+        {/* Mobile Horizontal Navigation */}
-+        <View style={styles.mobileNavContainer}>
-+          <ScrollView 
-+            horizontal 
-+            showsHorizontalScrollIndicator={false}
-+            contentContainerStyle={styles.mobileNavScrollContent}
-+          >
-+            {menuItems.map((item, index) => {
-+              const isActive = isActiveRoute(item.route);
-+              return (
-+                <TouchableOpacity
-+                  key={index}
-+                  style={[styles.mobileNavItemHorizontal, isActive && styles.mobileNavItemActive]}
-+                  onPress={() => router.push(item.route as any)}
-+                >
-+                  <Ionicons
-+                    name={item.icon as any}
-+                    size={18}
-+                    color={isActive ? COLORS.white : COLORS.gray}
-+                  />
-+                  <Text style={[styles.mobileNavLabelHorizontal, isActive && styles.mobileNavLabelHorizontalActive]}>
-+                    {item.label}
-+                  </Text>
-+                </TouchableOpacity>
-+              );
-+            })}
-+          </ScrollView>
-+        </View>
-+
-         {/* Mobile Content */}
-         <View style={styles.mobileContent}>
-           {children}
-         </View>
--
--        {/* Mobile Bottom Navigation */}
--        <View style={styles.mobileBottomNav}>
--          {menuItems.slice(0, 4).map((item, index) => {
--            const isActive = isActiveRoute(item.route);
--            return (
--              <TouchableOpacity
--                key={index}
--                style={styles.mobileNavItem}
--                onPress={() => router.push(item.route as any)}
--              >
--                <Ionicons
--                  name={item.icon as any}
--                  size={22}
--                  color={isActive ? COLORS.primary : COLORS.gray}
--                />
--                <Text style={[styles.mobileNavLabel, isActive && styles.mobileNavLabelActive]}>
--                  {item.label}
--                </Text>
--              </TouchableOpacity>
--            );
--          })}
--        </View>
-       </SafeAreaView>
-     );
-   }
-@@ -380,6 +386,38 @@ const styles = StyleSheet.create({
-     color: COLORS.primary,
-     fontWeight: '600',
-   },
-+  // Mobile Horizontal Navigation Styles
-+  mobileNavContainer: {
-+    backgroundColor: COLORS.white,
-+    borderBottomWidth: 1,
-+    borderBottomColor: COLORS.border,
-+    paddingVertical: 8,
-+  },
-+  mobileNavScrollContent: {
-+    paddingHorizontal: 16,
-+    gap: 8,
-+  },
-+  mobileNavItemHorizontal: {
-+    flexDirection: 'row',
-+    alignItems: 'center',
-+    paddingHorizontal: 12,
-+    paddingVertical: 8,
-+    borderRadius: 20,
-+    backgroundColor: COLORS.lightGray,
-+    gap: 6,
-+    minWidth: 80,
-+  },
-+  mobileNavItemActive: {
-+    backgroundColor: COLORS.primary,
-+  },
-+  mobileNavLabelHorizontal: {
-+    fontSize: 12,
-+    color: COLORS.gray,
-+    fontWeight: '500',
-+  },
-+  mobileNavLabelHorizontalActive: {
-+    color: COLORS.white,
-+  },
-   // Desktop Styles
-   desktopContainer: {
-     flex: 1,
+diff --git a/model.patch b/model.patch
+index fde00ec..e69de29 100644
+--- a/model.patch
++++ b/model.patch
+@@ -1,106 +0,0 @@
+-diff --git a/frontend/src/components/DashboardLayout.tsx b/frontend/src/components/DashboardLayout.tsx
+-index 32643b9..3819aa8 100644
+---- a/frontend/src/components/DashboardLayout.tsx
+-+++ b/frontend/src/components/DashboardLayout.tsx
+-@@ -154,33 +154,39 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
+-           </View>
+-         </View>
+- 
+-+        {/* Mobile Horizontal Navigation */}
+-+        <View style={styles.mobileNavContainer}>
+-+          <ScrollView 
+-+            horizontal 
+-+            showsHorizontalScrollIndicator={false}
+-+            contentContainerStyle={styles.mobileNavScrollContent}
+-+          >
+-+            {menuItems.map((item, index) => {
+-+              const isActive = isActiveRoute(item.route);
+-+              return (
+-+                <TouchableOpacity
+-+                  key={index}
+-+                  style={[styles.mobileNavItemHorizontal, isActive && styles.mobileNavItemActive]}
+-+                  onPress={() => router.push(item.route as any)}
+-+                >
+-+                  <Ionicons
+-+                    name={item.icon as any}
+-+                    size={18}
+-+                    color={isActive ? COLORS.white : COLORS.gray}
+-+                  />
+-+                  <Text style={[styles.mobileNavLabelHorizontal, isActive && styles.mobileNavLabelHorizontalActive]}>
+-+                    {item.label}
+-+                  </Text>
+-+                </TouchableOpacity>
+-+              );
+-+            })}
+-+          </ScrollView>
+-+        </View>
+-+
+-         {/* Mobile Content */}
+-         <View style={styles.mobileContent}>
+-           {children}
+-         </View>
+--
+--        {/* Mobile Bottom Navigation */}
+--        <View style={styles.mobileBottomNav}>
+--          {menuItems.slice(0, 4).map((item, index) => {
+--            const isActive = isActiveRoute(item.route);
+--            return (
+--              <TouchableOpacity
+--                key={index}
+--                style={styles.mobileNavItem}
+--                onPress={() => router.push(item.route as any)}
+--              >
+--                <Ionicons
+--                  name={item.icon as any}
+--                  size={22}
+--                  color={isActive ? COLORS.primary : COLORS.gray}
+--                />
+--                <Text style={[styles.mobileNavLabel, isActive && styles.mobileNavLabelActive]}>
+--                  {item.label}
+--                </Text>
+--              </TouchableOpacity>
+--            );
+--          })}
+--        </View>
+-       </SafeAreaView>
+-     );
+-   }
+-@@ -380,6 +386,38 @@ const styles = StyleSheet.create({
+-     color: COLORS.primary,
+-     fontWeight: '600',
+-   },
+-+  // Mobile Horizontal Navigation Styles
+-+  mobileNavContainer: {
+-+    backgroundColor: COLORS.white,
+-+    borderBottomWidth: 1,
+-+    borderBottomColor: COLORS.border,
+-+    paddingVertical: 8,
+-+  },
+-+  mobileNavScrollContent: {
+-+    paddingHorizontal: 16,
+-+    gap: 8,
+-+  },
+-+  mobileNavItemHorizontal: {
+-+    flexDirection: 'row',
+-+    alignItems: 'center',
+-+    paddingHorizontal: 12,
+-+    paddingVertical: 8,
+-+    borderRadius: 20,
+-+    backgroundColor: COLORS.lightGray,
+-+    gap: 6,
+-+    minWidth: 80,
+-+  },
+-+  mobileNavItemActive: {
+-+    backgroundColor: COLORS.primary,
+-+  },
+-+  mobileNavLabelHorizontal: {
+-+    fontSize: 12,
+-+    color: COLORS.gray,
+-+    fontWeight: '500',
+-+  },
+-+  mobileNavLabelHorizontalActive: {
+-+    color: COLORS.white,
+-+  },
+-   // Desktop Styles
+-   desktopContainer: {
+-     flex: 1,
