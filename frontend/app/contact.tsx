@@ -32,7 +32,7 @@ export default function ContactScreen() {
   const router = useRouter();
 
   const handleCall = () => {
-    Linking.openURL('tel:+919906599065');
+    Linking.openURL('tel:+917096826135');
   };
 
   const handleEmail = (email: string) => {
@@ -78,7 +78,7 @@ export default function ContactScreen() {
                   <Ionicons name="call" size={22} color={COLORS.primary} />
                 </View>
                 <View>
-                  <Text style={styles.contactValue}>+91 99065 99065</Text>
+                  <Text style={styles.contactValue}>+91 7096826135</Text>
                   <Text style={styles.contactLabel}>10 am – 6:30 pm</Text>
                   <Text style={styles.contactLabel}>(Monday – Saturday)</Text>
                 </View>
@@ -95,34 +95,34 @@ export default function ContactScreen() {
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={styles.contactValue}>
-                    A-60, opp. Aerocity, Block B, Mahipalpur,{"\n"}New Delhi 110037, India
+                    477, AR Mall, Near Vip Circle, Mota Varachha,{"\n"}Surat, Gujarat 394101, India
                   </Text>
                 </View>
               </View>
 
               <TouchableOpacity 
                 style={styles.contactItem} 
-                onPress={() => handleEmail('cs@shipglobal.in')}
+                onPress={() => handleEmail('support@shipreward.in')}
               >
                 <View style={styles.iconContainer}>
                   <Ionicons name="mail" size={22} color={COLORS.primary} />
                 </View>
                 <View>
                   <Text style={styles.contactLabel}>For support :</Text>
-                  <Text style={styles.contactValue}>cs@shipglobal.in</Text>
+                  <Text style={styles.contactValue}>support@shipreward.in</Text>
                 </View>
               </TouchableOpacity>
 
               <TouchableOpacity 
                 style={styles.contactItem} 
-                onPress={() => handleEmail('marketing@shipglobal.in')}
+                onPress={() => handleEmail('admin@shipreward.in')}
               >
                 <View style={styles.iconContainer}>
                   <Ionicons name="mail" size={22} color={COLORS.primary} />
                 </View>
                 <View>
                   <Text style={styles.contactLabel}>For any other queries :</Text>
-                  <Text style={styles.contactValue}>marketing@shipglobal.in</Text>
+                  <Text style={styles.contactValue}>admin@shipreward.in</Text>
                 </View>
               </TouchableOpacity>
             </View>
