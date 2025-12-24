@@ -578,6 +578,43 @@ export default function ManifestScreen() {
           </Pressable>
         </Pressable>
       </Modal>
+
+      {/* Export Dropdown Modal */}
+      <Modal
+        visible={showExportDropdown}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowExportDropdown(false)}
+      >
+        <TouchableWithoutFeedback onPress={() => setShowExportDropdown(false)}>
+          <View style={styles.exportModalOverlay}>
+            <TouchableWithoutFeedback>
+              <View style={styles.exportDropdownContainer}>
+                <TouchableOpacity 
+                  style={styles.exportDropdownItem}
+                  onPress={() => {
+                    alert('Export as CSV');
+                    setShowExportDropdown(false);
+                  }}
+                >
+                  <Ionicons name="document-text-outline" size={18} color={COLORS.darkGray} />
+                  <Text style={styles.exportDropdownText}>Export as CSV</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                  style={styles.exportDropdownItem}
+                  onPress={() => {
+                    alert('Export as Excel');
+                    setShowExportDropdown(false);
+                  }}
+                >
+                  <Ionicons name="grid-outline" size={18} color={COLORS.darkGray} />
+                  <Text style={styles.exportDropdownText}>Export as Excel</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 }
