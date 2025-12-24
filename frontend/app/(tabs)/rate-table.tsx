@@ -138,66 +138,64 @@ export default function RateTableScreen() {
         </View>
 
         {/* Table */}
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.table}>
-              {/* Table Header */}
-              <View style={styles.tableHeader}>
-                <View style={[styles.tableHeaderCell, { width: 120 }]}>
-                  <Text style={styles.tableHeaderText}>Weight</Text>
-                  <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
-                </View>
-                <View style={[styles.tableHeaderCell, { width: 140 }]}>
-                  <View style={styles.headerWithBadge}>
-                    <Text style={styles.tableHeaderText}>Standard</Text>
-                    <View style={[styles.deliveryBadge, { backgroundColor: '#ECFDF5' }]}>
-                      <Text style={[styles.deliveryBadgeText, { color: '#10B981' }]}>7-10 Days</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={[styles.tableHeaderCell, { width: 140 }]}>
-                  <View style={styles.headerWithBadge}>
-                    <Text style={styles.tableHeaderText}>Express</Text>
-                    <View style={[styles.deliveryBadge, { backgroundColor: '#FEF3C7' }]}>
-                      <Text style={[styles.deliveryBadgeText, { color: '#D97706' }]}>5-7 Days</Text>
-                    </View>
-                  </View>
-                </View>
-                <View style={[styles.tableHeaderCell, { width: 140 }]}>
-                  <View style={styles.headerWithBadge}>
-                    <Text style={styles.tableHeaderText}>Priority</Text>
-                    <View style={[styles.deliveryBadge, { backgroundColor: '#FEE2E2' }]}>
-                      <Text style={[styles.deliveryBadgeText, { color: '#EF4444' }]}>3-5 Days</Text>
-                    </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.table}>
+            {/* Table Header */}
+            <View style={styles.tableHeader}>
+              <View style={[styles.tableHeaderCell, { width: 120 }]}>
+                <Text style={styles.tableHeaderText}>Weight</Text>
+                <Ionicons name="swap-vertical-outline" size={14} color={COLORS.gray} />
+              </View>
+              <View style={[styles.tableHeaderCell, { width: 140 }]}>
+                <View style={styles.headerWithBadge}>
+                  <Text style={styles.tableHeaderText}>Standard</Text>
+                  <View style={[styles.deliveryBadge, { backgroundColor: '#ECFDF5' }]}>
+                    <Text style={[styles.deliveryBadgeText, { color: '#10B981' }]}>7-10 Days</Text>
                   </View>
                 </View>
               </View>
-
-              {/* Table Body */}
-              {currentRates.map((rate, index) => (
-                <View key={index} style={[styles.tableRow, index % 2 === 0 && styles.tableRowEven]}>
-                  <View style={[styles.tableCell, { width: 120 }]}>
-                    <Text style={styles.weightText}>{rate.weight}</Text>
-                  </View>
-                  <View style={[styles.tableCell, { width: 140 }]}>
-                    <Text style={styles.priceText}>₹ {rate.standard.toLocaleString()}</Text>
-                  </View>
-                  <View style={[styles.tableCell, { width: 140 }]}>
-                    <Text style={styles.priceText}>₹ {rate.express.toLocaleString()}</Text>
-                  </View>
-                  <View style={[styles.tableCell, { width: 140 }]}>
-                    <Text style={styles.priceText}>₹ {rate.priority.toLocaleString()}</Text>
+              <View style={[styles.tableHeaderCell, { width: 140 }]}>
+                <View style={styles.headerWithBadge}>
+                  <Text style={styles.tableHeaderText}>Express</Text>
+                  <View style={[styles.deliveryBadge, { backgroundColor: '#FEF3C7' }]}>
+                    <Text style={[styles.deliveryBadgeText, { color: '#D97706' }]}>5-7 Days</Text>
                   </View>
                 </View>
-              ))}
+              </View>
+              <View style={[styles.tableHeaderCell, { width: 140 }]}>
+                <View style={styles.headerWithBadge}>
+                  <Text style={styles.tableHeaderText}>Priority</Text>
+                  <View style={[styles.deliveryBadge, { backgroundColor: '#FEE2E2' }]}>
+                    <Text style={[styles.deliveryBadgeText, { color: '#EF4444' }]}>3-5 Days</Text>
+                  </View>
+                </View>
+              </View>
             </View>
-          </ScrollView>
+
+            {/* Table Body */}
+            {currentRates.map((rate, index) => (
+              <View key={index} style={[styles.tableRow, index % 2 === 0 && styles.tableRowEven]}>
+                <View style={[styles.tableCell, { width: 120 }]}>
+                  <Text style={styles.weightText}>{rate.weight}</Text>
+                </View>
+                <View style={[styles.tableCell, { width: 140 }]}>
+                  <Text style={styles.priceText}>₹ {rate.standard.toLocaleString()}</Text>
+                </View>
+                <View style={[styles.tableCell, { width: 140 }]}>
+                  <Text style={styles.priceText}>₹ {rate.express.toLocaleString()}</Text>
+                </View>
+                <View style={[styles.tableCell, { width: 140 }]}>
+                  <Text style={styles.priceText}>₹ {rate.priority.toLocaleString()}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
         </ScrollView>
       </View>
 
       {/* Footer */}
       <Text style={styles.footerText}>2025 © ShipReward.in</Text>
-    </View>
+    </ScrollView>
   );
 }
 
