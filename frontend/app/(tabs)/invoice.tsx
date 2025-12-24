@@ -6,6 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Modal,
+  Pressable,
   Dimensions,
   TouchableWithoutFeedback,
 } from 'react-native';
