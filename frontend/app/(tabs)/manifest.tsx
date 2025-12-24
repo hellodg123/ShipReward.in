@@ -9,6 +9,7 @@ import {
   Modal,
   Pressable,
   Dimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -182,6 +183,7 @@ export default function ManifestScreen() {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [selectedPickupAddress, setSelectedPickupAddress] = useState<string>('');
   const [showAddressDropdown, setShowAddressDropdown] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
 
   // Filter manifests based on search query
   const filteredManifests = manifestData.filter(manifest =>
@@ -326,7 +328,10 @@ export default function ManifestScreen() {
             />
           </View>
           <View style={{ flex: 1 }} />
-          <TouchableOpacity style={styles.exportButton}>
+          <TouchableOpacity 
+            style={styles.exportButton}
+            onPress={() => setShowExportDropdown(true)}
+          >
             <Ionicons name="cloud-download-outline" size={18} color={COLORS.darkGray} />
             <Text style={styles.exportButtonText}>Export</Text>
           </TouchableOpacity>
