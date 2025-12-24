@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
     color: COLORS.textDark,
   },
   trackButton: {
-    backgroundColor: COLORS.orange,
+    backgroundColor: COLORS.primary,
     paddingVertical: 14,
     paddingHorizontal: 32,
     borderRadius: 8,
