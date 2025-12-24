@@ -932,12 +932,15 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   viewCell: {
-    width: 70,
+    width: 80,
     alignItems: 'center',
+    justifyContent: 'center',
   },
   actionCell: {
     width: 130,
     paddingHorizontal: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   addToManifestBtn: {
     backgroundColor: COLORS.primary,
