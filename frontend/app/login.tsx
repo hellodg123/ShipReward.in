@@ -888,7 +888,7 @@ export default function LoginScreen() {
                 <View style={{ gap: 10, alignItems: 'center' }}>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <Ionicons name="call" size={20} color={COLORS.white} />
-                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: '500' }}>+91 99065 99065</Text>
+                    <Text style={{ color: COLORS.white, fontSize: 16, fontWeight: '500' }}>+91 7096826135</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                     <Ionicons name="mail" size={20} color={COLORS.white} />
@@ -922,7 +922,7 @@ export default function LoginScreen() {
             gap: 10,
           }}>
             <Text style={{ color: 'rgba(255,255,255,0.8)', fontSize: 13, textAlign: 'center', lineHeight: 20, paddingHorizontal: 16 }}>
-              ShipReward Logistics Pvt. Ltd. | 123, Electronic City Phase 1, Hosur Road, Bengaluru, Karnataka - 560100, India
+              ShipReward Logistics Pvt. Ltd. | 477, AR Mall, Near Vip Circle, Mota Varachha, Surat, Gujarat - 394101, India
             </Text>
             <Text style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>
               © 2025 ShipReward.in - All Rights Reserved
