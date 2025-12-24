@@ -867,13 +867,13 @@ export default function LoginScreen() {
                   <TouchableOpacity onPress={() => router.push('/tracking')}>
                     <Text style={{ color: COLORS.white, fontSize: 15 }}>Tracking</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push('/privacy-policy')}>
                     <Text style={{ color: COLORS.white, fontSize: 15 }}>Privacy Policy</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push('/terms')}>
                     <Text style={{ color: COLORS.white, fontSize: 15 }}>Terms & Conditions</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push('/refunds')}>
                     <Text style={{ color: COLORS.white, fontSize: 15 }}>Refunds & Cancellation</Text>
                   </TouchableOpacity>
                 </View>
