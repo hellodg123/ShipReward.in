@@ -861,6 +861,12 @@ export default function LoginScreen() {
               <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-start' }}>
                 <Text style={{ color: COLORS.accent, fontSize: 15, fontWeight: '700', textAlign: 'center' }}>QUICK LINKS</Text>
                 <View style={{ gap: 10, alignItems: isMobile ? 'center' : 'flex-start' }}>
+                  <TouchableOpacity onPress={() => router.push('/contact')}>
+                    <Text style={{ color: COLORS.white, fontSize: 15 }}>Contact Us</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => router.push('/tracking')}>
+                    <Text style={{ color: COLORS.white, fontSize: 15 }}>Tracking</Text>
+                  </TouchableOpacity>
                   <TouchableOpacity>
                     <Text style={{ color: COLORS.white, fontSize: 15 }}>Privacy Policy</Text>
                   </TouchableOpacity>
