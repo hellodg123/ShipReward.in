@@ -302,6 +302,7 @@ export default function WalletScreen() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
   const [showItemsDropdown, setShowItemsDropdown] = useState(false);
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
 
   // Get data based on active tab
   const currentData = activeTab === 'transactions' ? transactionHistory : rechargeHistory;
