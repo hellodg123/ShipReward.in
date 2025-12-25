@@ -51,14 +51,14 @@ export default function SupportScreen() {
             </View>
             <TouchableOpacity style={styles.contactItem} onPress={handleEmailPress}>
               <Ionicons name="mail-outline" size={20} color={COLORS.gray} />
-              <Text style={styles.contactLink}>cs@shipglobal.in</Text>
+              <Text style={styles.contactLink}>support@shipreward.in</Text>
             </TouchableOpacity>
           </View>
 
           {/* Phone Row */}
           <TouchableOpacity style={styles.phoneRow} onPress={handlePhonePress}>
             <Ionicons name="call-outline" size={20} color={COLORS.gray} />
-            <Text style={styles.contactLink}>9906599065</Text>
+            <Text style={styles.contactLink}>+91 7096826135</Text>
           </TouchableOpacity>
         </View>
       </View>
