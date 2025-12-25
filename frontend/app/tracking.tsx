@@ -133,12 +133,12 @@ export default function TrackingScreen() {
         </View>
 
         {/* Content */}
-        <View style={styles.content}>
+        <View style={[styles.content, { paddingHorizontal: isMobile ? 16 : 60 }]}>
           {/* Tracking Input Section */}
-          <View style={styles.trackingCard}>
-            <Text style={styles.mainTitle}>Track Your Shipment</Text>
+          <View style={[styles.trackingCard, { padding: isMobile ? 20 : 40 }]}>
+            <Text style={[styles.mainTitle, { fontSize: isMobile ? 22 : 32 }]}>Track Your Shipment</Text>
             
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, { flexDirection: isMobile ? 'column' : 'row' }]}>
               <View style={styles.inputWrapper}>
                 <Ionicons name="search" size={20} color={COLORS.gray} style={styles.inputIcon} />
                 <TextInput
@@ -161,18 +161,18 @@ export default function TrackingScreen() {
 
           {/* Results Section */}
           {showResults && trackingData && (
-            <View style={styles.resultsCard}>
+            <View style={[styles.resultsCard, { padding: isMobile ? 16 : 32 }]}>
               {/* Shipping Details */}
               <View style={styles.detailsSection}>
                 <Text style={styles.sectionTitle}>Shipping Details</Text>
                 
                 <View style={styles.detailsGrid}>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>AWB</Text>
+                  <View style={[styles.detailRow, { flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? 4 : 0 }]}>
+                    <Text style={[styles.detailLabel, { width: isMobile ? '100%' : 150 }]}>AWB</Text>
                     <Text style={styles.detailValue}>{trackingData.awb}</Text>
                   </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Booking Date</Text>
+                  <View style={[styles.detailRow, { flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center', gap: isMobile ? 4 : 0 }]}>
+                    <Text style={[styles.detailLabel, { width: isMobile ? '100%' : 150 }]}>Booking Date</Text>
                     <Text style={styles.detailValue}>{trackingData.bookingDate}</Text>
                   </View>
                   <View style={styles.detailRow}>
