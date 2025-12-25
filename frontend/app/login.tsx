@@ -413,8 +413,8 @@ export default function LoginScreen() {
         </View>
         <Text style={styles.checkboxText}>
           By clicking on Create Account, you agree to ShipReward's{' '}
-          <Text style={styles.linkText}>Terms of Service</Text> and{' '}
-          <Text style={styles.linkText}>Privacy Policy</Text>
+          <Text style={styles.linkText} onPress={() => router.push('/terms')}>Terms of Service</Text> and{' '}
+          <Text style={styles.linkText} onPress={() => router.push('/privacy-policy')}>Privacy Policy</Text>
         </Text>
       </TouchableOpacity>
 
