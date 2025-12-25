@@ -38,7 +38,7 @@ async def lifespan(app: FastAPI):
     global client, db
     
     # Startup
-    logger.info(f"Connecting to MongoDB...")
+    logger.info("Connecting to MongoDB...")
     try:
         client = AsyncIOMotorClient(
             mongo_url,
