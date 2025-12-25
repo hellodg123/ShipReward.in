@@ -58,9 +58,9 @@ export default function SettingsScreen() {
         <Text style={styles.cardTitle}>Basic Details</Text>
         <View style={styles.cardDivider} />
         
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Name</Text>
-          <View style={styles.detailValues}>
+        <View style={[styles.detailRow, isMobile && { flexDirection: 'column', gap: 12 }]}>
+          <Text style={[styles.detailLabel, isMobile && { marginBottom: 4 }]}>Name</Text>
+          <View style={[styles.detailValues, isMobile && { flexDirection: 'column', gap: 12 }]}>
             <View style={styles.detailItem}>
               <Text style={styles.detailSubLabel}>First Name</Text>
               <Text style={styles.detailValue}>{user?.first_name || 'John'}</Text>
@@ -72,8 +72,8 @@ export default function SettingsScreen() {
           </View>
         </View>
 
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Contact Details</Text>
+        <View style={[styles.detailRow, isMobile && { flexDirection: 'column', gap: 12 }]}>
+          <Text style={[styles.detailLabel, isMobile && { marginBottom: 4 }]}>Contact Details</Text>
           <View style={styles.detailValues}>
             <View style={styles.detailItem}>
               <Text style={styles.detailSubLabel}>Phone Number</Text>
@@ -87,12 +87,12 @@ export default function SettingsScreen() {
           </View>
         </View>
 
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}></Text>
+        <View style={[styles.detailRow, isMobile && { flexDirection: 'column', gap: 12 }]}>
+          <Text style={[styles.detailLabel, isMobile && { marginBottom: 4 }]}></Text>
           <View style={styles.detailValues}>
             <View style={styles.detailItem}>
               <Text style={styles.detailSubLabel}>Email</Text>
-              <Text style={styles.detailValue}>{user?.email || 'test@shipreward.com'}</Text>
+              <Text style={[styles.detailValue, isMobile && { fontSize: 13 }]}>{user?.email || 'test@shipreward.com'}</Text>
             </View>
           </View>
         </View>
@@ -103,8 +103,8 @@ export default function SettingsScreen() {
         <Text style={styles.cardTitle}>Billing Details</Text>
         <View style={styles.cardDivider} />
         
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Address</Text>
+        <View style={[styles.detailRow, isMobile && { flexDirection: 'column', gap: 12 }]}>
+          <Text style={[styles.detailLabel, isMobile && { marginBottom: 4 }]}>Address</Text>
           <View style={styles.detailValues}>
             <View style={styles.detailItem}>
               <View style={styles.addressRow}>
