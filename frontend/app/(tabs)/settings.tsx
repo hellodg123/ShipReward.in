@@ -416,7 +416,7 @@ export default function SettingsScreen() {
   };
 
   // Mobile view with tabs at top
-  if (!isLargeScreen) {
+  if (isMobile) {
     return (
       <View style={styles.container}>
         {/* Mobile Tabs */}
