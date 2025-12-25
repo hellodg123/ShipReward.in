@@ -424,20 +424,69 @@ export default function KYCScreen() {
     <View style={styles.stepContent}>
       <Text style={styles.stepHeading}>Agreement</Text>
       <Text style={styles.stepSubheading}>
-        Please review and accept our terms and conditions to complete KYC.
+        Please review and accept our merchant agreement to complete KYC.
       </Text>
 
       <View style={styles.agreementBox}>
         <ScrollView style={styles.agreementScroll} nestedScrollEnabled>
+          <Text style={styles.agreementTitle}>MERCHANT AGREEMENT</Text>
+          <Text style={styles.agreementVersion}>Version 1.0</Text>
+          
           <Text style={styles.agreementText}>
-            By completing this KYC process, you acknowledge and agree to the following:{'\n\n'}
-            1. All information provided is accurate and complete.{'\n\n'}
-            2. You authorize Ship Reward to verify the documents submitted.{'\n\n'}
-            3. You agree to comply with Ship Reward's Terms of Service and Privacy Policy.{'\n\n'}
-            4. You understand that providing false information may result in account termination.{'\n\n'}
-            5. You consent to receive communications regarding your account and services.{'\n\n'}
-            6. You agree to the liability limitations as outlined in our Terms and Conditions.{'\n\n'}
-            7. Ship Reward reserves the right to request additional documentation if required.
+            This Merchant Agreement ("Agreement") is between you (company/individual/firm/partnership/body corporate), together with any company or other business entity you are representing, if any (hereinafter collectively referred as "Merchant" or "you" or "User"); and Shipreward Logistics Private Limited, a company incorporated under the laws of India, having its registered office at 477, AR Mall, Near Vip Circle, Mota Varachha, Surat, Gujarat 394101 offering 'Logistics Management Services', under the name 'Shipreward' (hereinafter referred to as "we" or "Shipreward" or "Company", and together with the User referred jointly as the "Parties" and individually as a "Party").
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>BACKGROUND</Text>
+          <Text style={styles.agreementText}>
+            This Agreement comes into effect when you register to use the Services (as defined below), or click on "Continue" box, and accept the terms and conditions provided herein.{'\n\n'}
+            By registering or clicking on the 'Continue' box, you signify your absolute, irrevocable and unconditional consent to all the provisions of this Agreement in its entirety. This Agreement constitutes a legally binding agreement between you and Shipreward.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>I. DEFINITIONS</Text>
+          <Text style={styles.agreementText}>
+            All capitalized terms used in this Merchant Agreement shall have the meanings ascribed to them in the Terms & Conditions and Privacy Policy, unless the context otherwise provides or requires.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>II. METHODOLOGY FOR PRICING</Text>
+          <Text style={styles.agreementText}>
+            With respect to Shipments, we have specific weight and size limitations for each individual Shipment which may vary basis the Shipping Vendor and/or location to which the Shipment is being shipped.{'\n\n'}
+            Volumetric weight formula: length(cm) x breadth(cm) x height(cm) / 5000{'\n\n'}
+            For shipments with volumetric weight up to 5kg, charges will be applied on the basis of dead weight. For shipments exceeding 5kg volumetric weight, billing will be based on whichever is higher between dead weight and volumetric weight.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>III. CUSTOMER JOURNEY</Text>
+          <Text style={styles.agreementText}>
+            You will be shown two options at the time of booking: Ship Reward-Pickup (we collect from your doorstep) or Self-Ship (you drop off at our nearest hub).{'\n\n'}
+            Once Your Shipment reaches Our hub, it is scanned, weighed and sorted. In case of weight discrepancy, an email notification is sent for approval.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>IV. REFUND AND LIABILITY POLICY</Text>
+          <Text style={styles.agreementText}>
+            Claims Maintainable:{'\n\n'}
+            • Case 1: No first scan by last mile carrier - For 0-100g shipments: 30% of invoice value plus shipping charges (max Rs.1,000/-). For shipments above 100g: 30% of invoice plus shipping charges (max Rs.4,000/-).{'\n\n'}
+            • Case 2: No delivery scan or Shipment Lost - Same claim policy applies upon presentation of buyer-seller chat with proof of refund.{'\n\n'}
+            • Case 3: Package lost before inwarding - If pickup by Ship Reward's team, refund as per policy. For 3PL, only shipping charges refunded.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>V. HANDLING & OTHER CHARGES</Text>
+          <Text style={styles.agreementText}>
+            Maximum Shipment weight limits:{'\n'}
+            • USA: 22 KGs{'\n'}
+            • UK: 30 KGs{'\n'}
+            • Europe: 30 KGs{'\n'}
+            • Australia/NZ: 20 KGs{'\n'}
+            • Canada: 20 KGs{'\n\n'}
+            Additional handling charge of Rs 4000/- plus GST applies for packages exceeding these limits.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>GOVERNING LAW</Text>
+          <Text style={styles.agreementText}>
+            The Agreement shall be governed by the laws of India. Disputes shall first be attempted to be settled by mutual discussions for 30 days. If not resolved, disputes shall be referred to arbitration with seat in New Delhi.
+          </Text>
+
+          <Text style={styles.agreementSectionTitle}>CONTACT</Text>
+          <Text style={styles.agreementText}>
+            For questions or support: support@shipreward.in
           </Text>
         </ScrollView>
       </View>
@@ -450,7 +499,7 @@ export default function KYCScreen() {
           {agreeTerms && <Ionicons name="checkmark" size={14} color={COLORS.white} />}
         </View>
         <Text style={styles.checkboxText}>
-          I have read and agree to the Terms of Service and Privacy Policy
+          I have read and agree to the shipreward.in merchant agreement
         </Text>
       </TouchableOpacity>
     </View>
