@@ -74,8 +74,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 # Security
 security = HTTPBearer()
 
-# Create the main app
-app = FastAPI(title="ShipReward API")
+# Create the main app with lifespan
+app = FastAPI(title="ShipReward API", lifespan=lifespan)
 
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
