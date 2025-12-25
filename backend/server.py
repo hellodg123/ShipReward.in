@@ -12,14 +12,56 @@ import uuid
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from jose import JWTError, jwt
+from contextlib import asynccontextmanager
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ.get('DB_NAME', 'shipreward_db')]
+# Configure logging early
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# MongoDB connection - use environment variable with fallback
+mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
+db_name = os.environ.get('DB_NAME', 'shipreward_db')
+
+# Initialize client as None - will be set in lifespan
+client: AsyncIOMotorClient = None
+db = None
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Handle startup and shutdown events"""
+    global client, db
+    
+    # Startup
+    logger.info(f"Connecting to MongoDB...")
+    try:
+        client = AsyncIOMotorClient(
+            mongo_url,
+            serverSelectionTimeoutMS=5000,
+            connectTimeoutMS=10000,
+            socketTimeoutMS=10000,
+        )
+        # Verify connection works
+        await client.admin.command('ping')
+        db = client[db_name]
+        logger.info(f"Successfully connected to MongoDB database: {db_name}")
+    except Exception as e:
+        logger.error(f"Failed to connect to MongoDB: {e}")
+        # Don't raise - allow app to start and handle errors gracefully
+        client = AsyncIOMotorClient(mongo_url)
+        db = client[db_name]
+    
+    yield
+    
+    # Shutdown
+    if client:
+        client.close()
+        logger.info("MongoDB connection closed")
 
 # JWT Configuration
 SECRET_KEY = os.environ.get('SECRET_KEY', 'shipreward-secret-key-2024')
