@@ -613,6 +613,9 @@ export default function LoginScreen() {
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
                 <Text style={styles.grandPrizeCashText}>Cash</Text>
+                <View style={[styles.vehiclePrizeRank, { backgroundColor: '#FFD700' }]}>
+                  <Text style={styles.vehiclePrizeRankText}>1st Prize</Text>
+                </View>
               </View>
 
               {/* 2nd Prize */}
@@ -624,6 +627,9 @@ export default function LoginScreen() {
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
                 <Text style={styles.grandPrizeCashText}>Cash</Text>
+                <View style={[styles.vehiclePrizeRank, { backgroundColor: '#A8A8A8' }]}>
+                  <Text style={styles.vehiclePrizeRankText}>2nd Prize</Text>
+                </View>
               </View>
 
               {/* 3rd Prize */}
@@ -635,6 +641,9 @@ export default function LoginScreen() {
                 />
                 <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
                 <Text style={styles.grandPrizeCashText}>Cash</Text>
+                <View style={[styles.vehiclePrizeRank, { backgroundColor: '#CD7F32' }]}>
+                  <Text style={styles.vehiclePrizeRankText}>3rd Prize</Text>
+                </View>
               </View>
             </View>
 
