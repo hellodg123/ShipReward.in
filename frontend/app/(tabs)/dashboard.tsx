@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { useAuth } from '../../src/context/AuthContext';
 
 // Color Scheme
 const COLORS = {
@@ -39,6 +40,10 @@ const COLORS = {
   orange: '#F97316',         // Orange
   indigo: '#6366F1',         // Indigo
   teal: '#14B8A6',           // Teal
+  
+  // KYC Bar Colors
+  kycBarBg: '#FEF3E2',       // Light orange/peach
+  kycText: '#B45309',        // Dark orange text
   
   // UI Colors
   white: '#FFFFFF',
