@@ -89,6 +89,8 @@ const sampleTrackingData = {
 
 export default function TrackingScreen() {
   const router = useRouter();
+  const { width: screenWidth } = useWindowDimensions();
+  const isMobile = screenWidth < 768;
   const [trackingNumber, setTrackingNumber] = useState('');
   const [showResults, setShowResults] = useState(false);
   const [trackingData, setTrackingData] = useState<typeof sampleTrackingData | null>(null);
