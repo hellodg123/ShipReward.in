@@ -14,6 +14,7 @@ import { useRouter } from 'expo-router';
 import { useAuth } from '../../src/context/AuthContext';
 
 const { width } = Dimensions.get('window');
+const isLargeScreen = width > 768;
 
 const COLORS = {
   primary: '#2563EB',
