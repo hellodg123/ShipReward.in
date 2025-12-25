@@ -860,7 +860,7 @@ export default function LoginScreen() {
               {/* Quick Links */}
               <View style={{ gap: 12, alignItems: isMobile ? 'center' : 'flex-start' }}>
                 <Text style={{ color: COLORS.accent, fontSize: 15, fontWeight: '700', textAlign: 'center' }}>QUICK LINKS</Text>
-                <View style={{ gap: 10, alignItems: isMobile ? 'center' : 'flex-start' }}>
+                <View style={{ gap: isMobile ? 14 : 10, alignItems: isMobile ? 'center' : 'flex-start' }}>
                   <TouchableOpacity onPress={() => router.push('/contact')}>
                     <Text style={{ color: COLORS.white, fontSize: 15 }}>Contact Us</Text>
                   </TouchableOpacity>
@@ -881,7 +881,7 @@ export default function LoginScreen() {
             </View>
 
             {/* Right Column - Contact & CTA */}
-            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-end', gap: 28 }}>
+            <View style={{ flex: 1, alignItems: isMobile ? 'center' : 'flex-end', gap: 28, marginTop: isMobile ? 20 : 0 }}>
               {/* Contact Info */}
               <View style={{ gap: 12, alignItems: 'center' }}>
                 <Text style={{ color: COLORS.accent, fontSize: 15, fontWeight: '700', textAlign: 'center' }}>CONTACT US</Text>
