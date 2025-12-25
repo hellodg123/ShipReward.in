@@ -607,7 +607,7 @@ export default function LoginScreen() {
               {/* 1st Prize */}
               <View style={[styles.grandPrizeCard, { backgroundColor: '#FFFFFF', borderColor: '#FFD700', borderWidth: 3 }]}>
                 <Image 
-                  source={require('../assets/images/1st.png')} 
+                  source={require('../assets/images/1st-new.png')} 
                   style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
@@ -618,7 +618,7 @@ export default function LoginScreen() {
               {/* 2nd Prize */}
               <View style={[styles.grandPrizeCard, { backgroundColor: '#FFFFFF', borderColor: '#A8A8A8', borderWidth: 3 }]}>
                 <Image 
-                  source={require('../assets/images/2nd.png')} 
+                  source={require('../assets/images/2nd-new.png')} 
                   style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
@@ -629,7 +629,7 @@ export default function LoginScreen() {
               {/* 3rd Prize */}
               <View style={[styles.grandPrizeCard, { backgroundColor: '#FFFFFF', borderColor: '#CD7F32', borderWidth: 3 }]}>
                 <Image 
-                  source={require('../assets/images/3rd.png')} 
+                  source={require('../assets/images/3rd-new.png')} 
                   style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
