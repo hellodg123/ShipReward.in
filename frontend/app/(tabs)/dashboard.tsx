@@ -249,4 +249,42 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     fontWeight: '500',
   },
+  // KYC Banner Styles
+  kycBanner: {
+    backgroundColor: COLORS.kycBarBg,
+    borderRadius: 12,
+    padding: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+    flexWrap: 'wrap',
+    gap: 16,
+  },
+  kycBannerContent: {
+    flex: 1,
+    minWidth: 200,
+  },
+  kycWelcomeText: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.kycText,
+    marginBottom: 6,
+  },
+  kycDescText: {
+    fontSize: 14,
+    color: COLORS.textMuted,
+    lineHeight: 20,
+  },
+  kycButton: {
+    backgroundColor: COLORS.primary,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  kycButtonText: {
+    color: COLORS.white,
+    fontSize: 14,
+    fontWeight: '600',
+  },
 });
