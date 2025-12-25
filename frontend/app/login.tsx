@@ -732,7 +732,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.phonePrizeName}>Samsung Galaxy Z Fold7</Text>
-                <Text style={styles.phonePrizeValue}>₹1.86 Lakh approx</Text>
+                <Text style={styles.phonePrizeValue}>₹1.86 Lakh approx × 25</Text>
               </View>
 
               <View style={[styles.phonePrizeCard, { backgroundColor: '#FFFFFF', borderWidth: 2, borderColor: '#555555' }]}>
@@ -742,7 +742,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
                 <Text style={styles.phonePrizeName}>iPhone 17 Pro Max</Text>
-                <Text style={styles.phonePrizeValue}>₹1.35 Lakh approx</Text>
+                <Text style={styles.phonePrizeValue}>₹1.35 Lakh approx × 25</Text>
               </View>
             </View>
           </View>
