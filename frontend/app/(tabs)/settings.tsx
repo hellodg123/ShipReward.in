@@ -784,7 +784,7 @@ const styles = StyleSheet.create({
   addAddressButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: COLORS.primaryDark,
+    backgroundColor: COLORS.primary,
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 6,
