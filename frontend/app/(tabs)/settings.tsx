@@ -200,9 +200,12 @@ export default function SettingsScreen() {
           <View style={styles.kycDetails}>
             <View style={styles.kycItem}>
               <Text style={styles.kycSubLabel}>Merchant Agreement</Text>
-              <TouchableOpacity style={styles.downloadLink}>
-                <Text style={styles.downloadText}>Download</Text>
-                <Ionicons name="download-outline" size={16} color={COLORS.primary} />
+              <TouchableOpacity 
+                style={styles.downloadLink}
+                onPress={() => router.push('/(tabs)/merchant-agreement' as any)}
+              >
+                <Text style={styles.downloadText}>View</Text>
+                <Ionicons name="eye-outline" size={16} color={COLORS.primary} />
               </TouchableOpacity>
             </View>
           </View>
