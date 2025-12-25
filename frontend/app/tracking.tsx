@@ -337,7 +337,6 @@ const styles = StyleSheet.create({
   resultsCard: {
     backgroundColor: COLORS.white,
     borderRadius: 16,
-    padding: isMobile ? 20 : 32,
     marginBottom: 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -358,12 +357,11 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   detailRow: {
-    flexDirection: isMobile ? 'column' : 'row',
-    alignItems: isMobile ? 'flex-start' : 'center',
-    gap: isMobile ? 4 : 0,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   detailLabel: {
-    width: isMobile ? '100%' : 150,
+    width: 150,
     fontSize: 14,
     color: COLORS.gray,
     fontWeight: '500',
