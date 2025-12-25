@@ -278,7 +278,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: isMobile ? 16 : 60,
     paddingVertical: 30,
     maxWidth: 1000,
     alignSelf: 'center',
@@ -287,7 +286,6 @@ const styles = StyleSheet.create({
   trackingCard: {
     backgroundColor: COLORS.white,
     borderRadius: 16,
-    padding: isMobile ? 24 : 40,
     marginBottom: 24,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
@@ -296,14 +294,12 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   mainTitle: {
-    fontSize: isMobile ? 24 : 32,
     fontWeight: '700',
     color: COLORS.textDark,
     marginBottom: 24,
     textAlign: 'center',
   },
   inputContainer: {
-    flexDirection: isMobile ? 'column' : 'row',
     gap: 12,
   },
   inputWrapper: {
