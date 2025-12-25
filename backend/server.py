@@ -294,6 +294,29 @@ async def get_me(current_user: dict = Depends(get_current_user)):
 async def root():
     return {"message": "ShipReward API is running"}
 
+@api_router.get("/health")
+async def health_check():
+    """Health check endpoint for deployment verification"""
+    health_status = {
+        "status": "healthy",
+        "timestamp": datetime.utcnow().isoformat(),
+        "database": "unknown"
+    }
+    
+    try:
+        # Check MongoDB connection
+        if client:
+            await client.admin.command('ping')
+            health_status["database"] = "connected"
+        else:
+            health_status["database"] = "not_initialized"
+            health_status["status"] = "degraded"
+    except Exception as e:
+        health_status["database"] = f"error: {str(e)}"
+        health_status["status"] = "unhealthy"
+    
+    return health_status
+
 @api_router.post("/status", response_model=StatusCheck)
 async def create_status_check(input: StatusCheckCreate):
     status_dict = input.dict()
