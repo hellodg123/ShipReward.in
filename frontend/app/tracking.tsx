@@ -205,27 +205,37 @@ export default function TrackingScreen() {
               <View style={styles.historySection}>
                 <Text style={styles.sectionTitle}>Shipment History</Text>
                 
-                {/* History Header */}
-                <View style={styles.historyHeader}>
-                  <Text style={[styles.historyHeaderText, { flex: 1.2 }]}>Update Timestamp</Text>
-                  <Text style={[styles.historyHeaderText, { flex: 0.8 }]}>Location</Text>
-                  <Text style={[styles.historyHeaderText, { flex: 2 }]}>Shipment History</Text>
-                </View>
+                {/* Horizontal Scroll Wrapper for Mobile */}
+                <ScrollView 
+                  horizontal={isMobile} 
+                  showsHorizontalScrollIndicator={isMobile}
+                  style={isMobile ? { marginHorizontal: -20 } : undefined}
+                  contentContainerStyle={isMobile ? { paddingHorizontal: 20 } : undefined}
+                >
+                  <View style={isMobile ? { minWidth: 600 } : undefined}>
+                    {/* History Header */}
+                    <View style={styles.historyHeader}>
+                      <Text style={[styles.historyHeaderText, { flex: 1.2, minWidth: 150 }]}>Update Timestamp</Text>
+                      <Text style={[styles.historyHeaderText, { flex: 0.8, minWidth: 100 }]}>Location</Text>
+                      <Text style={[styles.historyHeaderText, { flex: 2, minWidth: 200 }]}>Shipment History</Text>
+                    </View>
 
-                {/* History Items */}
-                {trackingData.history.map((item, index) => (
-                  <View key={index} style={styles.historyRow}>
-                    <View style={{ flex: 1.2 }}>
-                      <Text style={styles.historyTimestamp}>{item.timestamp}</Text>
-                    </View>
-                    <View style={{ flex: 0.8 }}>
-                      <Text style={styles.historyLocation}>{item.location}</Text>
-                    </View>
-                    <View style={{ flex: 2 }}>
-                      <Text style={styles.historyEvent}>{item.event}</Text>
-                    </View>
+                    {/* History Items */}
+                    {trackingData.history.map((item, index) => (
+                      <View key={index} style={styles.historyRow}>
+                        <View style={{ flex: 1.2, minWidth: 150 }}>
+                          <Text style={styles.historyTimestamp}>{item.timestamp}</Text>
+                        </View>
+                        <View style={{ flex: 0.8, minWidth: 100 }}>
+                          <Text style={styles.historyLocation}>{item.location}</Text>
+                        </View>
+                        <View style={{ flex: 2, minWidth: 200 }}>
+                          <Text style={styles.historyEvent}>{item.event}</Text>
+                        </View>
+                      </View>
+                    ))}
                   </View>
-                ))}
+                </ScrollView>
               </View>
             </View>
           )}
