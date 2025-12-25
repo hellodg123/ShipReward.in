@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -14,7 +15,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { LogoHorizontal } from '../src/components/Logo';
 
 const { width } = Dimensions.get('window');
-const isMobile = width < 768;
 
 const COLORS = {
   primary: '#2563EB',
