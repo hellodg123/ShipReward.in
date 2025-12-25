@@ -812,6 +812,26 @@ const styles = StyleSheet.create({
     color: COLORS.darkGray,
     lineHeight: 24,
   },
+  agreementTitle: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: COLORS.textDark,
+    textAlign: 'center',
+    marginBottom: 4,
+  },
+  agreementVersion: {
+    fontSize: 12,
+    color: COLORS.gray,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  agreementSectionTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: COLORS.textDark,
+    marginTop: 20,
+    marginBottom: 8,
+  },
   checkboxRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
