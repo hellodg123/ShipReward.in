@@ -70,6 +70,10 @@ const actionCards = [
 
 export default function DashboardScreen() {
   const router = useRouter();
+  const { user } = useAuth();
+  
+  // Check if user has completed KYC (for now, we assume new users haven't)
+  const isKycComplete = false; // This would typically come from user data
 
   const handleCardPress = (route: string, tab: string) => {
     if (tab) {
@@ -82,6 +86,24 @@ export default function DashboardScreen() {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <Text style={styles.dashboardTitle}>Dashboard</Text>
+
+      {/* KYC Banner for new users */}
+      {!isKycComplete && (
+        <View style={styles.kycBanner}>
+          <View style={styles.kycBannerContent}>
+            <Text style={styles.kycWelcomeText}>Welcome {user?.first_name || 'User'} !!</Text>
+            <Text style={styles.kycDescText}>
+              We are excited to have you on board. Start your journey with us by completing your KYC!
+            </Text>
+          </View>
+          <TouchableOpacity 
+            style={styles.kycButton}
+            onPress={() => router.push('/(tabs)/kyc' as any)}
+          >
+            <Text style={styles.kycButtonText}>Complete KYC</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       {/* Order Status Cards Row - Transparent background with colored icons */}
       <View style={styles.orderStatusRow}>
