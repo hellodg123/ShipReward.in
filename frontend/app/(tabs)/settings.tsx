@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   TextInput,
   Dimensions,
-  useWindowDimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../src/context/AuthContext';
 
 const { width } = Dimensions.get('window');
+const isLargeScreen = width > 768;
 
 const COLORS = {
   primary: '#2563EB',
@@ -38,9 +38,6 @@ const settingsMenu = [
 
 export default function SettingsScreen() {
   const { user } = useAuth();
-  const router = useRouter();
-  const { width: screenWidth } = useWindowDimensions();
-  const isMobile = screenWidth < 768;
   const [activeTab, setActiveTab] = useState('profile');
   const [showOldPassword, setShowOldPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -416,7 +413,7 @@ export default function SettingsScreen() {
   };
 
   // Mobile view with tabs at top
-  if (isMobile) {
+  if (!isLargeScreen) {
     return (
       <View style={styles.container}>
         {/* Mobile Tabs */}
