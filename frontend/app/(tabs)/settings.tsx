@@ -503,7 +503,7 @@ export default function SettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: isLargeScreen ? 'row' : 'column',
     backgroundColor: COLORS.lightGray,
   },
   // Mobile styles
