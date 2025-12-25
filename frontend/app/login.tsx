@@ -781,7 +781,7 @@ export default function LoginScreen() {
               <View style={[styles.stepNumber, { backgroundColor: COLORS.gold }]}>
                 <Text style={styles.stepNumberText}>3</Text>
               </View>
-              <Text style={styles.stepTitle}>Win Big!</Text>
+              <Text style={styles.stepTitle}>Win Reward's</Text>
               <Text style={styles.stepDesc}>Win Cars, Bikes, Phones & Cash!</Text>
             </View>
           </View>
