@@ -890,7 +890,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
-    height: 300,
+    height: 400,
     marginBottom: 20,
   },
   agreementScroll: {
