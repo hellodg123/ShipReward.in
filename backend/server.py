@@ -77,6 +77,17 @@ security = HTTPBearer()
 # Create the main app with lifespan
 app = FastAPI(title="ShipReward API", lifespan=lifespan)
 
+# Root endpoint for health checks (not under /api prefix)
+@app.get("/")
+async def root_health():
+    """Root endpoint for deployment health checks"""
+    return {"status": "ok", "message": "ShipReward API is running"}
+
+@app.get("/health")
+async def app_health():
+    """Health check endpoint at root level"""
+    return {"status": "healthy", "service": "shipreward-api"}
+
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
