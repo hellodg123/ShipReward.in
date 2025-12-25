@@ -823,19 +823,28 @@ export default function LoginScreen() {
 
               {/* Social Media Buttons */}
               <View style={{ flexDirection: 'row', gap: 12, marginTop: 4, justifyContent: 'center' }}>
-                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                <TouchableOpacity 
+                  style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}
+                  onPress={() => Linking.openURL('https://www.facebook.com/shipreward')}
+                >
                   <Ionicons name="logo-facebook" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
-                  <Ionicons name="logo-youtube" size={22} color={COLORS.white} />
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                <TouchableOpacity 
+                  style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}
+                  onPress={() => Linking.openURL('https://x.com/ShipReward')}
+                >
                   <Ionicons name="logo-twitter" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                <TouchableOpacity 
+                  style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}
+                  onPress={() => Linking.openURL('https://www.instagram.com/shipreward/')}
+                >
                   <Ionicons name="logo-instagram" size={22} color={COLORS.white} />
                 </TouchableOpacity>
-                <TouchableOpacity style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}>
+                <TouchableOpacity 
+                  style={[styles.socialButton, { width: 44, height: 44, borderRadius: 22 }]}
+                  onPress={() => Linking.openURL('https://www.linkedin.com/company/shipreward')}
+                >
                   <Ionicons name="logo-linkedin" size={22} color={COLORS.white} />
                 </TouchableOpacity>
               </View>
