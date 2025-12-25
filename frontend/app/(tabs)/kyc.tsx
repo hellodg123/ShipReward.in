@@ -427,6 +427,15 @@ export default function KYCScreen() {
         Please review and accept our merchant agreement to complete KYC.
       </Text>
 
+      <TouchableOpacity 
+        style={styles.viewFullAgreementButton}
+        onPress={() => router.push('/merchant-agreement')}
+      >
+        <Ionicons name="eye-outline" size={18} color={COLORS.primary} />
+        <Text style={styles.viewFullAgreementText}>View Full Agreement</Text>
+        <Ionicons name="open-outline" size={16} color={COLORS.primary} />
+      </TouchableOpacity>
+
       <View style={styles.agreementBox}>
         <ScrollView style={styles.agreementScroll} nestedScrollEnabled>
           <Text style={styles.agreementTitle}>MERCHANT AGREEMENT</Text>
