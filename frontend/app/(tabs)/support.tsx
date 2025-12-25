@@ -19,11 +19,11 @@ const COLORS = {
 
 export default function SupportScreen() {
   const handleEmailPress = () => {
-    Linking.openURL('mailto:cs@shipglobal.in');
+    Linking.openURL('mailto:support@shipreward.in');
   };
 
   const handlePhonePress = () => {
-    Linking.openURL('tel:9906599065');
+    Linking.openURL('tel:+917096826135');
   };
 
   return (
