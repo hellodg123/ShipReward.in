@@ -1161,11 +1161,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#DC2626',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   removeFromManifestBtnText: {
     fontSize: 11,
     fontWeight: '600',
     color: '#DC2626',
+    textAlign: 'center',
   },
   // Modal Styles
   modalOverlay: {
