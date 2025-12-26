@@ -520,7 +520,7 @@ export default function LoginScreen() {
             <View style={styles.heroMain}>
               {/* Left Side - Hero Text */}
               <View style={styles.heroTextSection}>
-                <Text style={styles.heroTagline}>🚀 Ship Globally, Win Big!</Text>
+                <Text style={styles.heroTagline}>🚀 Ready to Ship?</Text>
                 <Text style={styles.heroTitle}>
                   International Shipping{'\n'}Made <Text style={styles.heroHighlight}>Rewarding</Text>
                 </Text>
@@ -612,7 +612,7 @@ export default function LoginScreen() {
                   style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
-                <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+                <Text style={styles.grandPrizeAmount}>1 Crore</Text>
                 <Text style={styles.grandPrizeCashText}>Cash</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: '#FFD700' }]}>
                   <Text style={styles.vehiclePrizeRankText}>1st Prize</Text>
@@ -626,7 +626,7 @@ export default function LoginScreen() {
                   style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
-                <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+                <Text style={styles.grandPrizeAmount}>1 Crore</Text>
                 <Text style={styles.grandPrizeCashText}>Cash</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: '#A8A8A8' }]}>
                   <Text style={styles.vehiclePrizeRankText}>2nd Prize</Text>
@@ -640,7 +640,7 @@ export default function LoginScreen() {
                   style={styles.prizeRankIcon}
                   resizeMode="contain"
                 />
-                <Text style={styles.grandPrizeAmount}>₹1,00,00,000</Text>
+                <Text style={styles.grandPrizeAmount}>1 Crore</Text>
                 <Text style={styles.grandPrizeCashText}>Cash</Text>
                 <View style={[styles.vehiclePrizeRank, { backgroundColor: '#CD7F32' }]}>
                   <Text style={styles.vehiclePrizeRankText}>3rd Prize</Text>
