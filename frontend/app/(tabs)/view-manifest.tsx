@@ -596,14 +596,14 @@ export default function ViewManifestScreen() {
     );
   };
 
-  const renderTable = (orders: any[], showAddButton: boolean = true) => {
+  const renderTable = (orders: any[], showAddButton: boolean = true, isManifested: boolean = false) => {
     if (isMobile) {
       return (
         <ScrollView horizontal showsHorizontalScrollIndicator={true}>
           <View style={styles.tableMobile}>
-            {renderTableHeader(showAddButton)}
+            {renderTableHeader(showAddButton, isManifested)}
             {orders.length > 0 ? (
-              orders.map(order => renderOrderRow(order, showAddButton))
+              orders.map(order => renderOrderRow(order, showAddButton, isManifested))
             ) : (
               <View style={styles.noResults}>
                 <Text style={styles.noResultsText}>No results.</Text>
@@ -616,9 +616,9 @@ export default function ViewManifestScreen() {
 
     return (
       <View>
-        {renderTableHeader(showAddButton)}
+        {renderTableHeader(showAddButton, isManifested)}
         {orders.length > 0 ? (
-          orders.map(order => renderOrderRow(order, showAddButton))
+          orders.map(order => renderOrderRow(order, showAddButton, isManifested))
         ) : (
           <View style={styles.noResults}>
             <Text style={styles.noResultsText}>No results.</Text>
