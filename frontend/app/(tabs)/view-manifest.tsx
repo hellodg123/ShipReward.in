@@ -645,7 +645,7 @@ export default function ViewManifestScreen() {
             <View style={styles.statusBadge}>
               <Text style={styles.statusText}>Open</Text>
             </View>
-            <TouchableOpacity style={styles.pickupDateBtn}>
+            <TouchableOpacity style={styles.pickupDateBtn} onPress={() => setShowPickupDateModal(true)}>
               <Ionicons name="calendar-outline" size={18} color={COLORS.gray} />
               <Text style={styles.pickupDateText}>Select Pickup Date</Text>
             </TouchableOpacity>
