@@ -379,6 +379,15 @@ export default function ViewManifestScreen() {
     alert(`Added order ${orderId} to manifest`);
   };
 
+  const handleRemoveFromManifest = (orderId: string) => {
+    alert(`Removed order ${orderId} from manifest`);
+  };
+
+  const handleCloseManifest = () => {
+    setShowPickupDateModal(false);
+    setShowSuccessModal(true);
+  };
+
   const handleBulkAddToManifest = () => {
     if (selectedOrders.length === 0) {
       alert('Please select orders to add');
