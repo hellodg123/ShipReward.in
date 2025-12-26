@@ -343,6 +343,27 @@ export default function ViewManifestScreen() {
   const [manifestedPage, setManifestedPage] = useState(1);
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
+  // Modal states
+  const [showPickupDateModal, setShowPickupDateModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [selectedPickupDate, setSelectedPickupDate] = useState('26 Dec');
+
+  // Get pickup date options (today, tomorrow, day after)
+  const getPickupDates = () => {
+    const today = new Date();
+    const dates = [];
+    for (let i = 0; i < 3; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const day = date.getDate();
+      const month = date.toLocaleString('en-US', { month: 'short' });
+      dates.push(`${day} ${month}`);
+    }
+    return dates;
+  };
+
+  const pickupDates = getPickupDates();
+
   // Calculate pagination for same address orders
   const totalSameAddressItems = sameAddressOrders.length;
   const totalSameAddressPages = Math.ceil(totalSameAddressItems / ITEMS_PER_PAGE);
