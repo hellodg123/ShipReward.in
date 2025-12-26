@@ -720,6 +720,89 @@ export default function ViewManifestScreen() {
       </View>
 
       <View style={{ height: 40 }} />
+
+      {/* Pickup Date Modal */}
+      <Modal
+        visible={showPickupDateModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowPickupDateModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Manifest Pickup Options</Text>
+              <TouchableOpacity onPress={() => setShowPickupDateModal(false)}>
+                <Ionicons name="close" size={24} color={COLORS.gray} />
+              </TouchableOpacity>
+            </View>
+            
+            <View style={styles.modalBody}>
+              <Text style={styles.pickupLabel}>Select a Pick Up Date</Text>
+              <View style={styles.dateOptionsRow}>
+                {pickupDates.map((date, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    style={[
+                      styles.dateOption,
+                      selectedPickupDate === date && styles.dateOptionSelected
+                    ]}
+                    onPress={() => setSelectedPickupDate(date)}
+                  >
+                    <Text style={[
+                      styles.dateOptionText,
+                      selectedPickupDate === date && styles.dateOptionTextSelected
+                    ]}>{date}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+
+            <View style={styles.modalFooter}>
+              <TouchableOpacity 
+                style={styles.cancelBtn}
+                onPress={() => setShowPickupDateModal(false)}
+              >
+                <Text style={styles.cancelBtnText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={styles.closeManifestBtn}
+                onPress={handleCloseManifest}
+              >
+                <Text style={styles.closeManifestBtnText}>Close Manifest</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Success Modal */}
+      <Modal
+        visible={showSuccessModal}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowSuccessModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.successModalContent}>
+            <View style={styles.successIconContainer}>
+              <View style={styles.successIconOuter}>
+                <View style={styles.successIconInner}>
+                  <Ionicons name="checkmark" size={40} color={COLORS.white} />
+                </View>
+              </View>
+            </View>
+            <Text style={styles.successTitle}>Manifest Closed Successfully</Text>
+            <Text style={styles.successSubtitle}>Please download label and other documents</Text>
+            <TouchableOpacity 
+              style={styles.closeSuccessBtn}
+              onPress={() => setShowSuccessModal(false)}
+            >
+              <Text style={styles.closeSuccessBtnText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 }
