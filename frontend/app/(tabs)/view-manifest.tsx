@@ -510,7 +510,7 @@ export default function ViewManifestScreen() {
     );
   };
 
-  const renderTableHeader = (showAddButton: boolean = true) => (
+  const renderTableHeader = (showAddButton: boolean = true, isManifested: boolean = false) => (
     <View style={styles.tableHeader}>
       <View style={styles.checkboxCell}>
         <View style={styles.checkbox} />
@@ -536,7 +536,7 @@ export default function ViewManifestScreen() {
       <View style={styles.viewCell}>
         <Text style={styles.headerText}>View Order</Text>
       </View>
-      {showAddButton && (
+      {(showAddButton || isManifested) && (
         <View style={styles.actionCell}>
           <Text style={styles.headerText}>Action</Text>
         </View>
