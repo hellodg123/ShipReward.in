@@ -716,7 +716,7 @@ export default function ViewManifestScreen() {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Manifested Orders</Text>
         </View>
-        {renderTable(manifestedOrders, false)}
+        {renderTable(manifestedOrders, false, true)}
       </View>
 
       <View style={{ height: 40 }} />
