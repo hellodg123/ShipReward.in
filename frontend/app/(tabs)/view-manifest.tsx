@@ -447,7 +447,7 @@ export default function ViewManifestScreen() {
     return pages;
   };
 
-  const renderOrderRow = (order: any, showAddButton: boolean = true) => {
+  const renderOrderRow = (order: any, showAddButton: boolean = true, isManifested: boolean = false) => {
     const isSelected = selectedOrders.includes(order.id);
     
     return (
@@ -493,6 +493,16 @@ export default function ViewManifestScreen() {
               onPress={() => handleAddToManifest(order.id)}
             >
               <Text style={styles.addToManifestBtnText}>Add to Manifest</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {isManifested && (
+          <View style={styles.actionCell}>
+            <TouchableOpacity 
+              style={styles.removeFromManifestBtn}
+              onPress={() => handleRemoveFromManifest(order.id)}
+            >
+              <Text style={styles.removeFromManifestBtnText}>Remove from Manifest</Text>
             </TouchableOpacity>
           </View>
         )}
